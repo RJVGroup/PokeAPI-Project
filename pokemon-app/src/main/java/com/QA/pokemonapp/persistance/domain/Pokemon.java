@@ -2,6 +2,7 @@ package com.QA.pokemonapp.persistance.domain;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class Pokemon {
 	
@@ -12,21 +13,19 @@ public class Pokemon {
 	private int XPGiven;
 	private int XP;
 	private int level;
-	private int baseStat;
-	private int IV;
+	private int currentHP;
 	
 	// HP, Attack, Defence, Sp.Atk, Sp.Def, Speed
-	private List<Integer> statList = new ArrayList<>();
+	private int[] statList = new int[5];
+	private int[] baseStat = new int[5];
+	private int[] IV = new int[5];
 	
-	private List<Move> moveList;
+	private Set<Move> moveList;
 	
 	
 	public void levelUp()
 	{
-		for(Integer stat : statList)
-		{
-			stat = stat + (this.baseStat/50 + this.IV/100);
-		}
+
 	}
 	
 	public void useItem(String item)
@@ -44,6 +43,38 @@ public class Pokemon {
 		
 	}
 	
+	public int getHP()
+	{
+		return statList[0];
+	}
+	
+	public int getAttack()
+	{
+		return statList[1];
+	}
+	
+	public int getDefence()
+	{
+		return statList[2];
+	}
+	
+	public int getSpAttack()
+	{
+		return statList[3];
+	}
+	
+	public int getSpDefence()
+	{
+		return statList[4];
+	}
+	
+	public int getSpeed()
+	{
+		return statList[5];
+	}
+
+
+	
 	public String getName() {
 		return name;
 	}
@@ -59,10 +90,7 @@ public class Pokemon {
 	
 	public void setStatusCondition(String newStatus)
 	{
-		if(status == null)
-		{
-			status = newStatus;
-		}
+		this.status = newStatus;
 	}
 
 	public int getXPGiven() {
