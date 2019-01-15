@@ -4,7 +4,7 @@ public class StatusParalysis implements Status{
 	static String statusName = "Paralysis";
 	@Override
 	public boolean noAttackThisTurn() {
-		return Math.random() > 0.25 ? false : true;
+		return Math.random() <= 0.25;
 	}
 
 	@Override

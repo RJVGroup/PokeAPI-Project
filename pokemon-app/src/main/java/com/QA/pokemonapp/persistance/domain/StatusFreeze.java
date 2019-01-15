@@ -9,7 +9,7 @@ public class StatusFreeze implements Status{
 
 	@Override
 	public void endOfTurnEffect(Pokemon affected) {
-		if(Math.random() > 0.9) {
+		if(Math.random() >= 0.9) {
 			affected.setStatusCondition(null);
 		}
 	}

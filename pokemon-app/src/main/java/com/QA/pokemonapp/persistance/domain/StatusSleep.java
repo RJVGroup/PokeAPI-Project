@@ -9,7 +9,7 @@ public class StatusSleep implements Status{
 
 	@Override
 	public void endOfTurnEffect(Pokemon affected) {
-		if(Math.random() > 0.6) {
+		if(Math.random() >= 0.6) {
 			affected.setStatusCondition(null);
 		}
 	}
