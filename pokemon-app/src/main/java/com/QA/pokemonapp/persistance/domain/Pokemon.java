@@ -24,6 +24,7 @@ public class Pokemon {
 	private int XP;
 	private int level;
 	private int currentHP;
+	private int catchRate;
 
 	/**
    * The following three arrays contain stat information for each pokemon
@@ -65,10 +66,10 @@ public class Pokemon {
 	
 	public int takeDamage(int baseDamage)
 	{
-
+		
 	}
 	
-	public int takeDamageByPercentage(float percentageDamage)
+	public int takeDamageByPercentage(double d)
 	{
 		
 	}
@@ -153,6 +154,22 @@ public class Pokemon {
 
 	public void setMoveList(List<Move> moveList) {
 		this.moveList = moveList;
+	}
+
+	public int getCurrentHP() {
+		return this.currentHP;
+	}
+	
+	public void setCurrentHP(int newHP) {
+		this.currentHP = newHP;
+	}
+
+	public int getCatchRate() {
+		return this.catchRate;
+	}
+	
+	public void setCatchRate(int catchRate) {
+		this.catchRate = catchRate;
 	}
 	
 }
