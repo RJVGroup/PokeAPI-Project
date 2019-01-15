@@ -10,6 +10,20 @@ public class Player {
 	private ArrayList<Item> bag;
 	private int[] position = {0,0};
 	
+	public Player(){
+		
+	}
+	
+	public Player(int money, ArrayList<Pokemon> party, ArrayList<Item> bag, int[] position) {
+		super();
+		this.money = money;
+		this.party = party;
+		this.bag = bag;
+		this.position = position;
+	}
+
+
+
 	public int getMoney() {
 		return money;
 	}
