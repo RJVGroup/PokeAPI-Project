@@ -14,11 +14,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import com.QA.pokemonapp.persistance.domain.status.Status;
+
 public class Pokemon {
 	
 	private String name;
 	private String type;
-	private String status = null;
+	private Status status = null;
 	
 	private int XPGiven;
 	private int XP;
@@ -115,11 +117,11 @@ public class Pokemon {
 		return type;
 	}
 
-	public String getStatus() {
+	public Status getStatus() {
 		return status;
 	}
 	
-	public void setStatusCondition(String newStatus)
+	public void setStatusCondition(Status newStatus)
 	{
 		this.status = newStatus;
 	}

@@ -1,5 +1,6 @@
 package com.QA.pokemonapp.persistance.domain.items;
 
+import com.QA.pokemonapp.persistance.domain.Player;
 import com.QA.pokemonapp.persistance.domain.Pokemon;
 
 public class ItemPotion extends Item{
@@ -25,7 +26,7 @@ public class ItemPotion extends Item{
 		
 		int newHealth = Math.min(target.getCurrentHP() + restoreAmount,target.getHP());
 		target.setCurrentHP(newHealth);
-		Player.removeItem(this);
+		Player.removeFromBag(this);
 		return true;
 	}
 
