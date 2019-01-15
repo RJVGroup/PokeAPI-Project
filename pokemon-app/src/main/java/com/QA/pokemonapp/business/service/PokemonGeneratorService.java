@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,7 +39,7 @@ public class PokemonGeneratorService {
 		
 		return
 			new Pokemon(getName(), getType(), getXPGiven(), level, getCatchRate(),
-					statList, baseStatList, iVList);
+					statList, baseStatList, iVList, getMoveList(level));
 	}
 	
 	public String getName()
@@ -58,16 +59,23 @@ public class PokemonGeneratorService {
 			JsonPath.read(pokemonJsonString, "$.base_experience");
 	}
 	
-	public String getCatchRate()
+	public int getCatchRate()
 	{
 		return
-			JsonPath.read(pokemonSpeciesjsonString, "$.capture_rate");
+			(Integer)JsonPath.read(pokemonSpeciesjsonString, "$.capture_rate");
 	}
 	
-	//unsure if correct, test first
-	public Set<String> getMoveList()
+	//unsure if JSON request correct, test first
+	public Set<String> getMoveList(int level)
 	{
-			JsonPath.read(pokemonJsonString, "$....level_learned_at[?")
+		List<String> listOfMoves = 
+		JsonPath.read(pokemonJsonString, "$.moves..name[?(@..level_learned_at <=" + level + 
+												" && @...name == 'level-up'");
+		return
+			listOfMoves
+				.stream()
+				.limit(4)
+				.collect(Collectors.toSet());
 	}
 	
 	public int[] getBaseStatList()

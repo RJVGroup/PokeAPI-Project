@@ -46,12 +46,12 @@ public class Pokemon {
 	private int[] baseStat = new int[5];
 	private int[] IV = new int[5];
 	
-	private Set<Move> moveList;
+	private Set<String> moveList;
 	
 	public Pokemon() {}
 	
 	public Pokemon(String name, List<String> types, int xPGiven, int level,
-			int catchRate, int[] statList, int[] baseStat, int[] iV, Set<Move> moveList) {
+			int catchRate, int[] statList, int[] baseStat, int[] iV, Set<String> moveList) {
 		super();
 		this.name = name;
 		this.types = types;
