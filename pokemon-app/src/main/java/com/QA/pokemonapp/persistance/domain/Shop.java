@@ -7,9 +7,9 @@ import java.util.Random;
 
 public class Shop {
 	
-	public void buyItem(Item item){
-		Player.addToBag(item);
-		Player.addmoney(-1*item.getItemPrice());
+	public boolean buyItem(Item item){
+		if (Player.getMoney<item.getItemPrice()) {return false;} else {Player.addToBag(item);
+		Player.addMoney(-1*item.getItemPrice());return true;}
 	}
 	
 	public void sellItem(Item item) {
