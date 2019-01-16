@@ -10,7 +10,9 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.QA.pokemonapp.constantsandenums.ETypes;
 import com.QA.pokemonapp.interoperability.rest.PokemonController;
+import com.QA.pokemonapp.persistance.domain.Move;
 import com.QA.pokemonapp.persistance.domain.Pokemon;
 import com.jayway.jsonpath.JsonPath;
 
@@ -47,7 +49,7 @@ public class PokemonGeneratorService {
 		return
 			JsonPath.read(pokemonJsonString, "$.name");
 	}
-	public List<String> getType()
+	public List<ETypes> getType()
 	{
 		return 
 			JsonPath.read(pokemonJsonString, "$...name");
@@ -66,9 +68,9 @@ public class PokemonGeneratorService {
 	}
 	
 	//unsure if JSON request correct, test first
-	public Set<String> getMoveList(int level)
+	public Set<Move> getMoveList(int level)
 	{
-		List<String> listOfMoves = 
+		List<Move> listOfMoves = 
 		JsonPath.read(pokemonJsonString, "$.moves..name[?(@..level_learned_at <=" + level + 
 												" && @...name == 'level-up'");
 		return

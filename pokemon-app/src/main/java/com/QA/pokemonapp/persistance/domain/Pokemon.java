@@ -14,6 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import com.QA.pokemonapp.constantsandenums.ETypes;
+import com.QA.pokemonapp.persistance.domain.status.Status;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -21,9 +23,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class Pokemon {
 	
 	private String name;
-	private List<String> types;
+	private List<ETypes> types;
 	
-	private String status = null;
+	private Status status = null;
 	
 	@JsonProperty(value="base_experience")
 	private int XPGiven;
@@ -46,12 +48,12 @@ public class Pokemon {
 	private int[] baseStat = new int[5];
 	private int[] IV = new int[5];
 	
-	private Set<String> moveList;
+	private Set<Move> moveList;
 	
 	public Pokemon() {}
 	
-	public Pokemon(String name, List<String> types, int xPGiven, int level,
-			int catchRate, int[] statList, int[] baseStat, int[] iV, Set<String> moveList) {
+	public Pokemon(String name, List<ETypes> types, int xPGiven, int level,
+			int catchRate, int[] statList, int[] baseStat, int[] iV, Set<Move> moveList) {
 		super();
 		this.name = name;
 		this.types = types;
@@ -157,9 +159,8 @@ public class Pokemon {
 		return name;
 	}
 
-
-	public String getType() {
-		return type;
+	public List<ETypes> getTypes() {
+		return types;
 	}
 
 	public Status getStatus() {
