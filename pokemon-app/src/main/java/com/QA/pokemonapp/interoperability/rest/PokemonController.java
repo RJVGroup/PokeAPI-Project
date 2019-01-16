@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import com.QA.pokemonapp.constantsandenums.Constants;
+
 @RestController
 public class PokemonController {
 	
@@ -25,7 +27,7 @@ public class PokemonController {
 	    HttpEntity <String> entity = new HttpEntity<String>(headers);
 	    
 		return restTemplate.exchange(
-	    		"https://pokeapi.co/pokemon/" + pokemon, HttpMethod.GET, entity, String.class).getBody();
+	    		Constants.APIRootAddress + Constants.APIPokemonAddress + pokemon, HttpMethod.GET, entity, String.class).getBody();
 	}
 	
 
@@ -36,6 +38,6 @@ public class PokemonController {
 	    HttpEntity <String> entity = new HttpEntity<String>(headers);
 	    
 	    return restTemplate.exchange(
-	    		"https://pokeapi.co/pokemon-species/" + pokemon, HttpMethod.GET, entity, String.class).getBody();
+	    		Constants.APIRootAddress + Constants.APIPokemonAddress + pokemon, HttpMethod.GET, entity, String.class).getBody();
 	}
 }
