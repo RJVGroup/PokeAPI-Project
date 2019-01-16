@@ -162,11 +162,11 @@ public class Pokemon {
 		return type;
 	}
 
-	public String getStatus() {
+	public Status getStatus() {
 		return status;
 	}
 	
-	public void setStatusCondition(String newStatus)
+	public void setStatusCondition(Status newStatus)
 	{
 		this.status = newStatus;
 	}
