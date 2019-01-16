@@ -99,7 +99,7 @@ public class Player {
 		Tile next = TerrainGenerator.getTile(this.position[0], this.position[1]);
 		if (isBattle(next)){
 			int averageLevel = this.party.stream().mapToInt(Pokemon::getLevel).sum() / this.party.size();
-			String species = APIManager.getSpeciesByTerrainTypeAndLevel(next.terrainType, averageLevel);
+			Status species = APIManager.getSpeciesByTerrainTypeAndLevel(next.terrainType, averageLevel);
 			BattleManager.begin(PokemonGenerator(species, averageLevel));
 		}
 	}

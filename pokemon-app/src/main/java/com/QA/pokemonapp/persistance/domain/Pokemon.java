@@ -10,16 +10,11 @@
 
 package com.QA.pokemonapp.persistance.domain;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import com.QA.pokemonapp.constantsandenums.ETypes;
 import com.QA.pokemonapp.persistance.domain.status.Status;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
-@JsonIgnoreProperties(ignoreUnknown = true)
 public class Pokemon {
 	
 	private String name;
@@ -27,7 +22,6 @@ public class Pokemon {
 	
 	private Status status = null;
 	
-	@JsonProperty(value="base_experience")
 	private int XPGiven;
 	private int XP;
 	private int level;
@@ -48,12 +42,12 @@ public class Pokemon {
 	private int[] baseStat = new int[5];
 	private int[] IV = new int[5];
 	
-	private Set<Move> moveList;
+	private List<String> moveList;
 	
 	public Pokemon() {}
 	
 	public Pokemon(String name, List<ETypes> types, int xPGiven, int level,
-			int catchRate, int[] statList, int[] baseStat, int[] iV, Set<Move> moveList) {
+			int catchRate, int[] statList, int[] baseStat, int[] iV, List<String> moveList) {
 		super();
 		this.name = name;
 		this.types = types;
@@ -88,18 +82,20 @@ public class Pokemon {
 		}
 	}
 	
-	public void useItem(String item)
+	public void useItem(Status item)
 	{
 		
 	}
 	
 	public int takeDamage(int baseDamage)
 	{
+		return baseDamage;
 		
 	}
 	
 	public int takeDamageByPercentage(double d)
 	{
+		return XP;
 		
 	}
 	
@@ -196,11 +192,11 @@ public class Pokemon {
 		this.statList = statList;
 	}
 
-	public List<Move> getMoveList() {
+	public List<String> getMoveList() {
 		return moveList;
 	}
 
-	public void setMoveList(List<Move> moveList) {
+	public void setMoveList(List<String> moveList) {
 		this.moveList = moveList;
 	}
 
