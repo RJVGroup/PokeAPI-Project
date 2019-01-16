@@ -1,7 +1,6 @@
 package com.QA.pokemonapp.business.service;
 
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
@@ -12,8 +11,8 @@ import org.springframework.stereotype.Service;
 
 import com.QA.pokemonapp.constantsandenums.ETypes;
 import com.QA.pokemonapp.interoperability.rest.PokemonController;
-import com.QA.pokemonapp.persistance.domain.Move;
 import com.QA.pokemonapp.persistance.domain.Pokemon;
+import com.jayway.jsonpath.Configuration;
 import com.jayway.jsonpath.JsonPath;
 
 @Service
@@ -23,17 +22,22 @@ public class PokemonGeneratorService {
 	private PokemonController pokemonController;
 	
 	
-	private String pokemonJsonString;
-	private String pokemonSpeciesjsonString;
+	private Object pokemonJson;
+	private Object pokemonSpeciesJson;
 	
-	private int[] iVList = new int[5];
-	private int[] baseStatList = new int[5];
-	private int[] statList = new int[5];
+	String pokemonString;
+	String pokemonSpeciesString;
 	
+	private int[] iVList = new int[6];
+	private int[] baseStatList = new int[6];
+	private int[] statList = new int[6];
+	
+	public PokemonGeneratorService() {
+	}
+
 	public Pokemon createPokemon(int level, String name) 
 	{
-		pokemonJsonString = pokemonController.getPokemonJsonString(name);
-		pokemonSpeciesjsonString = pokemonController.getPokemonSpeciesJsonString(name);
+		getPokemonJson(name);
 		
 		getBaseStatList();
 		getIVList();
@@ -44,50 +48,59 @@ public class PokemonGeneratorService {
 					statList, baseStatList, iVList, getMoveList(level));
 	}
 	
+	public void getPokemonJson(String name)
+	{
+		String pokemonString = pokemonController.getPokemonJsonString(name);
+		String pokemonSpeciesString = pokemonController.getPokemonSpeciesJsonString(name);
+		
+		pokemonJson = Configuration.defaultConfiguration().jsonProvider().parse(pokemonString);
+		pokemonSpeciesJson = Configuration.defaultConfiguration().jsonProvider().parse(pokemonSpeciesString);
+	}
+	
+	
 	public String getName()
 	{
 		return
-			JsonPath.read(pokemonJsonString, "$.name");
+			JsonPath.read(pokemonJson, "$.name");
 	}
 	public List<ETypes> getType()
 	{
 		return 
-			JsonPath.read(pokemonJsonString, "$...name");
+			JsonPath.read(pokemonJson, "$.types[*].type.name");
 	}
 	
 	public int getXPGiven()
 	{
 		return
-			JsonPath.read(pokemonJsonString, "$.base_experience");
+			JsonPath.read(pokemonJson, "$.base_experience");
 	}
 	
 	public int getCatchRate()
 	{
 		return
-			(Integer)JsonPath.read(pokemonSpeciesjsonString, "$.capture_rate");
+			(Integer)JsonPath.read(pokemonSpeciesJson, "$.capture_rate");
 	}
 	
-	//unsure if JSON request correct, test first
-	public Set<Move> getMoveList(int level)
+	
+	public List<String> getMoveList(int level)
 	{
-		List<Move> listOfMoves = 
-		JsonPath.read(pokemonJsonString, "$.moves..name[?(@..level_learned_at <=" + level + 
-												" && @...name == 'level-up'");
+		List<String> listOfValidMoves = 
+		JsonPath.read(pokemonJson, "$.moves[*][?(@.version_group_details[0].level_learned_at <=" + level + 
+												" && @.version_group_details[0].move_learn_method.name == 'level-up')]");
+		
 		return
-			listOfMoves
-				.stream()
-				.limit(4)
-				.collect(Collectors.toSet());
+			JsonPath.parse(listOfValidMoves.toString()).read("$[*].move.name[:3]");
 	}
 	
 	public int[] getBaseStatList()
 	{
-		baseStatList[0] = (Integer)JsonPath.read(pokemonJsonString, "$.stats.0.base_stat");
-		baseStatList[1] = (Integer)JsonPath.read(pokemonJsonString, "$.stats.1.base_stat");
-		baseStatList[2] = (Integer)JsonPath.read(pokemonJsonString, "$.stats.2.base_stat");
-		baseStatList[3] = (Integer)JsonPath.read(pokemonJsonString, "$.stats.3.base_stat");
-		baseStatList[4] = (Integer)JsonPath.read(pokemonJsonString, "$.stats.4.base_stat");
-		baseStatList[5] = (Integer)JsonPath.read(pokemonJsonString, "$.stats.5.base_stat");
+		
+		baseStatList[0] = (Integer)JsonPath.read(pokemonJson, "$.stats.[0].base_stat");
+		baseStatList[1] = (Integer)JsonPath.read(pokemonJson, "$.stats.[1].base_stat");
+		baseStatList[2] = (Integer)JsonPath.read(pokemonJson, "$.stats.[2].base_stat");
+		baseStatList[3] = (Integer)JsonPath.read(pokemonJson, "$.stats.[3].base_stat");
+		baseStatList[4] = (Integer)JsonPath.read(pokemonJson, "$.stats.[4].base_stat");
+		baseStatList[5] = (Integer)JsonPath.read(pokemonJson, "$.stats.[5].base_stat");
 		
 		return baseStatList;
 	}

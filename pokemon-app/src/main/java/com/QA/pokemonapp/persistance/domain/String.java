@@ -2,7 +2,7 @@ package com.QA.pokemonapp.persistance.domain;
 
 import com.QA.pokemonapp.persistance.domain.status.Status;
 
-public class Move {
+public class String {
 	private String moveName;
 	private int moveID;
 	private int moveBasePower;
@@ -13,11 +13,11 @@ public class Move {
 	private int statusEffectChance;
 	private Status statusEffect;
 	
-	public Move() {
+	public String() {
 		
 	}
 	
-	public Move(String moveName, int moveID, int moveBasePower, int moveBaseAccuracy, String moveDamageClass,
+	public String(String moveName, int moveID, int moveBasePower, int moveBaseAccuracy, String moveDamageClass,
 			int priority, String moveType, int statusEffectChance, Status statusEffect) {
 		super();
 		this.moveName = moveName;
