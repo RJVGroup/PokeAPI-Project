@@ -14,14 +14,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import com.QA.pokemonapp.persistance.domain.status.Status;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Pokemon {
 	
 	private String name;
-	private String type;
-	private Status status = null;
+	private List<String> types;
 	
+	private String status = null;
+	
+	@JsonProperty(value="base_experience")
 	private int XPGiven;
 	private int XP;
 	private int level;
@@ -31,19 +35,40 @@ public class Pokemon {
 	/**
    * The following three arrays contain stat information for each pokemon
    * in the following format
-   * @param statList[0] This is the HP
-   * @param statList[1] This is the Attack
-   * @param statList[2] This is the Defence
-   * @param statList[3] This is the Special Attack
-   * @param statList[4] This is the Special Defence
-   * @param statList[5] This is the Speed
+   * @param statList[0] This is the Speed
+   * @param statList[1] This is the Special Defence
+   * @param statList[2] This is the Special Attack
+   * @param statList[3] This is the Defence
+   * @param statList[4] This is the Attack
+   * @param statList[5] This is the HP
    */
 	private int[] statList = new int[5];
 	private int[] baseStat = new int[5];
 	private int[] IV = new int[5];
 	
-	private Set<Move> moveList;
+	private Set<String> moveList;
 	
+	public Pokemon() {}
+	
+	public Pokemon(String name, List<String> types, int xPGiven, int level,
+			int catchRate, int[] statList, int[] baseStat, int[] iV, Set<String> moveList) {
+		super();
+		this.name = name;
+		this.types = types;
+		this.status = null;
+		XPGiven = xPGiven;
+		XP = (int) Math.pow((level + 1), 3);
+		this.level = level;
+		this.currentHP = statList[5];
+		this.catchRate = catchRate;
+		this.statList = statList;
+		this.baseStat = baseStat;
+		IV = iV;
+		this.moveList = moveList;
+	}
+
+
+
 	public void checkIfLevelUp(int currentLevel, int XP)
 	{
 		if(XP >= Math.pow((currentLevel + 1), 3))
@@ -78,36 +103,56 @@ public class Pokemon {
 	
 	public int getHP()
 	{
-		return statList[0];
+		return statList[5];
+	}
+	public int setHP()
+	{
+		return statList[5];
 	}
 	
 	public int getAttack()
 	{
-		return statList[1];
+		return statList[4];
 	}
 	
-	public int getDefence()
-	{
-		return statList[2];
-	}
-	
-	public int getSpAttack()
-	{
-		return statList[3];
-	}
-	
-	public int getSpDefence()
+	public int setAttack()
 	{
 		return statList[4];
 	}
 	
+	public int getDefence()
+	{
+		return statList[3];
+	}
+	public int setDefence()
+	{
+		return statList[3];
+	}
+	
+	public int getSpAttack()
+	{
+		return statList[2];
+	}
+	public int setSpAttack()
+	{
+		return statList[2];
+	}
+	
+	public int getSpDefence()
+	{
+		return statList[1];
+	}
+	public int setSpDefence()
+	{
+		return statList[1];
+	}
+	
 	public int getSpeed()
 	{
-		return statList[5];
+		return statList[0];
 	}
 
 
-	
 	public String getName() {
 		return name;
 	}
