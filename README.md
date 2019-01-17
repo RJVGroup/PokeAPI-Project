@@ -1,4 +1,4 @@
-# Roguelite game using PokeAPI
+# Roguelike game using PokeAPI
 
 We were tasked to build an application using the PokeAPI. We decided to create a Roguelite game using the information provided by the API. Our basic rest services are controlled by a springboot application and the game is controlled on the front end using a React application.
 
@@ -59,7 +59,7 @@ Give an example
 
 ## Deployment
 
-Add additional notes about how to deploy this on a live system
+Run both the pokemon-app and pokemon-app-react and access the program through your browser on localhost:300
 
 ## Built With
 
