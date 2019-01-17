@@ -38,9 +38,9 @@ public class Pokemon {
    * @param statList[4] This is the Attack
    * @param statList[5] This is the HP
    */
-	private int[] statList = new int[5];
-	private int[] baseStat = new int[5];
-	private int[] IV = new int[5];
+	private int[] statList = new int[6];
+	private int[] baseStatList = new int[6];
+	private int[] iVList = new int[6];
 	
 	private List<String> moveList;
 	
@@ -58,62 +58,41 @@ public class Pokemon {
 		this.currentHP = statList[5];
 		this.catchRate = catchRate;
 		this.statList = statList;
-		this.baseStat = baseStat;
-		IV = iV;
+		this.baseStatList = baseStat;
+		this.iVList = iV;
 		this.moveList = moveList;
 	}
+	
+	public int[] getBaseStatList() {
+		return baseStatList;
+	}
 
+	public void setBaseStatList(int[] baseStatList) {
+		this.baseStatList = baseStatList;
+	}
 
+	public int[] getiVList() {
+		return iVList;
+	}
 
-	public void checkIfLevelUp(int currentLevel, int XP)
-	{
-		if(XP >= Math.pow((currentLevel + 1), 3))
-		{
-			levelUp();
-			this.level += 1;
-		}
+	public void setiVList(int[] iVList) {
+		this.iVList = iVList;
 	}
-	
-	public void levelUp()
-	{
-		for(int i=0; i<6; i++)
-		{
-			this.statList[i] = this.statList[i]*(this.baseStat[i]/50 + this.IV[i]/100);
-		}
+
+	public int[] getStatList() {
+		return statList;
 	}
-	
-	public void useItem(Status item)
-	{
-		
-	}
-	
-	public int takeDamage(int baseDamage)
-	{
-		return baseDamage;
-		
-	}
-	
-	public int takeDamageByPercentage(double d)
-	{
-		return XP;
-		
-	}
-	
+
 	public int getHP()
 	{
 		return statList[5];
 	}
-	public int setHP()
+	public void setHP(int newHP)
 	{
-		return statList[5];
+		statList[5] = newHP;
 	}
 	
 	public int getAttack()
-	{
-		return statList[4];
-	}
-	
-	public int setAttack()
 	{
 		return statList[4];
 	}
@@ -122,25 +101,13 @@ public class Pokemon {
 	{
 		return statList[3];
 	}
-	public int setDefence()
-	{
-		return statList[3];
-	}
 	
 	public int getSpAttack()
 	{
 		return statList[2];
 	}
-	public int setSpAttack()
-	{
-		return statList[2];
-	}
 	
 	public int getSpDefence()
-	{
-		return statList[1];
-	}
-	public int setSpDefence()
 	{
 		return statList[1];
 	}
