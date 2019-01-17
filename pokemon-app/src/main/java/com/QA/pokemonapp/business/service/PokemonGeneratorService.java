@@ -57,7 +57,7 @@ public class PokemonGeneratorService implements PokemonGeneratorInterface{
 	/**
 	 * This method creates a pokemon based on its level and name.
 	 * Multiple methods are called in this method to get each line of information.
-	 * This method uses the cacheble annatation to save 
+	 * This method uses the cacheable annotation to save 
 	 * @param level is used to generate the different pokemon stats
 	 * @param name is used to dictate which pokemon type to generate
 	 */
@@ -75,6 +75,11 @@ public class PokemonGeneratorService implements PokemonGeneratorInterface{
 					statList, baseStatList, iVList, getMoveList(level));
 	}
 	
+	/**
+	 * This method gets the moves available to learn when a pokemon levels up
+	 * @param level the level the pokemon has level up to
+	 * @return a list of the moves is returned
+	 */
 	public void getPokemonJson(String name)
 	{
 		String pokemonString = pokemonController.getPokemonJsonString(name);

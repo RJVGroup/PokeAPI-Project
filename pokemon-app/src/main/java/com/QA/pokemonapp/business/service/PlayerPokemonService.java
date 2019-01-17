@@ -1,3 +1,8 @@
+/**
+ * <h1>PlayerPokemonService Class<h1>
+ * this class is responsible for interactions with pokemon held in the players party
+ */
+
 package com.QA.pokemonapp.business.service;
 
 import java.util.List;
@@ -6,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.QA.pokemonapp.interoperability.rest.PokemonPokeAPIController;
 import com.QA.pokemonapp.persistance.domain.Pokemon;
-import com.QA.pokemonapp.persistance.domain.status.Status;
+import com.QA.pokemonapp.persistance.domain.items.Item;
 import com.jayway.jsonpath.Configuration;
 import com.jayway.jsonpath.JsonPath;
 
@@ -20,7 +25,13 @@ public class PlayerPokemonService {
 	private Object pokemonJson;
 	private Object pokemonSpeciesJson;
 	
-	
+	/**
+	 * This method increases a pokemons XP by a specified amount.
+	 * The method then calls another method to see if the pokemon has levelled up
+	 * @param pokemon the pokemon gaining XP
+	 * @param XPGained the amount of XP gained
+	 * @return a boolean is returned dictating whether or not the pokemon has levelled up
+	 */
 	public boolean gainXP(Pokemon pokemon,int XPGained)
 	{
 		pokemon.setXP(pokemon.getXP()+XPGained);
@@ -92,23 +103,42 @@ public class PlayerPokemonService {
 		pokemon.setMoveList(currentMoveList);
 	}
 	
-	public void useItem(Pokemon pokemon, Status item)
+	/**
+	 * This method uses an item on a pokemon. said item has the ability to change the status of the pokemon
+	 * @param pokemon
+	 * @param item
+	 */
+	public void useItem(Pokemon pokemon, Item item)
 	{
-		pokemon.setStatusCondition(item);
+		item.useItem(pokemon);
 	}
 	
+	/**
+	 * This method reduces a pokemons health by a specified amount
+	 * @param pokemon
+	 * @param baseDamage
+	 */
 	public void takeDamage(Pokemon pokemon, int baseDamage)
 	{
-		pokemon.setHP(pokemon.getHP()-baseDamage);
+		pokemon.setCurrentHP(pokemon.getCurrentHP()-baseDamage);
 		
 	}
 	
+	/**
+	 * This method reduces a pokemons health by percentage of its maximum HP
+	 * @param pokemon
+	 * @param damage
+	 */
 	public void takeDamageByPercentage(Pokemon pokemon, double damage)
 	{
-		pokemon.setHP((int)(pokemon.getHP()-pokemon.getHP()*damage));
+		pokemon.setCurrentHP((int)(pokemon.getCurrentHP()-pokemon.getCurrentHP()*damage));
 
 	}
 	
+	/**
+	 * This method downloads the relevant information about the pokemon from the PokeAPI
+	 * @param name the name of the pokemons information to be gotten
+	 */
 	public void getPokemonJson(String name)
 	{
 		String pokemonString = pokemonController.getPokemonJsonString(name);
@@ -118,6 +148,11 @@ public class PlayerPokemonService {
 		pokemonSpeciesJson = Configuration.defaultConfiguration().jsonProvider().parse(pokemonSpeciesString);
 	}
 
+	/**
+	 * This method gets the moves available to learn when a pokemon levels up
+	 * @param level the level the pokemon has level up to
+	 * @return a list of the moves is returned
+	 */
 	public List<String> getMoveListForLevelUp(int level)
 	{
 		JSONArray listOfValidMoves = 
