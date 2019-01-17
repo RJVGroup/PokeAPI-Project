@@ -1,14 +1,27 @@
-package com.QA.pokemonapp.business.service;
+/**
+* <h1>PokemonGeneratorService Class<h1>
+* This PokemonGeneratorService class controls the creation on new pokemon. 
+* This class extends an interface to enable caching of pokemon.
+* The main method of data extraction uses the JsonUnmarshaller
+* @see https://github.com/elasticpath/json-unmarshaller
+* for more information
+*
+* @author  Vincent Yeadon
+* @version 1.0
+* @since   2019-01-17 
+*/
 
+package com.QA.pokemonapp.business.service;
 
 import java.util.List;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import com.QA.pokemonapp.constantsandenums.ETypes;
-import com.QA.pokemonapp.interoperability.rest.PokemonController;
+import com.QA.pokemonapp.interoperability.rest.PokemonPokeAPIController;
 import com.QA.pokemonapp.persistance.domain.Pokemon;
 import com.jayway.jsonpath.Configuration;
 import com.jayway.jsonpath.JsonPath;
@@ -16,18 +29,24 @@ import com.jayway.jsonpath.JsonPath;
 import net.minidev.json.JSONArray;
 
 @Service
-public class PokemonGeneratorService {
+public class PokemonGeneratorService implements PokemonGeneratorInterface{
 
 	@Autowired
-	private PokemonController pokemonController;
-	
+	private PokemonPokeAPIController pokemonController;
 	
 	private Object pokemonJson;
 	private Object pokemonSpeciesJson;
 	
-	String pokemonString;
-	String pokemonSpeciesString;
-	
+   /**
+   * The following three arrays contain stat information for each pokemon
+   * in the following format
+   * @param statList[0] This is the Speed
+   * @param statList[1] This is the Special Defence
+   * @param statList[2] This is the Special Attack
+   * @param statList[3] This is the Defence
+   * @param statList[4] This is the Attack
+   * @param statList[5] This is the HP
+   */
 	private int[] iVList = new int[6];
 	private int[] baseStatList = new int[6];
 	private int[] statList = new int[6];
@@ -35,6 +54,14 @@ public class PokemonGeneratorService {
 	public PokemonGeneratorService() {
 	}
 
+	/**
+	 * This method creates a pokemon based on its level and name.
+	 * Multiple methods are called in this method to get each line of information.
+	 * This method uses the cacheable annotation to save 
+	 * @param level is used to generate the different pokemon stats
+	 * @param name is used to dictate which pokemon type to generate
+	 */
+	@Cacheable("pokemon")
 	public Pokemon createPokemon(int level, String name) 
 	{
 		getPokemonJson(name);
@@ -48,6 +75,11 @@ public class PokemonGeneratorService {
 					statList, baseStatList, iVList, getMoveList(level));
 	}
 	
+	/**
+	 * This method gets the moves available to learn when a pokemon levels up
+	 * @param level the level the pokemon has level up to
+	 * @return a list of the moves is returned
+	 */
 	public void getPokemonJson(String name)
 	{
 		String pokemonString = pokemonController.getPokemonJsonString(name);

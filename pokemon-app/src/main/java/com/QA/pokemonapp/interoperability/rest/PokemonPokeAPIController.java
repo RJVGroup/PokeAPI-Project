@@ -23,7 +23,7 @@ import org.springframework.web.client.RestTemplate;
 import com.QA.pokemonapp.constantsandenums.Constants;
 
 @Controller
-public class PokemonController {
+public class PokemonPokeAPIController {
 	
 	@Autowired
 	private RestTemplate restTemplate;
