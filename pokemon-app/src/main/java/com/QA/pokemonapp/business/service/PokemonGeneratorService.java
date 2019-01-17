@@ -3,8 +3,6 @@ package com.QA.pokemonapp.business.service;
 
 import java.util.List;
 import java.util.Random;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +12,8 @@ import com.QA.pokemonapp.interoperability.rest.PokemonController;
 import com.QA.pokemonapp.persistance.domain.Pokemon;
 import com.jayway.jsonpath.Configuration;
 import com.jayway.jsonpath.JsonPath;
+
+import net.minidev.json.JSONArray;
 
 @Service
 public class PokemonGeneratorService {
@@ -84,12 +84,12 @@ public class PokemonGeneratorService {
 	
 	public List<String> getMoveList(int level)
 	{
-		List<String> listOfValidMoves = 
+		JSONArray listOfValidMoves = 
 		JsonPath.read(pokemonJson, "$.moves[*][?(@.version_group_details[0].level_learned_at <=" + level + 
 												" && @.version_group_details[0].move_learn_method.name == 'level-up')]");
 		
 		return
-			JsonPath.parse(listOfValidMoves.toString()).read("$[*].move.name[:3]");
+			JsonPath.parse(listOfValidMoves.toJSONString()).read("$[0:4].move.name");
 	}
 	
 	public int[] getBaseStatList()
