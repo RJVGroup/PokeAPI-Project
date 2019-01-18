@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.QA.pokemonapp.interoperability.rest.PokemonPokeAPIController;
+import com.QA.pokemonapp.persistance.domain.Move;
 import com.QA.pokemonapp.persistance.domain.Pokemon;
 import com.QA.pokemonapp.persistance.domain.items.Item;
 import com.jayway.jsonpath.Configuration;
@@ -42,7 +43,7 @@ public class PlayerPokemonService {
 	}
 
 	/**
-	 * This method comapares the current XP against the level curve.
+	 * This method compares the current XP against the level curve.
 	 * If theXP is high enough it calls the level up function
 	 * @param currentLevel is the pokemons current level
 	 * @param XP is the pokemons current XP
@@ -61,7 +62,7 @@ public class PlayerPokemonService {
 	/**
 	 * This method levels a pokemon up to a specified level.
 	 * It is possible to gain two levels in a battle 
-	 * so the level to be leveled too is used instead of incrementing the level.
+	 * so the level to be levelled too is used instead of incrementing the level.
 	 * After the pokemons stats are increased a check is made to see whether the pokemon
 	 * can learn a new move, if it can a boolean value is returned.
 	 * @param level is the level to which the pokemon will be changed to
@@ -84,7 +85,7 @@ public class PlayerPokemonService {
 	 * @param currentMoveList
 	 * @param moveToBeAdded
 	 */
-	public void addMoveOnLevelUp(Pokemon pokemon, List<String> currentMoveList, String moveToBeAdded)
+	public void addMoveOnLevelUp(Pokemon pokemon, List<Move> currentMoveList, Move moveToBeAdded)
 	{
 		currentMoveList.add(moveToBeAdded);
 		pokemon.setMoveList(currentMoveList);
@@ -97,7 +98,7 @@ public class PlayerPokemonService {
 	 * @param moveToBeAdded
 	 * @param moveToExchangeWith
 	 */
-	public void addMoveOnLevelUp(Pokemon pokemon, List<String> currentMoveList, String moveToBeAdded, String moveToExchangeWith)
+	public void addMoveOnLevelUp(Pokemon pokemon, List<Move> currentMoveList, Move moveToBeAdded, Move moveToExchangeWith)
 	{
 		currentMoveList.remove(moveToExchangeWith);
 		currentMoveList.add(moveToBeAdded);
