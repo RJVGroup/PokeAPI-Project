@@ -4,6 +4,8 @@ import java.util.Random;
 
 import com.QA.pokemonapp.constantsandenums.EDamageClass;
 import com.QA.pokemonapp.constantsandenums.EStatus;
+import com.QA.pokemonapp.constantsandenums.TypeEffectivenessChecker;
+import com.QA.pokemonapp.persistance.domain.Move;
 import com.QA.pokemonapp.persistance.domain.Pokemon;
 import com.QA.pokemonapp.persistance.domain.items.Item;
 
@@ -26,13 +28,13 @@ public class BattleManager {
 	
 	private void statusEndOfTurnEffects(Pokemon playerMon, Pokemon enemyMon) {
 		if (playerMon.getStatus() != null) {
-			playerMon.getStatus().endOfTurnEffect(playerMon);
+			playerMon.getStatus().getDetails().endOfTurnEffect(playerMon);
 			if (playerMon.getCurrentHP() <= 0) {
 				playerMon.setStatusCondition(EStatus.FAINT);
 			}
 		}
 		if (enemyMon.getStatus() != null) {
-			enemyMon.getStatus().endOfTurnEffect(enemyMon);
+			enemyMon.getStatus().getDetails().endOfTurnEffect(enemyMon);
 			if (enemyMon.getCurrentHP() <= 0) {
 				enemyMon.setStatusCondition(EStatus.FAINT);
 			}
@@ -64,7 +66,7 @@ public class BattleManager {
 	}
 	
 	private boolean didHit(Move used) {
-		return rand.nextInt(100) < used.getAccuracy();
+		return rand.nextInt(100) < used.getMoveAccuracy();
 	}
 	
 	private void playerUseMove(Move move, Pokemon player, Pokemon enemy) {
@@ -77,7 +79,7 @@ public class BattleManager {
 	}
 	
 	private void enemyUseMove(Move move, Pokemon player, Pokemon enemy) {
-		if(didHit(move) && ((enemy.getStatus() != null && !enemy.getStatus().noAttackThisTurn()) || enemy.getStatus() == null)) {
+		if(didHit(move) && ((enemy.getStatus() != null && !enemy.getStatus().getDetails().noAttackThisTurn()) || enemy.getStatus() == null)) {
 			player.takeDamage(calculateDamage(move, enemy, player));
 			if (player.getCurrentHP() <= 0) {
 				player.setStatusCondition(EStatus.FAINT);
@@ -86,22 +88,26 @@ public class BattleManager {
 	}
 	
 	private int calculateDamage(Move move, Pokemon user, Pokemon target) {
-		int typeEffectivenessModifier = TypeEffectivenessChecker(move, target);
-		float sameTypeAttackBonus = user.getTypes().contains(Move.getType()) ? 1.5 : 1;
+		int typeEffectivenessModifier = TypeEffectivenessChecker.returnDamageModifier(move.getMoveType(), target.getTypes());
+		double sameTypeAttackBonus = user.getTypes().contains(move.getMoveType()) ? 1.5 : 1;
 		double random = rand.nextInt(15)/100 + 0.85;
 		int critical = rand.nextInt(100) >= 95 ? 2 : 1;
 		int attackStat;
 		int defenceStat;
 		switch (move.getDamageClass()) {
-		case (EDamageClass.PHYSICAL):
+		case PHYSICAL:
 			attackStat = user.getAttack();
 			defenceStat = target.getDefence();
 			break;
-		case (EDamageClass.SPECIAL):
+		case SPECIAL:
 			attackStat = user.getSpAttack();
 			defenceStat = target.getSpDefence();
 			break;
+		default:
+			attackStat = 0;
+			defenceStat = 0;
+			random = 0;
 		}
-		return Math.round((((((2*user.getLevel())/5 + 2)*move.getPower()*(attackStat/defenceStat))/50)+2)*typeEffectivenessModifier*sameTypeAttackBonus*random*critical);
+		return (int) Math.round((((((2*user.getLevel())/5 + 2)*move.getMovePower()*(attackStat/defenceStat))/50)+2)*typeEffectivenessModifier*sameTypeAttackBonus*random*critical);
 	}
 }

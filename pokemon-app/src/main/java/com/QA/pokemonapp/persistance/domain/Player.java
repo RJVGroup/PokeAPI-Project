@@ -2,6 +2,8 @@ package com.QA.pokemonapp.persistance.domain;
 
 import java.util.ArrayList;
 
+import com.QA.pokemonapp.business.service.BattleManager;
+import com.QA.pokemonapp.business.service.PokemonGeneratorService;
 import com.QA.pokemonapp.persistance.domain.items.Item;
 
 public class Player {
@@ -99,8 +101,8 @@ public class Player {
 		Tile next = TerrainGenerator.getTile(this.position[0], this.position[1]);
 		if (isBattle(next)){
 			int averageLevel = this.party.stream().mapToInt(Pokemon::getLevel).sum() / this.party.size();
-			Status species = APIManager.getSpeciesByTerrainTypeAndLevel(next.terrainType, averageLevel);
-			BattleManager.begin(PokemonGenerator(species, averageLevel));
+			String species = APIManager.getSpeciesByTerrainTypeAndLevel(next.terrainType, averageLevel);
+			BattleManager.begin(PokemonGeneratorService.createPokemon(averageLevel, species));
 		}
 	}
 }
