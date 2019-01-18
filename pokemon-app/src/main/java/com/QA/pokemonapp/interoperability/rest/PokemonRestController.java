@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.QA.pokemonapp.business.service.PokemonGeneratorInterface;
 import com.QA.pokemonapp.business.service.PokemonGeneratorService;
 import com.QA.pokemonapp.persistance.domain.Pokemon;
 
@@ -15,7 +16,7 @@ import com.QA.pokemonapp.persistance.domain.Pokemon;
 public class PokemonRestController {
 
 	@Autowired
-	private PokemonGeneratorService pokemonService;
+	private PokemonGeneratorInterface pokemonService;
 	
 	@GetMapping("/{pokemonLevel}/{pokemonName}")
 	public Pokemon createPokemon(@PathVariable int pokemonLevel, @PathVariable String pokemonName)

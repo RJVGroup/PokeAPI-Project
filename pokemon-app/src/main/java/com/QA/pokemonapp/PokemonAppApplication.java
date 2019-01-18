@@ -7,6 +7,9 @@ import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
 
+import com.QA.pokemonapp.business.service.PokemonGeneratorInterface;
+import com.QA.pokemonapp.business.service.PokemonGeneratorService;
+
 @SpringBootApplication
 @EnableCaching
 public class PokemonAppApplication {
