@@ -14,7 +14,6 @@ import java.util.List;
 
 import com.QA.pokemonapp.constantsandenums.EStatus;
 import com.QA.pokemonapp.constantsandenums.ETypes;
-import com.QA.pokemonapp.persistance.domain.status.Status;
 
 public class Pokemon {
 	
@@ -43,12 +42,12 @@ public class Pokemon {
 	private int[] baseStatList = new int[6];
 	private int[] iVList = new int[6];
 	
-	private List<String> moveList;
+	private List<Move> moveList;
 	
 	public Pokemon() {}
 	
 	public Pokemon(String name, List<ETypes> types, int xPGiven, int level,
-			int catchRate, int[] statList, int[] baseStat, int[] iV, List<String> moveList) {
+			int catchRate, int[] statList, int[] baseStat, int[] iV, List<Move> list) {
 		super();
 		this.name = name;
 		this.types = types;
@@ -61,7 +60,7 @@ public class Pokemon {
 		this.statList = statList;
 		this.baseStatList = baseStat;
 		this.iVList = iV;
-		this.moveList = moveList;
+		this.moveList = list;
 	}
 	
 	public int[] getBaseStatList() {
@@ -160,11 +159,11 @@ public class Pokemon {
 		this.statList = statList;
 	}
 
-	public List<String> getMoveList() {
+	public List<Move> getMoveList() {
 		return moveList;
 	}
 
-	public void setMoveList(List<String> moveList) {
+	public void setMoveList(List<Move> moveList) {
 		this.moveList = moveList;
 	}
 
