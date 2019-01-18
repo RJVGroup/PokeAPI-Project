@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.QA.pokemonapp.constantsandenums.GetRandomFromEnum;
@@ -14,6 +15,7 @@ import com.QA.pokemonapp.persistance.domain.items.Item;
 @Service
 public class ShopService {
 	
+	@Autowired
 	private ItemGeneratorInterface itemController;
 	
 	public Shop createShop() {
@@ -23,7 +25,7 @@ public class ShopService {
 	
 	public List<Item> generateShopInventory() {
 		
-		List<Item> shopInventory = new ArrayList<>();
+		List<Item> shopInventory = new ArrayList<Item>();
 		Random random = new Random();
 		
 		int count = 0;
