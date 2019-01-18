@@ -12,6 +12,7 @@ package com.QA.pokemonapp.persistance.domain;
 
 import java.util.List;
 
+import com.QA.pokemonapp.constantsandenums.EStatus;
 import com.QA.pokemonapp.constantsandenums.ETypes;
 import com.QA.pokemonapp.persistance.domain.status.Status;
 
@@ -20,7 +21,7 @@ public class Pokemon {
 	private String name;
 	private List<ETypes> types;
 	
-	private Status status = null;
+	private EStatus status = null;
 	
 	private int XPGiven;
 	private int XP;
@@ -126,13 +127,13 @@ public class Pokemon {
 		return types;
 	}
 
-	public Status getStatus() {
+	public EStatus getStatus() {
 		return status;
 	}
 	
-	public void setStatusCondition(Status newStatus)
+	public void setStatusCondition(EStatus status)
 	{
-		this.status = newStatus;
+		this.status = status;
 	}
 
 	public int getXPGiven() {
