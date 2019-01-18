@@ -9,7 +9,7 @@ public enum EPokeball {
 	private String APIAddress;
 	
 	static {
-		POKE_BALL.setAPIAddress(Constants.APIRootAddress + Constants.APIItemAddress + POKE_BALL.name().toLowerCase() + "/");
+		POKE_BALL.setAPIAddress(Constants.APIRootAddress + Constants.APIItemAddress + POKE_BALL.name().toLowerCase().replace("_", "-") + "/");
 		GREAT_BALL.setAPIAddress(Constants.APIRootAddress + Constants.APIItemAddress + GREAT_BALL.name().toLowerCase().replace("_", "-") + "/");
 		ULTRA_BALL.setAPIAddress(Constants.APIRootAddress + Constants.APIItemAddress + ULTRA_BALL.name().toLowerCase().replace("_", "-") + "/");
 		MASTER_BALL.setAPIAddress(Constants.APIRootAddress + Constants.APIItemAddress + MASTER_BALL.name().toLowerCase().replace("_", "-") + "/");

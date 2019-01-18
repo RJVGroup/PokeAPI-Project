@@ -8,9 +8,7 @@ public class Item {
 	private String itemDescription;
 	private int itemPrice;
 	
-	public Item() {
-		
-	}
+	public Item() { }
 	
 	public Item(String itemName, int itemID, String itemDescription, int itemPrice) {
 		super();

@@ -8,6 +8,7 @@ package com.QA.pokemonapp.business.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.QA.pokemonapp.interoperability.rest.PokemonPokeAPIController;
 import com.QA.pokemonapp.persistance.domain.Pokemon;
@@ -17,13 +18,13 @@ import com.jayway.jsonpath.JsonPath;
 
 import net.minidev.json.JSONArray;
 
+@Service
 public class PlayerPokemonService {
 	
 	@Autowired
 	private PokemonPokeAPIController pokemonController;
 	
 	private Object pokemonJson;
-	private Object pokemonSpeciesJson;
 	
 	/**
 	 * This method increases a pokemons XP by a specified amount.
@@ -142,10 +143,8 @@ public class PlayerPokemonService {
 	public void getPokemonJson(String name)
 	{
 		String pokemonString = pokemonController.getPokemonJsonString(name);
-		String pokemonSpeciesString = pokemonController.getPokemonSpeciesJsonString(name);
 		
 		pokemonJson = Configuration.defaultConfiguration().jsonProvider().parse(pokemonString);
-		pokemonSpeciesJson = Configuration.defaultConfiguration().jsonProvider().parse(pokemonSpeciesString);
 	}
 
 	/**
