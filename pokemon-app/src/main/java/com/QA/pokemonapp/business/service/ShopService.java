@@ -31,14 +31,14 @@ public class ShopService {
 		do {
 			if (random.nextBoolean()) {
 				shopInventory.add(
-					itemController.createItem(
-							"potion", GetRandomFromEnum.generatePotionType().name()));
+					itemController.createPotion(
+							GetRandomFromEnum.generatePotionType().name()));
 				count++;
 			} 
 			else {
 				shopInventory.add(
-					itemController.createItem(
-							"pokeball", GetRandomFromEnum.generatePokeballType().name()));
+					itemController.createPokeball(
+							GetRandomFromEnum.generatePokeballType().name()));
 				count++;
 
 			} 

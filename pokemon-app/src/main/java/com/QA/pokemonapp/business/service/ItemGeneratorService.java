@@ -7,6 +7,8 @@ import com.QA.pokemonapp.constantsandenums.EPokeball;
 import com.QA.pokemonapp.constantsandenums.EPotion;
 import com.QA.pokemonapp.interoperability.rest.ItemAPIController;
 import com.QA.pokemonapp.persistance.domain.items.Item;
+import com.QA.pokemonapp.persistance.domain.items.ItemPokeball;
+import com.QA.pokemonapp.persistance.domain.items.ItemPotion;
 import com.jayway.jsonpath.Configuration;
 import com.jayway.jsonpath.JsonPath;
 
@@ -18,17 +20,19 @@ public class ItemGeneratorService implements ItemGeneratorInterface {
 	private Object itemJson;
 	
 	@Cacheable("item")
-	public Item createItem(String itemType, String itemName) {
+	public ItemPokeball createPokeball(String itemName) {
 		
-		switch(itemType.toLowerCase()) {
-			case "potion" :
-				getPotionJson(itemName);
-			case "pokeball" :
 				getPokebalJson(itemName);
-		}
+		return 
+			(ItemPokeball) new Item(getItemName(), getItemID(), getItemDescription(), getItemPrice());
+		
+	}
+	@Cacheable("item")
+	public ItemPotion createPotion(String itemName) {
+			getPotionJson(itemName);
 		
 		return 
-			new Item(getItemName(), getItemID(), getItemDescription(), getItemPrice());
+				(ItemPotion) new Item(getItemName(), getItemID(), getItemDescription(), getItemPrice());
 		
 	}
 	
