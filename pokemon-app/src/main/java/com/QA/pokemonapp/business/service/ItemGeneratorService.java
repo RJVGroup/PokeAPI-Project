@@ -8,7 +8,6 @@ import org.springframework.cache.annotation.Cacheable;
 import com.QA.pokemonapp.constantsandenums.EPokeball;
 import com.QA.pokemonapp.constantsandenums.EPotion;
 import com.QA.pokemonapp.interoperability.rest.ItemAPIController;
-import com.QA.pokemonapp.persistance.domain.items.Item;
 import com.QA.pokemonapp.persistance.domain.items.ItemPokeball;
 import com.QA.pokemonapp.persistance.domain.items.ItemPotion;
 import com.jayway.jsonpath.Configuration;
@@ -99,8 +98,8 @@ public class ItemGeneratorService implements ItemGeneratorInterface {
 	
 	public Double getDigitsFromEffect() {
 		return
-				Double.parseDouble(
-						getItemDescription().replaceAll("[^0-9?!\\.]","").substring(0, 2));
+			Double.parseDouble(
+					getItemDescription().replaceAll("[^0-9?!\\.]","").substring(0, 2));
 	}
 
 	public int getItemPrice() {

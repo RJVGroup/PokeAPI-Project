@@ -2,7 +2,8 @@ package com.QA.pokemonapp.constantsandenums;
 
 public enum EDamageClass {
 	PHYSICAL,
-	SPECIAL;
+	SPECIAL,
+	STATUS;
 	
 	private int attackStat;
 	private int defenceStat;

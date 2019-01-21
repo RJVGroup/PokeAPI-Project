@@ -15,13 +15,16 @@ package com.QA.pokemonapp.business.service;
 
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
+import com.QA.pokemonapp.business.service.move.MoveInterface;
 import com.QA.pokemonapp.constantsandenums.ETypes;
 import com.QA.pokemonapp.interoperability.rest.PokemonPokeAPIController;
+import com.QA.pokemonapp.persistance.domain.Move;
 import com.QA.pokemonapp.persistance.domain.Pokemon;
 import com.jayway.jsonpath.Configuration;
 import com.jayway.jsonpath.JsonPath;
@@ -33,6 +36,9 @@ public class PokemonGeneratorService implements PokemonGeneratorInterface{
 
 	@Autowired
 	private PokemonPokeAPIController pokemonController;
+	
+	@Autowired
+	private MoveInterface moveService;
 	
 	private Object pokemonJson;
 	private Object pokemonSpeciesJson;
@@ -97,8 +103,15 @@ public class PokemonGeneratorService implements PokemonGeneratorInterface{
 	}
 	public List<ETypes> getType()
 	{
-		return 
+		List<String> TypeList = 
 			JsonPath.read(pokemonJson, "$.types[*].type.name");
+		
+		return
+			TypeList
+				.stream()
+				.map(type -> ETypes.valueOf(type.toUpperCase()))
+				.collect(Collectors.toList());
+		
 	}
 	
 	public int getXPGiven()
@@ -114,14 +127,21 @@ public class PokemonGeneratorService implements PokemonGeneratorInterface{
 	}
 	
 	
-	public List<String> getMoveList(int level)
+	public List<Move> getMoveList(int level)
 	{
 		JSONArray listOfValidMoves = 
 		JsonPath.read(pokemonJson, "$.moves[*][?(@.version_group_details[0].level_learned_at <=" + level + 
 												" && @.version_group_details[0].move_learn_method.name == 'level-up')]");
 		
-		return
+		List<String> moveList = 
 			JsonPath.parse(listOfValidMoves.toJSONString()).read("$[0:4].move.name");
+	
+		return
+				moveList
+					.stream()
+					.map(move -> moveService.createMove(move))
+					.collect(Collectors.toList());
+		
 	}
 	
 	public int[] getBaseStatList()

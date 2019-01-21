@@ -19,7 +19,7 @@ public class MovePokeAPIController {
 	@Autowired
 	private RestTemplate restTemplate;
 	
-	public String getMove(String move)
+	public String getMoveJsonString(String move)
 	{
 		HttpHeaders headers = new HttpHeaders();
 	    headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
@@ -27,5 +27,5 @@ public class MovePokeAPIController {
 	    HttpEntity <String> entity = new HttpEntity<String>(headers);
 	    
 		return restTemplate.exchange(
-				Constants.APIRootAddress + Constants.APIItemAddress + move + "/", HttpMethod.GET, entity, String.class).getBody();	}
+				Constants.APIRootAddress + Constants.APIMoveAddress + move + "/", HttpMethod.GET, entity, String.class).getBody();	}
 }

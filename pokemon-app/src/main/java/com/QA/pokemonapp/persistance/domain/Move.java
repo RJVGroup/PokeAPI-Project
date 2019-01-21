@@ -11,14 +11,17 @@ public class Move {
 	private EDamageClass damageClass;
 	private ETypes moveType;
 	private EStatus moveSecondaryEffect;
-	private double moveSecondaryChance;
+	private int moveSecondaryChance;
+	private Integer maximumNumberOfHits;
+	private Integer minimumNumberOfHits;
 	
 	public Move() {
 		
 	}
 
 	public Move(String moveName, int movePower, int moveAccuracy, EDamageClass damageClass, ETypes moveType,
-			EStatus moveSecondaryEffect, double moveSecondaryChance) {
+			EStatus moveSecondaryEffect, int moveSecondaryChance,
+			int maximumNumberOfHits, int minimumNumberOfHits) {
 		super();
 		this.moveName = moveName;
 		this.movePower = movePower;
@@ -27,6 +30,8 @@ public class Move {
 		this.moveType = moveType;
 		this.moveSecondaryEffect = moveSecondaryEffect;
 		this.moveSecondaryChance = moveSecondaryChance;
+		this.maximumNumberOfHits = maximumNumberOfHits;
+		this.minimumNumberOfHits = minimumNumberOfHits;
 	}
 
 	public String getMoveName() {
@@ -56,6 +61,15 @@ public class Move {
 	public double getMoveSecondaryChance() {
 		return moveSecondaryChance;
 	}
+
+	public int getMaximumNumberOfHits() {
+		return maximumNumberOfHits;
+	}
+
+	public int getMinimumNumberOfHits() {
+		return minimumNumberOfHits;
+	}
+	
 	
 	
 }
