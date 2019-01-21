@@ -4,18 +4,18 @@ import com.QA.pokemonapp.persistance.domain.Player;
 import com.QA.pokemonapp.persistance.domain.Pokemon;
 
 public class ItemPokeball extends Item{
-	private int catchModifier;
+	private Double catchModifier;
 
-	public ItemPokeball(String itemName, int itemID, String itemDescription, int itemPrice, int inCatchModifier) {
+	public ItemPokeball(String itemName, int itemID, String itemDescription, int itemPrice, Double inCatchModifier) {
 		super(itemName, itemID, itemDescription, itemPrice);
 		this.catchModifier = inCatchModifier;
 	}
 
-	public int getCatchModifier() {
+	public Double getCatchModifier() {
 		return catchModifier;
 	}
 
-	public void setCatchModifier(int catchModifier) {
+	public void setCatchModifier(Double catchModifier) {
 		this.catchModifier = catchModifier;
 	}
 

@@ -1,7 +1,5 @@
 package com.QA.pokemonapp.business.service;
 
-import java.util.Random;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 
@@ -61,35 +59,8 @@ public class ItemGeneratorService implements ItemGeneratorInterface {
 	
 	public String getItemDescription() {
 		return 
-			JsonPath.read(itemJson, "$.effect_entries.[0].short_effect");
+			JsonPath.read(itemJson, "$.effect_entries.[0].effect");
 	}
-	
-	public String getItemLongDescription() {
-		return 
-				JsonPath.read(itemJson, "$.effect_entries.[0].effect");
-	}
-	
-	public int getCatchRateModifier() {
-		
-		Random random = new Random();
-
-		Double modifier = 0.0;
-		
-		switch(getItemName()) {
-		case "poke-ball" :
-			modifier = getDigitsFromEffect()*random.nextInt(255);
-		case "great-ball" :
-			modifier = getDigitsFromEffect()*random.nextInt(200);
-		case "ultra-ball" :
-			modifier = getDigitsFromEffect()*random.nextInt(150);
-		case "master-ball" :
-			return 0;
-		
-		}
-		return modifier.intValue();
-		
-	}
-	
 	
 	public int getRestoreAmount() {
 		return
@@ -97,9 +68,27 @@ public class ItemGeneratorService implements ItemGeneratorInterface {
 	}
 	
 	public Double getDigitsFromEffect() {
+		String digits =
+					getItemDescription().replaceAll("\\D+","");
+		
+		if(digits.isEmpty()) {
+			return 1000.0;
+		}
+			
 		return
-			Double.parseDouble(
-					getItemDescription().replaceAll("[^0-9?!\\.]","").substring(0, 2));
+			Double.parseDouble(digits);
+	}
+	
+	public Double getCatchRateModifier() {
+		Double digits = getDigitsFromEffect();
+		
+		if(String.valueOf(digits).length() == 2) {
+			return 
+					Double.parseDouble(
+				(String.valueOf(digits).substring(0,1) + "." + String.valueOf(digits).substring(1)));	
+		}
+		
+		return digits;
 	}
 
 	public int getItemPrice() {
