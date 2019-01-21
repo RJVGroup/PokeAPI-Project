@@ -1,13 +1,18 @@
 import React, {Component} from 'react';
 import Pokenavbar from './Navbar';
+import App from './App';
+import {withRouter } from 'react-router-dom';
 
 
-export default class Home extends Component {
+class Home extends Component {
 
 
     render() {
-        return (
-            <Pokenavbar/>
+        return (<div>
+                        <Pokenavbar/>
+                        <App/>
+                                </div>
         );  
     }
 }
+export default withRouter(Home)

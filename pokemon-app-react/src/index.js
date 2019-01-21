@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import './bootstrap.min.css';
-import App from './App';
+import Home from './Home';
 import AboutTheGame from './AboutTheGame';
 import HowToPlay from './HowToPlay';
 import * as serviceWorker from './serviceWorker';
@@ -10,7 +10,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 ReactDOM.render( <BrowserRouter>
     <Switch>
-        <Route exact path ="/" component={App} />
+        <Route exact path ="/" component={Home} />
         <Route path = "/aboutthegame" component={AboutTheGame}/>
         <Route path = "/howtoplay" component={HowToPlay} />
     </Switch>

@@ -1,11 +1,15 @@
 import React, { Component } from 'react';
-import Home from './Home';
+import './App.css'
+import {Navbar, NavbarBrand, NavItem, NavLink, Col, Row, Container, Input, TabContent, TabPane, Nav, Button,FormGroup} from 'reactstrap';
+import Choose from './Choose';
+
 
 class App extends Component {
+
   render() {
     return (
-      <div>
-        <Home />
+      <div className="App">
+      <Choose/>
       </div>
     );
   }

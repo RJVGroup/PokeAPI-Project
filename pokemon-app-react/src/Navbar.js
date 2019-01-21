@@ -1,10 +1,8 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {Navbar, NavbarBrand, NavItem, NavLink, Nav} from 'reactstrap';
 
 
-export default class Pokenavbar extends Component {
-
-    render() {
+ const Pokenavbar = (props)=> {
         return (
             <div>
                 <Navbar color="danger" dark expand="md">
@@ -21,4 +19,4 @@ export default class Pokenavbar extends Component {
             </div>
         );
     }
-}
+export default Pokenavbar;
