@@ -75,11 +75,11 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 
 ## Authors
 
-* **Vincent Yeadon** - *Shell creation* 
+* **Vincent Yeadon** - *Springboot* 
 
-* **Ross Lawrence** - *The man from florence*
+* **Ross Lawrence** - *Springboot*
 
-* **john Tran** - *The main man*
+* **john Tran** - *React*
 
 ## License
 
