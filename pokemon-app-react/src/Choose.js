@@ -42,24 +42,67 @@ componentDidMount() {
             NAME: {this.state.starter1.name}
              <br/> 
             TYPE: {this.state.starter1.types}
+            <br/>
+            LEVEL: {this.state.starter1.level}
+            <br/>
+            HP: {this.state.starter1.hp}
+            <br/>
+            SPEED: {this.state.starter1.speed}
+            <br/>
+            ATTACK: {this.state.starter1.attack}
+            <br/>
+            DEFENCE: {this.state.starter1.defence}
+            <br/>
+            SP ATTACK: {this.state.starter1.spAttack}
+            <br/>
+            SP DEFENCE: {this.state.starter1.spDefence}
+            
+            
+
         </button>
         <button className="menu main-game-panel"  style={{backgroundColor: 'rgb(11, 197, 221)'}}>
-        <span className="pokemonimg">  
+        <div className="pokemonimg">  
        <img src={"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/"+this.state.starter2.id+".png"}/>
-       </span>  
+       </div>  
             NAME: {this.state.starter2.name}
              <br/> 
              TYPE: {this.state.starter2.types}
-              
-          
+             <br/>
+            LEVEL: {this.state.starter2.level}
+            <br/>
+            HP: {this.state.starter2.hp}
+            <br/>
+            SPEED: {this.state.starter2.speed}
+            <br/>
+            ATTACK: {this.state.starter2.attack}
+            <br/>
+            DEFENCE: {this.state.starter2.defence}
+            <br/>
+            SP ATTACK: {this.state.starter2.spAttack}
+            <br/>
+            SP DEFENCE: {this.state.starter2.spDefence}
             </button> 
           <button className="menu main-game-panel"  style={{backgroundColor: 'rgb(255, 123, 0'}}>
-          <span className="pokemonimg">  
+          <div className="pokemonimg">  
        <img src={"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/"+this.state.starter3.id+".png"}/>
-       </span>  
+       </div>  
              NAME: {this.state.starter3.name}
              <br/> 
              TYPE: {this.state.starter3.types}
+             <br/>
+            LEVEL: {this.state.starter3.level}
+            <br/>
+            HP: {this.state.starter3.hp}
+            <br/>
+            SPEED: {this.state.starter3.speed}
+            <br/>
+            ATTACK: {this.state.starter3.attack}
+            <br/>
+            DEFENCE: {this.state.starter3.defence}
+            <br/>
+            SP ATTACK: {this.state.starter3.spAttack}
+            <br/>
+            SP DEFENCE: {this.state.starter3.spDefence}
           </button>   
       </div>
     );

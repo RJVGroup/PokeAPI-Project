@@ -54,9 +54,10 @@
     flex: 1;
     align-items: stretch;
     flex-direction: column;
-
+    justify-content: center;
   }
+  
   .pokemonimg > img {
-    
     width: 200px;
   }
+  
