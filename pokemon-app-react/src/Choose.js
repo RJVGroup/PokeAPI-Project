@@ -37,7 +37,7 @@ componentDidMount() {
        
        <button className="menu main-game-panel"  style={{backgroundColor: 'rgb(11, 221, 57)'} }>
        <div className="pokemonimg">  
-       <img src={"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/"+this.state.starter1.level+".png"}/>
+       <img src={"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/"+this.state.starter1.id+".png"}/>
        </div>  
             NAME: {this.state.starter1.name}
              <br/> 
@@ -45,7 +45,7 @@ componentDidMount() {
         </button>
         <button className="menu main-game-panel"  style={{backgroundColor: 'rgb(11, 197, 221)'}}>
         <span className="pokemonimg">  
-       <img src={"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/"+this.state.starter1.level+".png"}/>
+       <img src={"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/"+this.state.starter2.id+".png"}/>
        </span>  
             NAME: {this.state.starter2.name}
              <br/> 
@@ -55,7 +55,7 @@ componentDidMount() {
             </button> 
           <button className="menu main-game-panel"  style={{backgroundColor: 'rgb(255, 123, 0'}}>
           <span className="pokemonimg">  
-       <img src={"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/"+this.state.starter1.level+".png"}/>
+       <img src={"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/"+this.state.starter3.id+".png"}/>
        </span>  
              NAME: {this.state.starter3.name}
              <br/> 
