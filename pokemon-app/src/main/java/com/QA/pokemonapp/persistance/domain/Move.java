@@ -7,7 +7,7 @@ import com.QA.pokemonapp.constantsandenums.ETypes;
 public class Move {
 	private String moveName;
 	private int movePower;
-	private int moveAccuracy;
+	private Integer moveAccuracy;
 	private EDamageClass damageClass;
 	private ETypes moveType;
 	private EStatus moveSecondaryEffect;

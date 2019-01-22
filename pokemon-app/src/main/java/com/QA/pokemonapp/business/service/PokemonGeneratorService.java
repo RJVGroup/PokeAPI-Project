@@ -72,6 +72,9 @@ public class PokemonGeneratorService implements PokemonGeneratorInterface{
 	{
 		getPokemonJson(name);
 		
+		if(getId() > 151)
+			return null;
+		
 		getBaseStatList();
 		getIVList();
 		getStatList(level);
@@ -136,7 +139,8 @@ public class PokemonGeneratorService implements PokemonGeneratorInterface{
 	{
 		JSONArray listOfValidMoves = 
 		JsonPath.read(pokemonJson, "$.moves[*][?(@.version_group_details[0].level_learned_at <=" + level + 
-												" && @.version_group_details[0].move_learn_method.name == 'level-up')]");
+												" && @.version_group_details[0].move_learn_method.name == 'level-up' "
+												+ " && @.version_group_details[0].version_group.name == 'red-blue')]");
 		
 		List<String> moveList = 
 			JsonPath.parse(listOfValidMoves.toJSONString()).read("$[0:4].move.name");
