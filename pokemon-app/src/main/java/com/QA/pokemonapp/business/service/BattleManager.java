@@ -2,15 +2,46 @@ package com.QA.pokemonapp.business.service;
 
 import java.util.Random;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.QA.pokemonapp.constantsandenums.EDamageClass;
 import com.QA.pokemonapp.constantsandenums.EStatus;
 import com.QA.pokemonapp.constantsandenums.TypeEffectivenessChecker;
 import com.QA.pokemonapp.persistance.domain.Move;
 import com.QA.pokemonapp.persistance.domain.Pokemon;
 import com.QA.pokemonapp.persistance.domain.items.Item;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.jayway.jsonpath.Configuration;
+import com.jayway.jsonpath.JsonPath;
 
 public class BattleManager {
+	
+	@Autowired
+	PokemonGeneratorInterface pokemonGenerator;
+	
+	@Autowired
+	PlayerPokemonService pokemonService;
+	
 	private Random rand = new Random();
+	
+	public BattleManager() {}
+	
+	public Pokemon getPokemonFromResponseJson(String jsonString, boolean playerPokemon) {
+		Object responseJson = Configuration.defaultConfiguration().jsonProvider().parse(jsonString);
+		
+		ObjectMapper mapper = new ObjectMapper();
+		
+		if(playerPokemon) {
+			return 
+				mapper.convertValue(
+				JsonPath.read(responseJson, "$.pokemon"), Pokemon.class);
+		}
+		else {
+			return
+					mapper.convertValue(
+				JsonPath.read(responseJson, "$.enemy-pokemon"), Pokemon.class);
+		}
+	}
 	
 	public int takeATurn(Pokemon playerMon, Move playerMove, boolean targetSelf, Pokemon enemyMon) {
 		int result = 0; //0 = ongoing; 1=player victory; 2= enemy victory; 3= runaway

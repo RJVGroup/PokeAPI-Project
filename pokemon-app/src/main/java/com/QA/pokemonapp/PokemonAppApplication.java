@@ -1,12 +1,15 @@
 package com.QA.pokemonapp;
 
 
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Scope;
 import org.springframework.web.client.RestTemplate;
 
+import com.QA.pokemonapp.business.service.BattleManager;
 import com.QA.pokemonapp.business.service.ItemGeneratorInterface;
 import com.QA.pokemonapp.business.service.ItemGeneratorService;
 
@@ -26,6 +29,12 @@ public class PokemonAppApplication {
 	@Bean
 	public ItemGeneratorInterface getItemGeneratorInterface() {
 		return new ItemGeneratorService();
+	}
+	
+	@Bean
+	@Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
+	public BattleManager getBattleManager() {
+		return new BattleManager();
 	}
 
 	

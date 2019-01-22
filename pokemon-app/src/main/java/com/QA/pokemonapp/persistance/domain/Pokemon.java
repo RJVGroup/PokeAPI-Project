@@ -14,7 +14,9 @@ import java.util.List;
 
 import com.QA.pokemonapp.constantsandenums.EStatus;
 import com.QA.pokemonapp.constantsandenums.ETypes;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Pokemon {
 	
 	private String name;
