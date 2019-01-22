@@ -3,7 +3,7 @@ import './App.css'
 import {Navbar, NavbarBrand, NavItem, NavLink, Col, Row, Container, Input, TabContent, TabPane, Nav, Button,FormGroup} from 'reactstrap';
 
 
-export default class Battle extends Component {
+export default class Roam extends Component {
     constructor(props) {
       super(props);
     this.state = {

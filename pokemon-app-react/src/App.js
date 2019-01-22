@@ -32,7 +32,7 @@ class App extends Component {
     else {
       return (
         <div className="App">
-        <Shop/>
+        <Battle/>
         </div>
   
       );}
