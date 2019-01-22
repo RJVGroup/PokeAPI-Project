@@ -85,10 +85,11 @@ public class ItemGeneratorService implements ItemGeneratorInterface {
 		if(String.valueOf(digits).length() == 2) {
 			return 
 					Double.parseDouble(
-				(String.valueOf(digits).substring(0,1) + "." + String.valueOf(digits).substring(1)));	
+				(String.valueOf(digits).substring(0) + "." + String.valueOf(digits).substring(1)));	
+		} 
+		else {
+			return digits;
 		}
-		
-		return digits;
 	}
 
 	public int getItemPrice() {
