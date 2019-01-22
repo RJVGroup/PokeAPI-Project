@@ -1,7 +1,7 @@
 package com.QA.pokemonapp.constantsandenums;
 
 public enum ETypes {
-	NORMAL, GROUND, ROCK, FIRE, WATER, GRASS, ELECTRIC, FIGHTING, GHOST, PSYCHIC, BUG, POISON, DRAGON, FLYING, ICE;
+	NORMAL, GROUND, ROCK, FIRE, WATER, GRASS, ELECTRIC, FIGHTING, GHOST, PSYCHIC, BUG, POISON, DRAGON, FLYING, ICE, DARK, STEEL, FAIRY, SHADOW;
 
 	private String APIAddress;
 
@@ -21,6 +21,10 @@ public enum ETypes {
 		DRAGON.setAPIAddress(Constants.APIRootAddress + Constants.APITypeAddress + DRAGON.name().toLowerCase() + "/");
 		FLYING.setAPIAddress(Constants.APIRootAddress + Constants.APITypeAddress + FLYING.name().toLowerCase() + "/");
 		ICE.setAPIAddress(Constants.APIRootAddress + Constants.APITypeAddress + ICE.name().toLowerCase() + "/");
+		DARK.setAPIAddress(Constants.APIRootAddress + Constants.APITypeAddress + DARK.name().toLowerCase() + "/");
+		STEEL.setAPIAddress(Constants.APIRootAddress + Constants.APITypeAddress + STEEL.name().toLowerCase() + "/");
+		FAIRY.setAPIAddress(Constants.APIRootAddress + Constants.APITypeAddress + FAIRY.name().toLowerCase() + "/");
+		SHADOW.setAPIAddress(Constants.APIRootAddress + Constants.APITypeAddress + SHADOW.name().toLowerCase() + "/");
 	}
 
 	public String getAPIAddress() {

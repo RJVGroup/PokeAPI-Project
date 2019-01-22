@@ -12,6 +12,8 @@ import org.springframework.web.client.RestTemplate;
 import com.QA.pokemonapp.business.service.BattleManager;
 import com.QA.pokemonapp.business.service.ItemGeneratorInterface;
 import com.QA.pokemonapp.business.service.ItemGeneratorService;
+import com.QA.pokemonapp.business.service.terrain.TerrainGenerator;
+import com.QA.pokemonapp.business.service.terrain.TerrainInterface;
 
 @SpringBootApplication
 @EnableCaching
@@ -37,6 +39,8 @@ public class PokemonAppApplication {
 		return new BattleManager();
 	}
 
-	
+	public TerrainInterface getTerrainInterface() {
+		return new TerrainGenerator();
+	}
 	
 }
