@@ -77,7 +77,7 @@ public class PokemonGeneratorService implements PokemonGeneratorInterface{
 		getStatList(level);
 		
 		return
-			new Pokemon(getName(), getType(), getXPGiven(), level, getCatchRate(),
+			new Pokemon(getName(), getId(), getType(), getXPGiven(), level, getCatchRate(),
 					statList, baseStatList, iVList, getMoveList(level));
 	}
 	
@@ -93,6 +93,11 @@ public class PokemonGeneratorService implements PokemonGeneratorInterface{
 		
 		pokemonJson = Configuration.defaultConfiguration().jsonProvider().parse(pokemonString);
 		pokemonSpeciesJson = Configuration.defaultConfiguration().jsonProvider().parse(pokemonSpeciesString);
+	}
+	
+	public int getId() {
+		return
+			JsonPath.read(pokemonJson, "$.id");
 	}
 	
 	

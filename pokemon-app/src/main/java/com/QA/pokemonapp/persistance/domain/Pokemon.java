@@ -18,6 +18,7 @@ import com.QA.pokemonapp.constantsandenums.ETypes;
 public class Pokemon {
 	
 	private String name;
+	private int id;
 	private List<ETypes> types;
 	
 	private EStatus status = null;
@@ -46,10 +47,11 @@ public class Pokemon {
 	
 	public Pokemon() {}
 	
-	public Pokemon(String name, List<ETypes> types, int xPGiven, int level,
+	public Pokemon(String name, int id, List<ETypes> types, int xPGiven, int level,
 			int catchRate, int[] statList, int[] baseStat, int[] iV, List<Move> list) {
 		super();
 		this.name = name;
+		this.id = id;
 		this.types = types;
 		this.status = null;
 		XPGiven = xPGiven;
@@ -63,6 +65,12 @@ public class Pokemon {
 		this.moveList = list;
 	}
 	
+	
+	
+	public int getId() {
+		return id;
+	}
+
 	public int[] getBaseStatList() {
 		return baseStatList;
 	}
