@@ -2,7 +2,7 @@ import React from 'react';
 import {Navbar, NavbarBrand, NavItem, NavLink, Nav} from 'reactstrap';
 
 
- const Pokenavbar = (props)=> {
+ const Pokenavbar = ()=> {
         return (
             <div>
                 <Navbar color="danger" dark expand="md">
