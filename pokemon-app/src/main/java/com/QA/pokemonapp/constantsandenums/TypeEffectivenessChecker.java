@@ -2,15 +2,30 @@ package com.QA.pokemonapp.constantsandenums;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.QA.pokemonapp.business.service.type.TypeEffectivenessInterface;
+import com.QA.pokemonapp.persistance.domain.TypeEffectivenessChart;
+
 public class TypeEffectivenessChecker {
-	public static int returnDamageModifier(ETypes attackingType, List<ETypes> defendingType) {
+	
+	@Autowired
+	private TypeEffectivenessInterface typeService;
+	
+	public TypeEffectivenessChecker() {}
+	
+	public int returnDamageModifier(ETypes attackingType, List<ETypes> defendingType) {
+		
 		int damageMultiplier = 1;
+		
+		TypeEffectivenessChart attackType = typeService.getTypeChart(attackingType);
+		
 		for (ETypes type : defendingType) {
-			if(APIManager.getTypeInfo(type).doubleDamage().contains(attackingType)) {
+			if(attackType.doubleDamage().contains(type)) {
 				damageMultiplier *= 2;
-			} else if(APIManager.getTypeInfo(type).halfDamage().contains(attackingType)) {
+			} else if(attackType.halfDamage().contains(type)) {
 				damageMultiplier /= 2;
-			} else if(APIManager.getTypeInfo(type).noDamage().contains(attackingType)) {
+			} else if(attackType.noDamage().contains(type)) {
 				damageMultiplier *= 0;
 			}
 		}

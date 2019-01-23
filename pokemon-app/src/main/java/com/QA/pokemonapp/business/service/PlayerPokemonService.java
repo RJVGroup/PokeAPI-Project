@@ -26,6 +26,7 @@ public class PlayerPokemonService {
 	private PokemonPokeAPIController pokemonController;
 	
 	private Object pokemonJson;
+
 	
 	/**
 	 * This method increases a pokemons XP by a specified amount.

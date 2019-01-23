@@ -1,7 +1,8 @@
-package com.QA.pokemonapp.persistance.domain;
+package com.QA.pokemonapp.business.service.type;
 
 import java.util.ArrayList;
 
+import com.QA.pokemonapp.persistance.domain.Pokemon;
 import com.QA.pokemonapp.persistance.domain.items.Item;
 
 public class Player {

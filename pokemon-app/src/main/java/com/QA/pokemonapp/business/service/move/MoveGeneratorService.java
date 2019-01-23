@@ -81,12 +81,14 @@ public class MoveGeneratorService implements MoveInterface {
 		String secondaryEffect =
 				JsonPath.read(moveJson, "$.meta.ailment.name");	
 		
-		if(secondaryEffect.equals("none")) {
+		// Handles no status and non volitile
+		try {
+			return
+				EStatus.valueOf(secondaryEffect.toUpperCase());
+		} 
+		catch (java.lang.IllegalArgumentException e) {
 			return null;
 		}
-		
-		return
-			EStatus.valueOf(secondaryEffect.toUpperCase());
 	}
 	
 	public int getMoveSecondaryChance() {

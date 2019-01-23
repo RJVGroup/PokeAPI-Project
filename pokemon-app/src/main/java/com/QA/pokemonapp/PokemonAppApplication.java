@@ -12,8 +12,12 @@ import org.springframework.web.client.RestTemplate;
 import com.QA.pokemonapp.business.service.BattleManager;
 import com.QA.pokemonapp.business.service.ItemGeneratorInterface;
 import com.QA.pokemonapp.business.service.ItemGeneratorService;
+import com.QA.pokemonapp.business.service.player.PlayerService;
 import com.QA.pokemonapp.business.service.terrain.TerrainGenerator;
 import com.QA.pokemonapp.business.service.terrain.TerrainInterface;
+import com.QA.pokemonapp.business.service.type.Player;
+import com.QA.pokemonapp.constantsandenums.TypeEffectivenessChecker;
+import com.QA.pokemonapp.interoperability.rest.type.TypeEffectivenessPokeAPIController;
 
 @SpringBootApplication
 @EnableCaching
@@ -39,8 +43,29 @@ public class PokemonAppApplication {
 		return new BattleManager();
 	}
 
+	@Bean
 	public TerrainInterface getTerrainInterface() {
 		return new TerrainGenerator();
+	}
+	
+	@Bean
+	public PlayerService getPlayerService() {
+		return new PlayerService();
+	}
+	
+	@Bean 
+	public Player getPlayer() {
+		return new Player();
+	}
+	
+	@Bean
+	public TypeEffectivenessPokeAPIController getTypeEffectivenessPokeAPIController() {
+		return new TypeEffectivenessPokeAPIController();
+	}
+	
+	@Bean
+	public TypeEffectivenessChecker getTypeEffectivenessChecker() {
+		return new TypeEffectivenessChecker();
 	}
 	
 }
