@@ -32,7 +32,6 @@ componentDidMount() {
    
   render() {
     return (
-
       <div className="choose-game">  
        
        <button className="menu main-game-panel"  style={{backgroundColor: 'rgb(11, 221, 57)'} }>
@@ -56,7 +55,9 @@ componentDidMount() {
             SP ATTACK: {this.state.starter1.spAttack}
             <br/>
             SP DEFENCE: {this.state.starter1.spDefence}
-            
+            <br/>
+          
+           
             
 
         </button>
