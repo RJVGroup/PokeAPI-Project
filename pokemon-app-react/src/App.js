@@ -4,6 +4,8 @@ import {Navbar, NavbarBrand, NavItem, NavLink, Col, Row, Container, Input, TabCo
 import Choose from './Choose';
 import Battle from './Battle';
 import Shop from './Shop';
+import Roam from './Roam';
+
 
 
 class App extends Component {
@@ -18,7 +20,7 @@ class App extends Component {
  chosenClick(){
     this.setState({chosen:true})
    }
-
+   
 
   render() {
     const chosen=this.state.chosen;
@@ -29,13 +31,12 @@ class App extends Component {
       </div>
 
     );}
-    else {
       return (
         <div className="App">
         <Battle/>
         </div>
   
-      );}
+      );
   }
 }
 
