@@ -4,7 +4,7 @@ import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.QA.pokemonapp.constantsandenums.EDamageClass;
+import com.QA.pokemonapp.business.service.player.PlayerService;
 import com.QA.pokemonapp.constantsandenums.EStatus;
 import com.QA.pokemonapp.constantsandenums.TypeEffectivenessChecker;
 import com.QA.pokemonapp.persistance.domain.Move;
@@ -21,6 +21,12 @@ public class BattleManager {
 	
 	@Autowired
 	PlayerPokemonService pokemonService;
+	
+	@Autowired
+	PlayerService playerService;
+	
+	@Autowired
+	TypeEffectivenessChecker typeEffectivenessChecker;
 	
 	private Random rand = new Random();
 	
@@ -45,11 +51,12 @@ public class BattleManager {
 	
 	public int takeATurn(Pokemon playerMon, Move playerMove, boolean targetSelf, Pokemon enemyMon) {
 		int result = 0; //0 = ongoing; 1=player victory; 2= enemy victory; 3= runaway
+		int enemyListSize = enemyMon.getMoveList().size();
 		if (playerMon.getSpeed() >= enemyMon.getSpeed()) {
 			playerUseMove(playerMove, playerMon, enemyMon);
-			enemyUseMove(enemyMon.getMoveList().get(rand.nextInt(3)), playerMon, enemyMon);
+			enemyUseMove(enemyMon.getMoveList().get(rand.nextInt(enemyListSize)), playerMon, enemyMon);
 		} else {
-			enemyUseMove(enemyMon.getMoveList().get(rand.nextInt(3)), playerMon, enemyMon);
+			enemyUseMove(enemyMon.getMoveList().get(rand.nextInt(enemyListSize)), playerMon, enemyMon);
 			playerUseMove(playerMove, playerMon, enemyMon);
 		}
 		statusEndOfTurnEffects(playerMon, enemyMon);
@@ -78,7 +85,7 @@ public class BattleManager {
 		if (enemyMon.getStatus() == EStatus.FAINT) {
 			result = 1;
 		}
-		if (playerMon.getStatus() == EStatus.FAINT && Player.getParty().stream().filter(x -> EStatus.FAINT == x.getStatus()).toArray().length() > 0) {
+		if (playerMon.getStatus() == EStatus.FAINT && playerService.getParty().stream().filter(x -> EStatus.FAINT == x.getStatus()).toArray().length > 0) {
 			result = 2;
 		}
 		return result;
@@ -101,8 +108,8 @@ public class BattleManager {
 	}
 	
 	private void playerUseMove(Move move, Pokemon player, Pokemon enemy) {
-		if(didHit(move) && ((player.getStatus() != null && !player.getStatus().noAttackThisTurn()) || player.getStatus() == null)) {
-			enemy.takeDamage(calculateDamage(move, player, enemy));
+		if(didHit(move) && ((player.getStatus() != null && !player.getStatus().equals(null)) || player.getStatus() == null)) {
+			pokemonService.takeDamage(enemy,calculateDamage(move, player, enemy));
 			if (enemy.getCurrentHP() <= 0) {
 				enemy.setStatusCondition(EStatus.FAINT);
 			}
@@ -111,7 +118,7 @@ public class BattleManager {
 	
 	private void enemyUseMove(Move move, Pokemon player, Pokemon enemy) {
 		if(didHit(move) && ((enemy.getStatus() != null && !enemy.getStatus().getDetails().noAttackThisTurn()) || enemy.getStatus() == null)) {
-			player.takeDamage(calculateDamage(move, enemy, player));
+			pokemonService.takeDamage(player, calculateDamage(move, enemy, player));
 			if (player.getCurrentHP() <= 0) {
 				player.setStatusCondition(EStatus.FAINT);
 			}
@@ -119,7 +126,7 @@ public class BattleManager {
 	}
 	
 	private int calculateDamage(Move move, Pokemon user, Pokemon target) {
-		int typeEffectivenessModifier = TypeEffectivenessChecker.returnDamageModifier(move.getMoveType(), target.getTypes());
+		int typeEffectivenessModifier = typeEffectivenessChecker.returnDamageModifier(move.getMoveType(), target.getTypes());
 		double sameTypeAttackBonus = user.getTypes().contains(move.getMoveType()) ? 1.5 : 1;
 		double random = rand.nextInt(15)/100 + 0.85;
 		int critical = rand.nextInt(100) >= 95 ? 2 : 1;

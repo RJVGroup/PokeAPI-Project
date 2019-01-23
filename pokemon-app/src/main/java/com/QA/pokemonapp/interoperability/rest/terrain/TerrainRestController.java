@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.QA.pokemonapp.business.service.player.PlayerService;
 import com.QA.pokemonapp.business.service.terrain.TerrainInterface;
 import com.QA.pokemonapp.persistance.domain.Terrain;
 
@@ -16,10 +17,13 @@ public class TerrainRestController {
 	@Autowired
 	private TerrainInterface terrainGenerator;
 	
-	@GetMapping("/generate/{pokemonLevel}")
-	public Terrain getTerrain(@PathVariable int pokemonLevel) {
+	@Autowired
+	private PlayerService playerService;
+	
+	@GetMapping("/generate/{levelOfPokemon}")
+	public Terrain getTerrain(@PathVariable int levelOfPokemon) {
 		return
-			terrainGenerator.getTerrain(pokemonLevel);
+			terrainGenerator.getTerrain(levelOfPokemon);
 	}
 	
 	

@@ -7,8 +7,9 @@ import java.util.Random;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.QA.pokemonapp.business.service.player.PlayerService;
+import com.QA.pokemonapp.business.service.type.Player;
 import com.QA.pokemonapp.constantsandenums.GetRandomFromEnum;
-import com.QA.pokemonapp.persistance.domain.Player;
 import com.QA.pokemonapp.persistance.domain.Shop;
 import com.QA.pokemonapp.persistance.domain.items.Item;
 
@@ -17,6 +18,9 @@ public class ShopService {
 	
 	@Autowired
 	private ItemGeneratorInterface itemController;
+	
+	@Autowired
+	private PlayerService playerService;
 	
 	public Shop createShop() {
 		return
@@ -56,14 +60,14 @@ public class ShopService {
 			} 
 		else {
 			
-			player.addToBag(item);
-			player.addMoney(-1*item.getItemPrice());
+			playerService.addToBag(item);
+			playerService.addMoney(-1*item.getItemPrice());
 			return true;
 			}
 	}
 	
 	public void sellItem(Item item, Player player) {
-		player.addMoney((int)0.5*item.getItemPrice());
+		playerService.addMoney((int)0.5*item.getItemPrice());
 		player.removeFromBag(item);
 	}
 }
