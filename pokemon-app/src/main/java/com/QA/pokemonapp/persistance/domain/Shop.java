@@ -8,6 +8,8 @@ public class Shop {
 	
 	List<Item> shopInventory;
 	
+	public Shop() {}
+	
 	public Shop(List<Item> inventory)
 	{
 		this.shopInventory = inventory;

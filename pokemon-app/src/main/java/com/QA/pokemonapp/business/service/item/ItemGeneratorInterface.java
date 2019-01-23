@@ -1,4 +1,4 @@
-package com.QA.pokemonapp.business.service;
+package com.QA.pokemonapp.business.service.item;
 
 import com.QA.pokemonapp.persistance.domain.items.Item;
 

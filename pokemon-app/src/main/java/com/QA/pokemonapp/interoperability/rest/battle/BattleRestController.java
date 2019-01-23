@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.QA.pokemonapp.business.service.BattleManager;
 import com.QA.pokemonapp.business.service.move.MoveInterface;
+import com.QA.pokemonapp.business.service.player.PlayerService;
 
 @RestController
 @RequestMapping("/api/battle")
@@ -21,9 +22,12 @@ public class BattleRestController {
 	@Autowired
 	private MoveInterface moveService;
 	
-	@PostMapping(value = "/turn/{chosenMove}/{targetSelf}")
+	@Autowired
+	private PlayerService playerService;
+	
+	@PostMapping(value = "/test/{chosenMove}/{targetSelf}")
 	@ResponseBody
-	public int takeTurn(@RequestBody String payload, @PathVariable String chosenMove, @PathVariable boolean targetSelf) {
+	public int test(@RequestBody String payload, @PathVariable String chosenMove, @PathVariable boolean targetSelf) {
 		
 		return
 		battleManager.takeATurn(
@@ -31,6 +35,19 @@ public class BattleRestController {
 			moveService.createMove(chosenMove),
 			targetSelf,
 			battleManager.getPokemonFromResponseJson(payload, false));
+	}
+	
+	@PostMapping(value = "/turn/{chosenPokemon}/{chosenMove}/{targetSelf}")
+	@ResponseBody
+	public int takeTurn(@PathVariable String chosenPokemon, @PathVariable String chosenMove, @PathVariable boolean targetSelf) {
+		
+		return
+				battleManager.takeATurn(
+						playerService.getParty().get(
+								playerService.getParty().indexOf(chosenPokemon)),
+						moveService.createMove(chosenMove),
+						targetSelf,
+						battleManager.getPokemonFromResponseJson(payload, false));
 	}
 	
 }
