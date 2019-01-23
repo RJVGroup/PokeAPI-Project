@@ -29,14 +29,10 @@ export default class Battle extends Component {
       const items=this.state.items;
     if(items){
       return (
-        <div className='main-game'>  
-         <Container className="menu main-game-panel">
-             </Container> 
-             <Container className="menu main-game-panel" >
-             <button className=" main-game-panel"onClick={this.itemsClose}>Close</button>
-
-             </Container> 
-        </div>  );}
+        <div className='main-game'> 
+        <ItemMenu close={this.itemsClose}/> 
+         </div>)
+    }
         return(
   
         <div className='main-game'>  
@@ -50,12 +46,16 @@ export default class Battle extends Component {
          HP</div>
          
              </Container> 
+             <div className='choose-game'>
+             <Container className="menu main-game-panel" >      
+             
+             </Container> 
              <Container className="menu main-game-panel" >      
              <button className=" main-game-panel">Fight</button>
              <button className=" main-game-panel">Pokemon</button>
              <button className=" main-game-panel" onClick={this.itemsClick}>Bag</button>
              <button className=" main-game-panel">Run</button>
-             </Container> 
+             </Container> </div>
         </div>  
       );
      } 

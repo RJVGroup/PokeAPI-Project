@@ -13,8 +13,8 @@ export default class Shop extends Component {
 
     componentDidMount() {
         const shop =fetch('api/shop/generate',{method: 'GET'})
-        .then((response) => {response.json()})
-        this.setState({shopstock:shop.shopInventory})
+        .then(response => response.json())
+        .then(data=>this.setState({shopstock:data.shopInventory}))
     }
     generateshop =()=>{
          let pos = 0;
@@ -25,18 +25,20 @@ export default class Shop extends Component {
         shopstock.forEach(function(arrayItem,arrayIndex,array){
             pos=pos++;
             test.push(
-                
-                    <div>{array[arrayIndex].itemName}</div>
+                    
+                <div>
+                  <button>  {array[arrayIndex].itemName}</button></div>
                     
                 
            )})
         return test;
-    }
+    }  
+
     render() {
         return (
                 <div className='main-game'>  
          <Container className="menu main-game-panel">
-  {this.generateshop()}
+       {this.generateshop()}
              </Container> 
         </div>  
         )            
