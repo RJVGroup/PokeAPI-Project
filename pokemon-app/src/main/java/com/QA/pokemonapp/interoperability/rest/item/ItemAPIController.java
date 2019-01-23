@@ -1,4 +1,4 @@
-package com.QA.pokemonapp.interoperability.rest;
+package com.QA.pokemonapp.interoperability.rest.item;
 
 import java.util.Arrays;
 

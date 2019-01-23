@@ -10,14 +10,15 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.web.client.RestTemplate;
 
 import com.QA.pokemonapp.business.service.BattleManager;
-import com.QA.pokemonapp.business.service.ItemGeneratorInterface;
-import com.QA.pokemonapp.business.service.ItemGeneratorService;
+import com.QA.pokemonapp.business.service.item.ItemGeneratorInterface;
+import com.QA.pokemonapp.business.service.item.ItemGeneratorService;
 import com.QA.pokemonapp.business.service.player.PlayerService;
 import com.QA.pokemonapp.business.service.terrain.TerrainGenerator;
 import com.QA.pokemonapp.business.service.terrain.TerrainInterface;
-import com.QA.pokemonapp.business.service.type.Player;
 import com.QA.pokemonapp.constantsandenums.TypeEffectivenessChecker;
 import com.QA.pokemonapp.interoperability.rest.type.TypeEffectivenessPokeAPIController;
+import com.QA.pokemonapp.persistance.domain.Player;
+import com.QA.pokemonapp.persistance.domain.Shop;
 
 @SpringBootApplication
 @EnableCaching
@@ -49,13 +50,21 @@ public class PokemonAppApplication {
 	}
 	
 	@Bean
+	@Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
 	public PlayerService getPlayerService() {
 		return new PlayerService();
 	}
 	
 	@Bean 
+	@Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
 	public Player getPlayer() {
 		return new Player();
+	}
+	
+	@Bean 
+	@Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
+	public Shop getShop() {
+		return new Shop();
 	}
 	
 	@Bean

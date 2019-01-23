@@ -1,11 +1,11 @@
-package com.QA.pokemonapp.business.service;
+package com.QA.pokemonapp.business.service.item;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 
 import com.QA.pokemonapp.constantsandenums.EPokeball;
 import com.QA.pokemonapp.constantsandenums.EPotion;
-import com.QA.pokemonapp.interoperability.rest.ItemAPIController;
+import com.QA.pokemonapp.interoperability.rest.item.ItemAPIController;
 import com.QA.pokemonapp.persistance.domain.items.ItemPokeball;
 import com.QA.pokemonapp.persistance.domain.items.ItemPotion;
 import com.jayway.jsonpath.Configuration;

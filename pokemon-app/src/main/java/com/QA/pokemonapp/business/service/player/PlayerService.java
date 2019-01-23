@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.QA.pokemonapp.business.service.terrain.TerrainInterface;
-import com.QA.pokemonapp.business.service.type.Player;
+import com.QA.pokemonapp.persistance.domain.Player;
 import com.QA.pokemonapp.persistance.domain.Pokemon;
 import com.QA.pokemonapp.persistance.domain.Terrain;
 import com.QA.pokemonapp.persistance.domain.items.Item;
@@ -25,11 +25,16 @@ public class PlayerService {
 	}
 	
 	public boolean addToParty(Pokemon newCatch) {
-		if (player.getParty().size() < 6) {
+		if (player.getParty().isEmpty() | player.getParty().size() < 6) {
 			player.getParty().add(newCatch);
 			return true;
 		}
 		return false;
+	}
+	
+	public List<Item> getBag() {
+		return
+			player.getBag();
 	}
 	
 	public List<Pokemon> getParty() {
@@ -55,7 +60,7 @@ public class PlayerService {
 	
 	public Terrain move() {
 		return
-		terrainGenerator.getTerrain(player.getParty().stream().mapToInt(Pokemon::getLevel).sum() / player.getParty().size());
+			terrainGenerator.getTerrain(player.getParty().stream().mapToInt(Pokemon::getLevel).sum() / player.getParty().size());
 	
 	}
 }

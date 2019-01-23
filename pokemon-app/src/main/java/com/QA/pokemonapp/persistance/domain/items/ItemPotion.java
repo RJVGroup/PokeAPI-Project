@@ -1,7 +1,7 @@
 package com.QA.pokemonapp.persistance.domain.items;
 
-import com.QA.pokemonapp.business.service.type.Player;
 import com.QA.pokemonapp.constantsandenums.EStatus;
+import com.QA.pokemonapp.persistance.domain.Player;
 import com.QA.pokemonapp.persistance.domain.Pokemon;
 
 public class ItemPotion extends Item{

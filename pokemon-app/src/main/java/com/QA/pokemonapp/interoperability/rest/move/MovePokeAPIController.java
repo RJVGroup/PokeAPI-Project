@@ -11,7 +11,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.client.RestTemplate;
 
 import com.QA.pokemonapp.constantsandenums.Constants;
-import com.QA.pokemonapp.constantsandenums.EPokeball;
 
 @Controller
 public class MovePokeAPIController {

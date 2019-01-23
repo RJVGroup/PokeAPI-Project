@@ -1,4 +1,4 @@
-package com.QA.pokemonapp.business.service;
+package com.QA.pokemonapp.business.service.item;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,8 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.QA.pokemonapp.business.service.player.PlayerService;
-import com.QA.pokemonapp.business.service.type.Player;
 import com.QA.pokemonapp.constantsandenums.GetRandomFromEnum;
+import com.QA.pokemonapp.persistance.domain.Player;
 import com.QA.pokemonapp.persistance.domain.Shop;
 import com.QA.pokemonapp.persistance.domain.items.Item;
 
@@ -21,6 +21,9 @@ public class ShopService {
 	
 	@Autowired
 	private PlayerService playerService;
+	
+	@Autowired
+	private Shop shop;
 	
 	public Shop createShop() {
 		return
@@ -53,20 +56,31 @@ public class ShopService {
 		return shopInventory;
 	}
 	
-	public boolean buyItem(Item item, Player player){
+	public boolean buyItem(int itemIndex, Player player){
+		
+		Item item = shop.getShopInventory().get(itemIndex);
 		
 		if (player.getMoney()<item.getItemPrice()) {
 			return false;
 			} 
 		else {
-			
 			playerService.addToBag(item);
 			playerService.addMoney(-1*item.getItemPrice());
 			return true;
 			}
 	}
 	
-	public void sellItem(Item item, Player player) {
+	public void sellItem(String itemType, String itemName, Player player) {
+		
+		Item item = null;
+		
+		if(itemType.equals("potion")) {
+			item = itemController.createPotion(itemName);
+		}
+		else if (itemType.equals("pokeball")) {
+			item = itemController.createPokeball(itemName);
+		}
+
 		playerService.addMoney((int)0.5*item.getItemPrice());
 		player.removeFromBag(item);
 	}
