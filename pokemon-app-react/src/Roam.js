@@ -9,17 +9,17 @@ export default class Roam extends Component {
     this.state = {
     };
   }
-  
+
   componentDidMount() {
    
     }
   
     render() {
+      
       return (
   
         <div className='main-game'>  
          <Container className="menu main-game-panel">
-         TOP
              </Container> 
              <Container className="menu main-game-panel" >
              BOTTOM
