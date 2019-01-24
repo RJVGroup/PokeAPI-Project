@@ -23,11 +23,15 @@ public class ShopService {
 	private PlayerService playerService;
 	
 	@Autowired
-	private Shop shop;
+	Shop shop;
 	
-	public Shop createShop() {
+	public List<Item> createShop() {
+		List<Item> inventory = generateShopInventory();
+		
+		shop = new Shop(inventory);
+		
 		return
-			new Shop(generateShopInventory());
+			shop.getShopInventory();
 	}
 	
 	public List<Item> generateShopInventory() {
@@ -56,18 +60,22 @@ public class ShopService {
 		return shopInventory;
 	}
 	
+	public List<Item> getInventory() {
+		return
+			shop.getShopInventory();
+	}
+	
 	public boolean buyItem(int itemIndex, Player player){
 		
-		Item item = shop.getShopInventory().get(itemIndex);
+		Item item =	shop.getShopInventory().get(itemIndex);
 		
-		if (player.getMoney()<item.getItemPrice()) {
+		if (player.getMoney() < item.getItemPrice()) {
 			return false;
-			} 
-		else {
+		} else {
 			playerService.addToBag(item);
-			playerService.addMoney(-1*item.getItemPrice());
+			playerService.addMoney(-1 * item.getItemPrice());
 			return true;
-			}
+		}
 	}
 	
 	public void sellItem(String itemType, String itemName, Player player) {
