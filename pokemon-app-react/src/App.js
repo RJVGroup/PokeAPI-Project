@@ -3,7 +3,7 @@ import './App.css'
 import {Navbar, NavbarBrand, NavItem, NavLink, Col, Row, Container, Input, TabContent, TabPane, Nav, Button,FormGroup} from 'reactstrap';
 import Choose from './Choose';
 import Battle from './Battle';
-import Buy from './Buy';
+import Buy from './BuyMenu';
 import Roam from './Roam';
 import Shop from './Shop';
 

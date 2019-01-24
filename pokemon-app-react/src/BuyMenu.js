@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Navbar, NavbarBrand, NavItem, NavLink, Nav,Container, Input, Table, Button, ButtonGroup} from 'reactstrap';
 
-export default class Buy extends Component {
+export default class BuyMenu extends Component {
     
     constructor(props) {
         super(props);

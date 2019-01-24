@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './App.css'
 import FrontImg from './FrontImg';
 import StarterPokemon from './StarterPokemon';
-import Buy from './Buy';
+import BuyMenu from './BuyMenu';
 
 
 
@@ -23,26 +23,26 @@ export default class Shop extends Component {
           };
     }
     buyClick(){
-      this.setState({items:true})
+      this.setState({buy:true})
      }
      buyClose(){
-      this.setState({items:false})
+      this.setState({buy:false})
      }
      sellClick(){
-        this.setState({items:true})
+        this.setState({sell:true})
        }
     sellClose(){
-        this.setState({items:false})
+        this.setState({sell:false})
      }
 
   render() {
-    const buy=this.state.items;
-    const sell=this.state.items;
+    const buy=this.state.buy;
+    const sell=this.state.sell;
 
         if(buy){
           return (
             <div className='col-game'> 
-            <Buy close={this.buyClose}/> 
+            <BuyMenu close={this.buyClose}/> 
              </div>)}
     
     return (

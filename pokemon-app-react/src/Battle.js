@@ -3,6 +3,8 @@ import './App.css'
 import {Navbar, NavbarBrand, NavItem, NavLink, Col, Row, Container, Input, TabContent, TabPane, Nav, Button,FormGroup} from 'reactstrap';
 import Bag from './Bag';
 import PokemonParty from './PokemonParty';
+import FightMenu from './FightMenu';
+
 import FrontImg from './FrontImg';
 import BackImg from './BackImg';
 
@@ -11,16 +13,25 @@ import BackImg from './BackImg';
 export default class Battle extends Component {
     constructor(props) {
       super(props);
+      this.fightClick=this.fightClick.bind(this);
+      this.fightClose=this.fightClose.bind(this);
       this.bagClick=this.bagClick.bind(this);
       this.bagClose=this.bagClose.bind(this);
       this.pokemonClick=this.pokemonClick.bind(this);
       this.pokemonClose=this.pokemonClose.bind(this);
 
     this.state = {
+      fight:false,
       bag:false,
       pokemon:false
     };
   }
+  fightClick(){
+    this.setState({fight:true})
+   }
+  fightClose(){
+    this.setState({fight:false})
+   }
   bagClick(){
     this.setState({bag:true})
    }
@@ -39,9 +50,17 @@ export default class Battle extends Component {
   
   
     render() {
+      const fight=this.state.fight;
+
       const bag=this.state.bag;
       const pokemon=this.state.pokemon;
-
+      
+      if(fight){
+        return (
+          <div className='col-game'> 
+          <FightMenu close={this.fightClose}/> 
+           </div>)
+      }
     if(bag){
       return (
         <div className='col-game'> 
@@ -69,10 +88,10 @@ export default class Battle extends Component {
          </Container> 
              <div className='row-game'>
              <Container className="menu main-game-panel" >      
-             Text
+             
              </Container> 
              <Container className="menu main-game-panel" >      
-             <button className=" main-game-panel">Fight</button>
+             <button className=" main-game-panel"  onClick={this.fightClick}>Fight</button>
              <button className=" main-game-panel" onClick={this.pokemonClick}>Pokemon</button>
              <button className=" main-game-panel" onClick={this.bagClick}>Bag</button>
              <button className=" main-game-panel">Run</button>
