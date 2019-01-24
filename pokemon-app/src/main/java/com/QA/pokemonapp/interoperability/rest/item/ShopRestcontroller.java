@@ -41,8 +41,9 @@ public class ShopRestcontroller {
 			shopService.buyItem(itemIndex, player);
 	}
 
-	@GetMapping("sell-item/{itemType}/{itemName}")
-	public void sellItem(@PathVariable String itemType, @PathVariable String itemIndex) {
-		shopService.sellItem(itemType, itemIndex, player);
+	@PostMapping("sell-item/{itemIndex}")
+	public int sellItem(@PathVariable int itemIndex) {
+		return
+			shopService.sellItem(itemIndex, player);
 	}
 }

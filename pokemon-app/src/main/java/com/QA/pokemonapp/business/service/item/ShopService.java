@@ -78,18 +78,24 @@ public class ShopService {
 		}
 	}
 	
-	public void sellItem(String itemType, String itemName, Player player) {
+	public int sellItem(int itemIndex, Player player) {
 		
-		Item item = null;
+		Item item = playerService.getBag().get(itemIndex);
 		
-		if(itemType.equals("potion")) {
-			item = itemController.createPotion(itemName);
+	/*	if(itemName.contains("potion")) {
+			item = itemController.createPotion(itemName.toUpperCase().replace("-", "_"));
 		}
-		else if (itemType.equals("pokeball")) {
-			item = itemController.createPokeball(itemName);
-		}
-
-		playerService.addMoney((int)0.5*item.getItemPrice());
-		player.removeFromBag(item);
+		else if (itemName.contains("ball")) {
+			item = itemController.createPokeball(itemName.toUpperCase().replace("-", "_"));
+		}*/
+		
+		int amount = (int)0.5*item.getItemPrice();
+		
+		playerService.removeFromBag(item);
+		playerService.addMoney(amount);
+		
+		
+		return 
+			amount;
 	}
 }

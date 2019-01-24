@@ -52,11 +52,11 @@ export default class BuyMenu extends Component {
                 <td>{array[arrayIndex].itemName}</td>
                 <td>{array[arrayIndex].itemPrice/2}</td>
                 <td>{array[arrayIndex].itemDescription}</td>
-                <td><button>Sell</button></td>
+                <td><button onClick={(e) => this.handleClick(arrayIndex, e)}>Sell</button></td>
 
                 </tr>
                     
-           )})
+           )}, this)
         return test;
     }  
 

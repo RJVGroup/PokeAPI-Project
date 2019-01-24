@@ -21,7 +21,7 @@ public class PlayerService {
 	public PlayerService() {}
 	
 	public void addMoney(int income) {
-		player.setMoney(income + player.getMoney());
+		player.setMoney(player.getMoney() + income);
 	}
 	
 	public boolean addToParty(Pokemon newCatch) {

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Navbar, NavbarBrand, NavItem, NavLink, Nav,Container, Input, Table, Button, ButtonGroup, Dropdown, DropdownToggle, DropdownMenu, DropdownItem} from 'reactstrap';
+import {Navbar, NavbarBrand, NavItem, NavLink, Nav,Container, Input, Table, Button, ButtonGroup} from 'reactstrap';
 
 export default class BuyMenu extends Component {
     
@@ -47,8 +47,9 @@ export default class BuyMenu extends Component {
         var test = []
        
 
-        shopstock.forEach(function(arrayItem,arrayIndex,array){
+        shopstock.forEach(function(arrayItem,arrayIndex,array) {
             pos=pos++;
+            
             test.push(
                 <tr>
 
@@ -59,7 +60,7 @@ export default class BuyMenu extends Component {
 
                 </tr>
                     
-           )})
+           )}, this)
         return test;
     }  
 
@@ -89,20 +90,6 @@ export default class BuyMenu extends Component {
 
           <div>{this.generatePurchaseResponse()}</div>
             <br/>
-
-        <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
-            <DropdownToggle caret>
-            Buy Item
-            </DropdownToggle>
-                <DropdownMenu>
-                <DropdownItem header>Item:</DropdownItem>
-                <DropdownItem divider />
-                <DropdownItem onClick={(e) => this.handleClick(0, e)}>1</DropdownItem>
-                <DropdownItem onClick={(e) => this.handleClick(1, e)}>2</DropdownItem>
-                <DropdownItem onClick={(e) => this.handleClick(2, e)}>3</DropdownItem>
-                <DropdownItem onClick={(e) => this.handleClick(3, e)}>4</DropdownItem>
-            </DropdownMenu>
-        </Dropdown>
 
          <br/>
          <Table responsive>   
