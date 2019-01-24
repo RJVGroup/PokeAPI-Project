@@ -15,10 +15,18 @@ class App extends Component {
     super(props);
     this.chosenClick=this.chosenClick.bind(this);
   this.state={
-    chosen:false
+    chosen:false,
+     party: [],
   };}
   
 
+
+
+componentDidMount() {
+fetch('api/player/show-party',{method: 'GET'})
+.then(response => response.json())
+.then(data=>this.setState({party:data}))
+}
  chosenClick(){
     this.setState({chosen:true})
    }
@@ -26,7 +34,9 @@ class App extends Component {
 
   render() {
     const chosen=this.state.chosen;
-    if(!chosen){
+    const party=this.state.party;
+
+    if(chosen==false&&party==''){
     return (
       <div className="App">
       <Choose close={this.chosenClick}/>
