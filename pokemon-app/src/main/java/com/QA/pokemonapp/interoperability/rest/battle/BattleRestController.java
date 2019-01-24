@@ -39,7 +39,7 @@ public class BattleRestController {
 	
 	@PostMapping(value = "/turn/{chosenPokemon}/{chosenMove}/{targetSelf}")
 	@ResponseBody
-	public int takeTurn(@PathVariable String chosenPokemon, @PathVariable String chosenMove, @PathVariable boolean targetSelf) {
+	public int takeTurn(@RequestBody String payload, @PathVariable String chosenPokemon, @PathVariable String chosenMove, @PathVariable boolean targetSelf) {
 		
 		return
 				battleManager.takeATurn(
