@@ -1,37 +1,37 @@
 import React, {Component} from 'react';
 import {Navbar, NavbarBrand, NavItem, NavLink, Nav,Container, Input, Table, Button, ButtonGroup} from 'reactstrap';
 
-export default class PokemonParty extends Component {
+export default class Buy extends Component {
     
     constructor(props) {
         super(props);
         this.state = {
-            party: [],
+            shopstock: [],
+            itemdescription:''
         }
     }
 
 
     componentDidMount() {
-        fetch('api/player/show-party',{method: 'GET'})
+        fetch('api/shop/generate',{method: 'GET'})
         .then(response => response.json())
-        .then(data=>this.setState({party:data}))
+        .then(data=>this.setState({shopstock:data.shopInventory}))
     }
-    generatelist =()=>{
+    generateshop =()=>{
          let pos = 0;
-         let party=this.state.party;
+         let shopstock=this.state.shopstock;
         var test = []
        
 
-        party.forEach(function(arrayItem,arrayIndex,array){
+        shopstock.forEach(function(arrayItem,arrayIndex,array){
             pos=pos++;
             test.push(
                 <tr>
 
-                <td>{array[arrayIndex].name}</td>
-                <td>{array[arrayIndex].types}</td>
-                <td>{array[arrayIndex].level}</td>
-                <td>{array[arrayIndex].currentHP}/{array[arrayIndex].hp}</td>
-
+                <td>{array[arrayIndex].itemName}</td>
+                <td>{array[arrayIndex].itemPrice}</td>
+                <td>{array[arrayIndex].itemDescription}</td>
+                <td><button >Buy</button></td>
 
                 </tr>
                     
@@ -47,19 +47,18 @@ export default class PokemonParty extends Component {
 
          <Container className="menu main-game-panel">
          <button  onClick={this.props.close}>Go Back</button>        
+          <div>Wallet:?</div>
 
          <br/>
          <Table responsive>   
                         <thead>
                             <tr>
-                                <th>Name</th>
-                                <th>Type</th>
-                                <th>Level</th>
-                                <th>HP</th>
+                                <th>Item Name</th>
+                                <th>Price</th>
                             </tr>
                         </thead>
                         <tbody>
-                        {this.generatelist()}
+                        {this.generateshop()}
                         </tbody>
                     </Table>   
         </Container> 
