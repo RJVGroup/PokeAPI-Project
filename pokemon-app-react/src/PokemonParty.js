@@ -23,9 +23,7 @@ export default class PokemonParty extends Component {
     generatelist =()=>{
          let pos = 0;
          let party=this.state.party;
-        var test = []
-        var bag=''
-       
+        var test = []       
 
         party.forEach(function(arrayItem,arrayIndex,array){
             pos=pos++;
@@ -54,10 +52,7 @@ export default class PokemonParty extends Component {
          
 
          <Container className="menu main-game-panel">
-         <button  onClick={this.props.close}>Go Back</button> 
-         <h2>Choose your Pokémon</h2>      
-
-         <br/>
+         
          <Table responsive>   
                         <thead>
                             <tr>
@@ -71,7 +66,10 @@ export default class PokemonParty extends Component {
                         <tbody>
                         {this.generatelist()}
                         </tbody>
-                    </Table>   
+                    </Table>
+                    <br/>
+                    <button  onClick={this.props.close}>Go Back</button> 
+   
         </Container> 
         </div>  
         )            

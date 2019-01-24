@@ -21,6 +21,7 @@ export default class Battle extends Component {
       this.pokemonClose=this.pokemonClose.bind(this);
 
     this.state = {
+      epokemon:[],
       fight:false,
       bag:false,
       pokemon:false
@@ -44,9 +45,11 @@ export default class Battle extends Component {
    pokemonClose(){
     this.setState({pokemon:false})
    }
-  componentDidMount() {
-   
-    }
+   componentDidMount() {
+    fetch('api/pokemon/5/'+this.props.encounter,{method: 'GET'})
+      .then(response => response.json())
+      .then(data=>this.setState({epokemon:data}));
+  }
   
   
     render() {
@@ -80,11 +83,13 @@ export default class Battle extends Component {
          <Container className="menu row-game">
          <div className="pokemonimg main-game-panel"  >  
          <BackImg id='1'/>
-         HP</div>
+         HP:</div>
          <br/>
          <div className="pokemonimg main-game-panel"  >  
-         <FrontImg id='1'/>
-         HP</div>
+         <FrontImg id={this.state.epokemon.id}/>
+         {this.state.epokemon.name} Level:{this.state.epokemon.level}
+         <br/>
+         HP:{this.state.epokemon.currentHP}/{this.state.epokemon.hp}</div>
          </Container> 
              <div className='row-game'>
              <Container className="menu main-game-panel" >      
@@ -94,7 +99,7 @@ export default class Battle extends Component {
              <button className=" main-game-panel"  onClick={this.fightClick}>Fight</button>
              <button className=" main-game-panel" onClick={this.pokemonClick}>Pokemon</button>
              <button className=" main-game-panel" onClick={this.bagClick}>Bag</button>
-             <button className=" main-game-panel">Run</button>
+             <button className=" main-game-panel"onClick={this.props.close}>Run</button>
              </Container> </div>
         </div>  
       );
