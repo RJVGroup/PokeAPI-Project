@@ -1,5 +1,8 @@
 package com.QA.pokemonapp.persistance.domain.items;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.QA.pokemonapp.business.service.player.PlayerService;
 import com.QA.pokemonapp.persistance.domain.Pokemon;
 
 public class Item {
@@ -7,6 +10,9 @@ public class Item {
 	private int itemID;
 	private String itemDescription;
 	private int itemPrice;
+	
+	@Autowired
+	protected PlayerService player;
 	
 	public Item() { }
 	
