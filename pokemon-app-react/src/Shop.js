@@ -1,46 +1,58 @@
-import React, {Component} from 'react';
-import {Navbar, NavbarBrand, NavItem, NavLink, Nav,Container, Input, Table, Button, ButtonGroup} from 'reactstrap';
+import React, { Component } from 'react';
+import './App.css'
+import FrontImg from './FrontImg';
+import StarterPokemon from './StarterPokemon';
+import BuyMenu from './BuyMenu';
+
+
+
+import {Navbar, NavbarBrand, NavItem, NavLink, Col, Row, Container, Input, TabContent, TabPane, Nav, Button,FormGroup} from 'reactstrap';
+
 
 export default class Shop extends Component {
-    
     constructor(props) {
         super(props);
-        this.state = {
-            shopstock: []
-        }
+        this.buyClick=this.buyClick.bind(this);
+        this.buyClose=this.buyClose.bind(this);
+        this.sellClick=this.sellClick.bind(this);
+        this.sellClose=this.sellClose.bind(this);
+  
+      this.state = {
+        buy:false,
+        sell:false
+          };
     }
+    buyClick(){
+      this.setState({buy:true})
+     }
+     buyClose(){
+      this.setState({buy:false})
+     }
+     sellClick(){
+        this.setState({sell:true})
+       }
+    sellClose(){
+        this.setState({sell:false})
+     }
 
+  render() {
+    const buy=this.state.buy;
+    const sell=this.state.sell;
 
-    componentDidMount() {
-        const shop =fetch('api/shop/generate',{method: 'GET'})
-        .then(response => response.json())
-        .then(data=>this.setState({shopstock:data.shopInventory}))
-    }
-    generateshop =()=>{
-         let pos = 0;
-         let shopstock=this.state.shopstock;
-        var test = []
-       
-
-        shopstock.forEach(function(arrayItem,arrayIndex,array){
-            pos=pos++;
-            test.push(
-                    
-                <div>
-                  <button>  {array[arrayIndex].itemName}</button></div>
-                    
-                
-           )})
-        return test;
-    }  
-
-    render() {
-        return (
-                <div className='main-game'>  
-         <Container className="menu main-game-panel">
-       {this.generateshop()}
-             </Container> 
-        </div>  
-        )            
-        }
+        if(buy){
+          return (
+            <div className='col-game'> 
+            <BuyMenu close={this.buyClose}/> 
+             </div>)}
+    
+    return (
+      <div className="col-game">
+    <Container className="menu main-game-panel" >      
+    <button className=" main-game-panel" onClick={this.buyClick}>Buy</button>
+     <button className=" main-game-panel"onClick={this.sellClick}>Sell</button>
+     <button className=" main-game-panel" onClick={this.props.close}>Leave</button>    
+     </Container>
+      </div>
+    );
+  }
 }

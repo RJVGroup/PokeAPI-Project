@@ -36,13 +36,13 @@
                 0 2px #424542;
     
   }
-  .main-game {
+  .col-game {
     display: flex;
     flex-direction: column;
     flex: 1;
     height: 100%;
   }
-  .choose-game {
+  .row-game {
     display: flex;
     flex-direction: row;
     flex: 1;
@@ -58,6 +58,7 @@
   }
   
   .pokemonimg > img {
-    width: 200px;
+    width: 150px;
   }
+ 
   
