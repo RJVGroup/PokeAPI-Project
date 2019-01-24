@@ -32,6 +32,11 @@ public class PlayerService {
 		return false;
 	}
 	
+	public int getMoney() {
+		return
+			player.getMoney();
+	}
+	
 	public List<Item> getBag() {
 		return
 			player.getBag();

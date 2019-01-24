@@ -34,6 +34,12 @@ public class PlayerRestController {
 			playerService.getParty();
 	}
 	
+	@GetMapping("/show-balance")
+	public int getMoney() {
+		return
+			playerService.getMoney();
+	}
+	
 	@GetMapping("/show-party")
 	public List<Pokemon> getParty() {
 		return
