@@ -22,6 +22,7 @@ export default class Battle extends Component {
 
     this.state = {
       epokemon:[],
+      pokemon:[],
       fight:false,
       bag:false,
       pokemon:false
@@ -46,10 +47,10 @@ export default class Battle extends Component {
     this.setState({pokemon:false})
    }
    componentDidMount() {
-    fetch('api/pokemon/5/'+this.props.encounter,{method: 'GET'})
-      .then(response => response.json())
-      .then(data=>this.setState({epokemon:data}));
-  }
+    fetch('api/pokemon/'+this.props.elevel+'/'+this.props.ename,{method: 'GET'})
+    .then(response => response.json())
+    .then(data=>this.setState({epokemon:data}));
+}
   
   
     render() {
@@ -83,13 +84,14 @@ export default class Battle extends Component {
          <Container className="menu row-game">
          <div className="pokemonimg main-game-panel"  >  
          <BackImg id='1'/>
-         HP:</div>
+         </div>
          <br/>
+
          <div className="pokemonimg main-game-panel"  >  
          <FrontImg id={this.state.epokemon.id}/>
          {this.state.epokemon.name} Level:{this.state.epokemon.level}
          <br/>
-         HP:{this.state.epokemon.currentHP}/{this.state.epokemon.hp}</div>
+         HP:{this.state.epokemon.currentHP}</div>
          </Container> 
              <div className='row-game'>
              <Container className="menu main-game-panel" >      

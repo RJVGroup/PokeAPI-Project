@@ -22,11 +22,13 @@ export default class Roam extends Component {
       this.run=this.run.bind(this);
 
     this.state = {
+      currentpokemon:[],
       location:[],
       bag:false,
       pokemon:false,
       shop:false,
       name:'',
+      level:'',
     };
   }
 
@@ -34,8 +36,8 @@ export default class Roam extends Component {
     fetch('api/player/move',{method: 'POST'})
       .then(response => response.json())
       .then(data=>this.setState({location:data}))
-    if(this.state.location.pokemonEncountered!=null){this.setState({ name:this.state.location.pokemonEncountered.name})} 
-    else{this.setState({ name:''})}
+    if(this.state.location.pokemonEncountered!=null){this.setState({ name:this.state.location.pokemonEncountered.name, level:this.state.location.pokemonEncountered.level})} 
+    else{this.setState({ name:'', level:''})}
   }
   bagClick(){
     this.setState({bag:true})
@@ -64,11 +66,13 @@ export default class Roam extends Component {
       const shop=this.state.shop;
       const location=this.state.location.name;
       const name=this.state.name;
+      const level=this.state.level;
+
 
      if(name!=''){
         return (
           <div className='col-game'> 
-          <Battle encounter={this.state.name} close={this.run}/> 
+          <Battle ename={name} elevel={level} close={this.run}/> 
            </div>)
      }
       
@@ -95,8 +99,7 @@ export default class Roam extends Component {
   
         <div className='col-game'>  
          <Container className="menu row-game">
-        {location}
-        {name}
+        You went to the {location}
          </Container> 
              <div className='row-game'>
              <Container className=" menu img-game-panel">      

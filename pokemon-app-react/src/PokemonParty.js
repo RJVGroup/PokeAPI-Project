@@ -33,7 +33,7 @@ export default class PokemonParty extends Component {
                 <td>{array[arrayIndex].name}</td>
                 <td>{array[arrayIndex].types}</td>
                 <td>{array[arrayIndex].level}</td>
-                <td>{array[arrayIndex].currentHP}/{array[arrayIndex].hp}</td>
+                <td>{array[arrayIndex].currentHP}</td>
 
 
 
