@@ -3,8 +3,10 @@ import './App.css'
 import {Navbar, NavbarBrand, NavItem, NavLink, Col, Row, Container, Input, TabContent, TabPane, Nav, Button,FormGroup} from 'reactstrap';
 import Choose from './Choose';
 import Battle from './Battle';
-import Shop from './Shop';
+import Buy from './BuyMenu';
 import Roam from './Roam';
+import Shop from './Shop';
+
 
 
 
@@ -26,8 +28,8 @@ class App extends Component {
     const chosen=this.state.chosen;
     if(!chosen){
     return (
-      <div className="App"onClick={this.chosenClick}>
-      <Choose/>
+      <div className="App">
+      <Choose close={this.chosenClick}/>
       </div>
 
     );}
