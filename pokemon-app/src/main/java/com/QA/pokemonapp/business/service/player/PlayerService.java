@@ -63,6 +63,15 @@ public class PlayerService {
 		return false;
 	}
 	
+	public boolean removeFromBag(Item removeItem) {
+		if (player.getBag().contains(removeItem)) {
+			player.getBag().remove(removeItem);
+			return true;
+		}
+		return false;
+	}
+	
+	
 	public Terrain move() {
 		return
 			terrainGenerator.getTerrain(player.getParty().stream().mapToInt(Pokemon::getLevel).sum() / player.getParty().size());

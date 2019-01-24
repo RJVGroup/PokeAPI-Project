@@ -108,7 +108,7 @@ public class BattleManager {
 	}
 	
 	private void playerUseMove(Move move, Pokemon player, Pokemon enemy) {
-		if(didHit(move) && ((player.getStatus() != null && !player.getStatus().equals(null)) || player.getStatus() == null)) {
+		if(didHit(move) && ((player.getStatus() != null && !player.getStatus().getDetails().noAttackThisTurn()) || player.getStatus() == null)) {
 			pokemonService.takeDamage(enemy,calculateDamage(move, player, enemy));
 			if (enemy.getCurrentHP() <= 0) {
 				enemy.setStatusCondition(EStatus.FAINT);

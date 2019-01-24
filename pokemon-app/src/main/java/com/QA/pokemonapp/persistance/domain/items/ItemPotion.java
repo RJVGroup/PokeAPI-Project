@@ -1,7 +1,6 @@
 package com.QA.pokemonapp.persistance.domain.items;
 
 import com.QA.pokemonapp.constantsandenums.EStatus;
-import com.QA.pokemonapp.persistance.domain.Player;
 import com.QA.pokemonapp.persistance.domain.Pokemon;
 
 public class ItemPotion extends Item{
@@ -21,13 +20,13 @@ public class ItemPotion extends Item{
 	}
 	@Override
 	public boolean useItem(Pokemon target) {
-		if (target.getStatus() == EStatus.FAINT.getDetails()) {
+		if (target.getStatus() == EStatus.FAINT) {
 			return false;
 		}
 		
 		int newHealth = Math.min(target.getCurrentHP() + restoreAmount,target.getHP());
 		target.setCurrentHP(newHealth);
-		Player.removeFromBag(this);
+		player.removeFromBag(this);
 		return true;
 	}
 
