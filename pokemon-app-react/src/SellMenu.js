@@ -8,28 +8,25 @@ export default class BuyMenu extends Component {
         this.handleClick = this.handleClick.bind(this);
         this.toggle = this.toggle.bind(this);
         this.state = {
-            shopstock: [],
-            playerbalance: null,
-            itemdescription:'',
-            purchaseResponse: null,
-            dropdownOpen: false
+            playerInventory: [],
+            playerBalance: null
         }
     }
 
 
     componentDidMount() {
 
-        fetch('api/shop/generate',{method: 'GET'})
+        fetch('api/player/show-bag',{method: 'GET'})
         .then(response => response.json())
-        .then(data=>this.setState({shopstock:data}))
+        .then(data=>this.setState({playerInventory:data}))
 
         fetch('api/player/show-balance', {method: 'GET'})
         .then(response => response.json())
-        .then(data=>this.setState({playerbalance:data}))
+        .then(data=>this.setState({playerBalance:data}))
     }
     
     handleClick = (itemIndex) => {
-        fetch('api/shop/buy-item/' + itemIndex, {method: 'POST'})
+        fetch('api/shop/sell-item/' + itemIndex, {method: 'POST'})
         .then(response => response.json())
         .then(data => this.setState({purchaseResponse:data})
     )
@@ -41,21 +38,21 @@ export default class BuyMenu extends Component {
         }));
       }
 
-    generateshop =()=>{
+    generateInventory =()=>{
          let pos = 0;
-         let shopstock=this.state.shopstock;
+         let playerInventory=this.state.playerInventory;
         var test = []
        
 
-        shopstock.forEach(function(arrayItem,arrayIndex,array){
+        playerInventory.forEach(function(arrayItem,arrayIndex,array){
             pos=pos++;
             test.push(
                 <tr>
 
                 <td>{array[arrayIndex].itemName}</td>
-                <td>{array[arrayIndex].itemPrice}</td>
+                <td>{array[arrayIndex].itemPrice/2}</td>
                 <td>{array[arrayIndex].itemDescription}</td>
-                <td><button onClick={(e) => this.handleClick(arrayIndex, e)}>Buy</button></td>
+                <td><button>Sell</button></td>
 
                 </tr>
                     
@@ -80,29 +77,12 @@ export default class BuyMenu extends Component {
     
     render() {
         return (
-                <div className='col-game'>  
+        <div className='col-game'>  
          
 
          <Container className="menu main-game-panel">
          <button  onClick={this.props.close}>Go Back</button>        
-          <div>Wallet: {this.state.playerbalance}</div>
-
-          <div>{this.generatePurchaseResponse()}</div>
-            <br/>
-
-        <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
-            <DropdownToggle caret>
-            Buy Item
-            </DropdownToggle>
-                <DropdownMenu>
-                <DropdownItem header>Item:</DropdownItem>
-                <DropdownItem divider />
-                <DropdownItem onClick={(e) => this.handleClick(0, e)}>1</DropdownItem>
-                <DropdownItem onClick={(e) => this.handleClick(1, e)}>2</DropdownItem>
-                <DropdownItem onClick={(e) => this.handleClick(2, e)}>3</DropdownItem>
-                <DropdownItem onClick={(e) => this.handleClick(3, e)}>4</DropdownItem>
-            </DropdownMenu>
-        </Dropdown>
+          <div>Wallet: {this.state.playerBalance}</div>
 
          <br/>
          <Table responsive>   
@@ -113,7 +93,7 @@ export default class BuyMenu extends Component {
                             </tr>
                         </thead>
                         <tbody>
-                        {this.generateshop()}
+                        {this.generateInventory()}
                         </tbody>
                     </Table>   
         </Container> 

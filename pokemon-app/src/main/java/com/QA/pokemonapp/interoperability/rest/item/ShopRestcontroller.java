@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.QA.pokemonapp.business.service.item.ShopService;
 import com.QA.pokemonapp.persistance.domain.Player;
-import com.QA.pokemonapp.persistance.domain.Shop;
 import com.QA.pokemonapp.persistance.domain.items.Item;
 
 @RestController
