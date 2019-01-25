@@ -77,4 +77,4 @@ public class PlayerService {
 			terrainGenerator.getTerrain(player.getParty().stream().mapToInt(Pokemon::getLevel).sum() / player.getParty().size());
 	
 	}
-}
+	}
