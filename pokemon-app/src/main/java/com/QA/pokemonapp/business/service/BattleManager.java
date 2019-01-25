@@ -94,17 +94,24 @@ public class BattleManager {
 	public int takeATurn(Pokemon playerMon, Item playerItem, boolean targetSelf, Pokemon enemyMon) {
 		int result = 0; //0 = ongoing; 1=player victory; 2= enemy victory; 3= runaway
 		enemyUseMove(enemyMon.getMoveList().get(rand.nextInt(3)), playerMon, enemyMon);
+		statusEndOfTurnEffects(playerMon, enemyMon);
+		result = checkResult(playerMon, enemyMon);
 		return result;
 	}
 	
 	public int takeATurn(Pokemon playerMon, Pokemon enemyMon) {
 		double chance = (rand.nextInt(4) + 8)/10;
 		int result = playerMon.getSpeed() * chance >= enemyMon.getSpeed() ? 3 : 0; //0 = ongoing; 1=player victory; 2= enemy victory; 3= runaway
+		if (result == 0) {
+			enemyUseMove(enemyMon.getMoveList().get(rand.nextInt(3)), playerMon, enemyMon);
+		}
+		statusEndOfTurnEffects(playerMon, enemyMon);
+		result = checkResult(playerMon, enemyMon);
 		return result;
 	}
 	
 	private boolean didHit(Move used) {
-		return rand.nextInt(100) < used.getMoveAccuracy();
+		return rand.nextInt(100) <= used.getMoveAccuracy();
 	}
 	
 	private void playerUseMove(Move move, Pokemon player, Pokemon enemy) {
