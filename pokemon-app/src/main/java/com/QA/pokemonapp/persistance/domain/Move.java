@@ -14,6 +14,7 @@ public class Move {
 	private int moveSecondaryChance;
 	private Integer maximumNumberOfHits;
 	private Integer minimumNumberOfHits;
+	private boolean targetSelf;
 	
 	public Move() {
 		
@@ -21,7 +22,7 @@ public class Move {
 
 	public Move(String moveName, int movePower, int moveAccuracy, EDamageClass damageClass, ETypes moveType,
 			EStatus moveSecondaryEffect, int moveSecondaryChance,
-			int maximumNumberOfHits, int minimumNumberOfHits) {
+			int maximumNumberOfHits, int minimumNumberOfHits, boolean targetSelf) {
 		super();
 		this.moveName = moveName;
 		this.movePower = movePower;
@@ -32,6 +33,7 @@ public class Move {
 		this.moveSecondaryChance = moveSecondaryChance;
 		this.maximumNumberOfHits = maximumNumberOfHits;
 		this.minimumNumberOfHits = minimumNumberOfHits;
+		this.targetSelf = targetSelf;
 	}
 
 	public String getMoveName() {
@@ -68,6 +70,14 @@ public class Move {
 
 	public int getMinimumNumberOfHits() {
 		return minimumNumberOfHits;
+	}
+
+	public boolean isTargetSelf() {
+		return targetSelf;
+	}
+
+	public void setTargetSelf(boolean targetSelf) {
+		this.targetSelf = targetSelf;
 	}
 	
 	
