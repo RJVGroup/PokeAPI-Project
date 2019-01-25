@@ -18,6 +18,7 @@ import com.QA.pokemonapp.business.service.terrain.TerrainGenerator;
 import com.QA.pokemonapp.business.service.terrain.TerrainInterface;
 import com.QA.pokemonapp.constantsandenums.TypeEffectivenessChecker;
 import com.QA.pokemonapp.interoperability.rest.type.TypeEffectivenessPokeAPIController;
+import com.QA.pokemonapp.persistance.domain.EnemyPokemon;
 import com.QA.pokemonapp.persistance.domain.Player;
 import com.QA.pokemonapp.persistance.domain.Shop;
 
@@ -72,6 +73,12 @@ public class PokemonAppApplication {
 	@Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
 	public Shop getShop() {
 		return new Shop();
+	}
+	
+	@Bean 
+	@Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
+	public EnemyPokemon getEnemyPokemon() {
+		return new EnemyPokemon();
 	}
 	
 	@Bean
