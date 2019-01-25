@@ -42,13 +42,13 @@ fetch('api/player/show-party',{method: 'GET'})
       <Choose close={this.chosenClick}/>
       </div>
 
-    );}
+    );} else{
       return (
         <div className="App">
         <Roam/>
         </div>
   
-      );
+      );}
   }
 }
 

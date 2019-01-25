@@ -21,13 +21,15 @@ export default class Battle extends Component {
       this.pokemonClose=this.pokemonClose.bind(this);
 
     this.state = {
-      epokemon:[],
-      pokemon:[],
+      epokemon:this.props.epokemon,
+      cpokemon:this.props.cpokemon,
+
       fight:false,
       bag:false,
       pokemon:false
     };
   }
+ 
   fightClick(){
     this.setState({fight:true})
    }
@@ -46,15 +48,13 @@ export default class Battle extends Component {
    pokemonClose(){
     this.setState({pokemon:false})
    }
-   componentDidMount() {
-    fetch('api/pokemon/'+this.props.elevel+'/'+this.props.ename,{method: 'GET'})
-    .then(response => response.json())
-    .then(data=>this.setState({epokemon:data}));
-}
+   
   
   
     render() {
       const fight=this.state.fight;
+      const epokemon=this.state.epokemon
+      const cpokemon=this.state.cpokemon
 
       const bag=this.state.bag;
       const pokemon=this.state.pokemon;
@@ -62,7 +62,7 @@ export default class Battle extends Component {
       if(fight){
         return (
           <div className='col-game'> 
-          <FightMenu close={this.fightClose}/> 
+          <FightMenu level={cpokemon.level} name={cpokemon.name} close={this.fightClose}/> 
            </div>)
       }
     if(bag){
@@ -82,20 +82,23 @@ export default class Battle extends Component {
   
         <div className='col-game'>  
          <Container className="menu row-game">
-         <div className="pokemonimg main-game-panel"  >  
-         <BackImg id='1'/>
-         </div>
+         <div className="main-game-panel"  >  
+         <BackImg id={cpokemon.id}/>
+         {cpokemon.name} Level:{cpokemon.level}
+         <br/>
+         HP:{cpokemon.currentHP}</div>        
          <br/>
 
-         <div className="pokemonimg main-game-panel"  >  
-         <FrontImg id={this.state.epokemon.id}/>
-         {this.state.epokemon.name} Level:{this.state.epokemon.level}
+         <div className="main-game-panel"  >  
+         <FrontImg id={epokemon.id}/>
+         {epokemon.name} Level:{epokemon.level}
          <br/>
-         HP:{this.state.epokemon.currentHP}</div>
+         HP:{epokemon.currentHP}</div>
          </Container> 
              <div className='row-game'>
-             <Container className="menu main-game-panel" >      
-             
+             <Container className="menu main-game-panel" > 
+             <h1>{this.props.location}</h1>    
+             <h1>You encounter a {epokemon.name} pokémon</h1>
              </Container> 
              <Container className="menu main-game-panel" >      
              <button className=" main-game-panel"  onClick={this.fightClick}>Fight</button>
