@@ -32,21 +32,31 @@ export default class Roam extends Component {
       bag:false,
       pokemon:false,
       shop:false,
+      location:'',
+      location1:'',
       locationtext:'You set off to find pokémon and adventure!'
     };
   }
-  
+  componentDidMount(){
+    Promise.all([fetch('api/player/move',{method: 'POST'}), fetch('api/player/show-party',{method: 'GET'})])
+  .then(([res1, res2]) => Promise.all([res1.json(), res2.json()]))
+  .then(([data1, data2]) => this.setState({
+    location:data1.name,
+    }));
+  }
+
   move() {
     Promise.all([fetch('api/player/move',{method: 'POST'}), fetch('api/player/show-party',{method: 'GET'})])
   .then(([res1, res2]) => Promise.all([res1.json(), res2.json()]))
   .then(([data1, data2]) => this.setState({
     move:data1,
-    locationtext:'You arrived at a '+data1.name+'.',
+    location:data1.name,
     cpokemon:data2[0],
     }));
-
+if(this.state.location==this.state.location1){this.setState({locationtext:'You arrived at a '+this.state.location+' again.'})}else{this.setState({locationtext:'You arrived at a '+this.state.location+'.', location1:this.state.location})}
       if(this.state.move.pokemonEncountered==null){this.setState({epokemon:''})}else{this.setState({epokemon:this.state.move.pokemonEncountered})}
   }
+
   bagClick(){
     this.setState({bag:true})
    }
@@ -88,7 +98,8 @@ export default class Roam extends Component {
            </div>)
      }
       
-    if(bag){
+    else{
+      if(bag){
       return (
         <div className='col-game'> 
         <Bag close={this.bagClose}/> 
@@ -130,5 +141,5 @@ export default class Roam extends Component {
         </div>  
       );
      
-   }
+   }}
   }

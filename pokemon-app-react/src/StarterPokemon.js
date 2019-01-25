@@ -7,21 +7,13 @@ export default class StarterPokemon extends Component {
     constructor(props) {
         super(props);
         this.chooseStarter=this.chooseStarter.bind(this);
-      this.state = {
-          starter: [],
-         
+      this.state = {         
     }
     }
     
-    
-    componentDidMount() {
-      fetch('api/pokemon/5/'+this.props.pokemon,{method: 'GET'})
-        .then(response => response.json())
-        .then(data=>this.setState({starter:data}));
-    }
        
        chooseStarter() {
-        fetch('/api/player/choose-starter/'+this.props.pokemon
+        fetch('/api/player/choose-starter/'+this.props.pokemon.name
         ,{
           method: 'POST',
         });
@@ -30,12 +22,12 @@ export default class StarterPokemon extends Component {
       render() {
         return (
            <button className="menu main-game-panel" onClick={this.chooseStarter} style={this.props.pokestyle}>
-              <FrontImg id={this.state.starter.id}/>
-                NAME: {this.state.starter.name}
+              <FrontImg id={this.props.pokemon.id}/>
+                NAME: {this.props.pokemon.name}
                  <br/> 
-                TYPE: {this.state.starter.types}
+                TYPE: {this.props.pokemon.types}
                 <br/>
-                LEVEL: {this.state.starter.level}
+                LEVEL: {this.props.pokemon.level}
                 <br/>
             </button>
         )
