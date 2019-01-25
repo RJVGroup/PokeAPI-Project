@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import com.QA.pokemonapp.persistance.domain.items.Item;
 
 public class Player {
-	private int money = 0;
+	private int money = 1000;
 	private ArrayList<Pokemon> party = new ArrayList<Pokemon>();
 	private ArrayList<Item> bag = new ArrayList<Item>();
 	private int[] position = {0,0};

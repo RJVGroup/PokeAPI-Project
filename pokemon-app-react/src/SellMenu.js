@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Navbar, NavbarBrand, NavItem, NavLink, Nav,Container, Input, Table, Button, ButtonGroup} from 'reactstrap';
+import {Navbar, NavbarBrand, NavItem, NavLink, Nav,Container, Input, Table, Button, ButtonGroup, Dropdown, DropdownToggle, DropdownMenu, DropdownItem} from 'reactstrap';
 
 export default class BuyMenu extends Component {
     
@@ -9,26 +9,24 @@ export default class BuyMenu extends Component {
         this.toggle = this.toggle.bind(this);
         this.setState = this.setState.bind(this);
         this.state = {
-            shopstock: [],
+            playerInventory: [],
             playerBalance: null,
-            itemdescription:'',
-            purchaseResponse: null,
-            dropdownOpen: false
+            transactionResponse: null
         }
     }
 
 
     componentDidMount() {
 
-        this.getShop();
+        this.getInventory();
 
         this.getBalance();
     }
 
-    getShop = () => {
-        fetch('api/shop/generate',{method: 'GET'})
+    getInventory = () => {
+        fetch('api/player/show-bag',{method: 'GET'})
         .then(response => response.json())
-        .then(data=>this.setState({shopstock:data}))
+        .then(data=>this.setState({playerInventory:data}))
     }
 
     getBalance = () => {
@@ -38,10 +36,11 @@ export default class BuyMenu extends Component {
     }
     
     handleClick = (itemIndex) => {
-        fetch('api/shop/buy-item/' + itemIndex, {method: 'POST'})
+        fetch('api/shop/sell-item/' + itemIndex, {method: 'POST'})
         .then(response => response.json())
-        .then(data => this.setState({purchaseResponse:data}))
-        .then(this.getBalance())
+        .then(data => this.setState({transactionResponse:data}))
+        .then(this.getInventory)
+        .then(this.getBalance)
     
     }
 
@@ -51,22 +50,21 @@ export default class BuyMenu extends Component {
         }));
       }
 
-    generateshop =()=>{
+    generateInventory =()=>{
          let pos = 0;
-         let shopstock=this.state.shopstock;
+         let playerInventory=this.state.playerInventory;
         var test = []
        
 
-        shopstock.forEach(function(arrayItem,arrayIndex,array) {
+        playerInventory.forEach(function(arrayItem,arrayIndex,array){
             pos=pos++;
-            
             test.push(
                 <tr>
 
                 <td>{array[arrayIndex].itemName}</td>
-                <td>{array[arrayIndex].itemPrice}</td>
+                <td>{array[arrayIndex].itemPrice/2}</td>
                 <td>{array[arrayIndex].itemDescription}</td>
-                <td><button onClick={(e) => this.handleClick(arrayIndex, e)}>Buy</button></td>
+                <td><button onClick={(e) => this.handleClick(arrayIndex, e)}>Sell</button></td>
 
                 </tr>
                     
@@ -74,43 +72,26 @@ export default class BuyMenu extends Component {
         return test;
     }  
 
-    generatePurchaseResponse = () => {
-        if(this.state.purchaseResponse === null) {
-            return null;
-        }
-        else if(this.state.purchaseResponse === true) {
-            return <div style={{ color: 'green' }}>Succesfull Purchase</div>
-            
-        }
-        else if(this.state.purchaseResponse === false) {
-            return <div style={{ color: 'red' }}>Insufficent Funds</div>
-        }
-    }
-
-
     
     render() {
         return (
-                <div className='col-game'>  
+        <div className='col-game'>  
          
 
          <Container className="menu main-game-panel">
          <button  onClick={this.props.close}>Go Back</button>        
-          <div> Wallet: {this.state.playerBalance}</div>
-
-          <div>{this.generatePurchaseResponse()}</div>
-            <br/>
+          <div>Wallet: {this.state.playerBalance}</div>
 
          <br/>
          <Table responsive>   
                         <thead>
                             <tr>
                                 <th>Item Name</th>
-                                <th>Price</th>
+                                <th>Sell Price</th>
                             </tr>
                         </thead>
                         <tbody>
-                        {this.generateshop()}
+                        {this.generateInventory()}
                         </tbody>
                     </Table>   
         </Container> 
