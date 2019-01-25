@@ -25,9 +25,13 @@ public class ShopService {
 	@Autowired
 	private Shop shop;
 	
-	public Shop createShop() {
+	public List<Item> createShop() {
+		List<Item> inventory = generateShopInventory();
+		
+		shop = new Shop(inventory);
+		
 		return
-			new Shop(generateShopInventory());
+			shop.getShopInventory();
 	}
 	
 	public List<Item> generateShopInventory() {
@@ -56,32 +60,35 @@ public class ShopService {
 		return shopInventory;
 	}
 	
-	public boolean buyItem(int itemIndex, Player player){
-		
-		Item item = shop.getShopInventory().get(itemIndex);
-		
-		if (player.getMoney()<item.getItemPrice()) {
-			return false;
-			} 
-		else {
-			playerService.addToBag(item);
-			playerService.addMoney(-1*item.getItemPrice());
-			return true;
-			}
+	public List<Item> getInventory() {
+		return
+			shop.getShopInventory();
 	}
 	
-	public void sellItem(String itemType, String itemName, Player player) {
+	public boolean buyItem(int itemIndex, Player player){
 		
-		Item item = null;
+		Item item =	shop.getShopInventory().get(itemIndex);
 		
-		if(itemType.equals("potion")) {
-			item = itemController.createPotion(itemName);
+		if (player.getMoney() < item.getItemPrice()) {
+			return false;
+		} else {
+			playerService.addToBag(item);
+			playerService.addMoney(-1 * item.getItemPrice());
+			return true;
 		}
-		else if (itemType.equals("pokeball")) {
-			item = itemController.createPokeball(itemName);
-		}
+	}
+	
+	public int sellItem(int itemIndex, Player player) {
+		
+		Item item = playerService.getBag().get(itemIndex);
+		
+		
 
-		playerService.addMoney((int)0.5*item.getItemPrice());
-		player.removeFromBag(item);
+		playerService.removeFromBag(item);
+		playerService.addMoney(item.getItemPrice()/2);
+		
+		
+		return 
+			playerService.getMoney();
 	}
 }

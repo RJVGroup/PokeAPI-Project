@@ -21,11 +21,15 @@ export default class Battle extends Component {
       this.pokemonClose=this.pokemonClose.bind(this);
 
     this.state = {
+      epokemon:this.props.epokemon,
+      cpokemon:this.props.cpokemon,
+
       fight:false,
       bag:false,
       pokemon:false
     };
   }
+ 
   fightClick(){
     this.setState({fight:true})
    }
@@ -44,13 +48,13 @@ export default class Battle extends Component {
    pokemonClose(){
     this.setState({pokemon:false})
    }
-  componentDidMount() {
    
-    }
   
   
     render() {
       const fight=this.state.fight;
+      const epokemon=this.state.epokemon
+      const cpokemon=this.state.cpokemon
 
       const bag=this.state.bag;
       const pokemon=this.state.pokemon;
@@ -58,7 +62,7 @@ export default class Battle extends Component {
       if(fight){
         return (
           <div className='col-game'> 
-          <FightMenu close={this.fightClose}/> 
+          <FightMenu level={cpokemon.level} name={cpokemon.name} close={this.fightClose}/> 
            </div>)
       }
     if(bag){
@@ -78,23 +82,29 @@ export default class Battle extends Component {
   
         <div className='col-game'>  
          <Container className="menu row-game">
-         <div className="pokemonimg main-game-panel"  >  
-         <BackImg id='1'/>
-         HP</div>
+         <div className="main-game-panel"  >  
+         <BackImg id={cpokemon.id}/>
+         {cpokemon.name} Level:{cpokemon.level}
          <br/>
-         <div className="pokemonimg main-game-panel"  >  
-         <FrontImg id='1'/>
-         HP</div>
+         HP:{cpokemon.currentHP}</div>        
+         <br/>
+
+         <div className="main-game-panel"  >  
+         <FrontImg id={epokemon.id}/>
+         {epokemon.name} Level:{epokemon.level}
+         <br/>
+         HP:{epokemon.currentHP}</div>
          </Container> 
              <div className='row-game'>
-             <Container className="menu main-game-panel" >      
-             
+             <Container className="menu main-game-panel" > 
+             <h1>{this.props.location}</h1>    
+             <h1>You encounter a {epokemon.name} pokémon</h1>
              </Container> 
              <Container className="menu main-game-panel" >      
              <button className=" main-game-panel"  onClick={this.fightClick}>Fight</button>
              <button className=" main-game-panel" onClick={this.pokemonClick}>Pokemon</button>
              <button className=" main-game-panel" onClick={this.bagClick}>Bag</button>
-             <button className=" main-game-panel">Run</button>
+             <button className=" main-game-panel"onClick={this.props.close}>Run</button>
              </Container> </div>
         </div>  
       );

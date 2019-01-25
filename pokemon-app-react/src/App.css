@@ -41,6 +41,7 @@
     flex-direction: column;
     flex: 1;
     height: 100%;
+    overflow-y: scroll;
   }
   .row-game {
     display: flex;
@@ -56,9 +57,24 @@
     flex-direction: column;
     justify-content: center;
   }
+
+  .shop-game-panel {
+    display: flex;
+    flex: 1;
+    align-items: stretch;
+    flex-direction: column;
+    justify-content: center;
+    overflow-y: scroll;
+  }
   
   .pokemonimg > img {
     width: 150px;
   }
- 
+  .img-game-panel {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+  }
   
