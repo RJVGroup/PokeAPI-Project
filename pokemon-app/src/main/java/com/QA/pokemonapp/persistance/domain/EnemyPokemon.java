@@ -17,9 +17,8 @@ public class EnemyPokemon {
 	
 	private Pokemon enemyMon;
 	
-	public EnemyPokemon() {
-		
-	}
+	public EnemyPokemon() {}
+	
 
 	public EnemyPokemon(Pokemon enemyMon) {
 		super();

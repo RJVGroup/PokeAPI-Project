@@ -73,6 +73,12 @@ public class BattleManager {
 		}
 		statusEndOfTurnEffects(playerMon);
 		result = checkResult(playerMon);
+		
+		if(result == 1 | result == 3)
+		{
+			enemyPokemon.getEnemyMon().equals(null);
+		}
+		
 		return result;
 	}
 	
@@ -116,6 +122,12 @@ public class BattleManager {
 		enemyUseMove(enemyMon.getMoveList().get(rand.nextInt(3)), playerMon, enemyMon);
 		statusEndOfTurnEffects(playerMon);
 		result = checkResult(playerMon);
+		
+		if(result == 1 | result == 3)
+		{
+			enemyPokemon.getEnemyMon().equals(null);
+		}
+		
 		return result;
 	}
 	
@@ -127,6 +139,12 @@ public class BattleManager {
 		}
 		statusEndOfTurnEffects(playerMon);
 		result = checkResult(playerMon);
+		
+		if(result == 1 | result == 3)
+		{
+			enemyPokemon.getEnemyMon().equals(null);
+		}
+		
 		return result;
 	}
 	
