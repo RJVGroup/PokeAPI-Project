@@ -40,7 +40,7 @@ public class BattleManager {
 	
 	private Random rand = new Random();
 	
-	private Pokemon enemyMon = enemyPokemon.getEnemyMon();
+	private Pokemon enemyMon;
 	
 	public BattleManager() {}
 	
@@ -59,6 +59,10 @@ public class BattleManager {
 					mapper.convertValue(
 				JsonPath.read(responseJson, "$.enemy-pokemon"), Pokemon.class);
 		}
+	}
+	
+	public void setEnemyMon() {
+		 this.enemyMon = enemyPokemon.getEnemyMon();
 	}
 	
 	public int takeATurn(Pokemon playerMon, Move playerMove, boolean targetSelf) {
