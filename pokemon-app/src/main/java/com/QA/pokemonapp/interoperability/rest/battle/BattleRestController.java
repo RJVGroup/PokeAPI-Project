@@ -28,18 +28,6 @@ public class BattleRestController {
 	@Autowired
 	private PlayerService playerService;
 	
-//	@PostMapping(value = "/test/{chosenMove}/{targetSelf}")
-//	@ResponseBody
-//	public int test(@RequestBody String payload, @PathVariable String chosenMove, @PathVariable boolean targetSelf) {
-//		
-//		return
-//		battleManager.takeATurn(
-//			battleManager.getPokemonFromResponseJson(payload, true),
-//			moveService.createMove(chosenMove),
-//			targetSelf,
-//			battleManager.getPokemonFromResponseJson(payload, false));
-//	}
-	
 	@PostMapping(value = "/turnM/{chosenPokemon}/{chosenMove}")
 	public int takeTurnMove(@RequestBody String payload, @PathVariable int chosenPokemon, @PathVariable int chosenMove) {
 		Pokemon a = playerService.getParty().get(chosenPokemon);
