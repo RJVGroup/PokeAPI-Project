@@ -4,9 +4,9 @@ public class Terrain {
 	
 	String name;
 	
-	Pokemon pokemonEncountered;
+	EnemyPokemon pokemonEncountered;
 	
-	public Terrain(String name, Pokemon pokemonEncountered) {
+	public Terrain(String name, EnemyPokemon pokemonEncountered) {
 		super();
 		this.name = name;
 		this.pokemonEncountered = pokemonEncountered;
@@ -20,11 +20,11 @@ public class Terrain {
 		this.name = name;
 	}
 
-	public Pokemon getPokemonEncountered() {
+	public EnemyPokemon getPokemonEncountered() {
 		return pokemonEncountered;
 	}
 
-	public void setPokemonEncountered(Pokemon pokemonEncountered) {
+	public void setPokemonEncountered(EnemyPokemon pokemonEncountered) {
 		this.pokemonEncountered = pokemonEncountered;
 	}
 	
