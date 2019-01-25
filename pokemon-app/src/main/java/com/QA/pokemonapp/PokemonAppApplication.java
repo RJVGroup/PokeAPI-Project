@@ -12,6 +12,7 @@ import org.springframework.web.client.RestTemplate;
 import com.QA.pokemonapp.business.service.BattleManager;
 import com.QA.pokemonapp.business.service.item.ItemGeneratorInterface;
 import com.QA.pokemonapp.business.service.item.ItemGeneratorService;
+import com.QA.pokemonapp.business.service.item.ShopService;
 import com.QA.pokemonapp.business.service.player.PlayerService;
 import com.QA.pokemonapp.business.service.terrain.TerrainGenerator;
 import com.QA.pokemonapp.business.service.terrain.TerrainInterface;
@@ -53,6 +54,12 @@ public class PokemonAppApplication {
 	@Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
 	public PlayerService getPlayerService() {
 		return new PlayerService();
+	}
+	
+	@Bean
+	@Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
+	public ShopService getShopService() {
+		return new ShopService();
 	}
 	
 	@Bean 

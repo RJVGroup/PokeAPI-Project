@@ -6,7 +6,7 @@ import com.QA.pokemonapp.persistance.domain.items.Item;
 
 public class Shop {
 	
-	List<Item> shopInventory;
+	private List<Item> shopInventory;
 	
 	public Shop() {}
 	
