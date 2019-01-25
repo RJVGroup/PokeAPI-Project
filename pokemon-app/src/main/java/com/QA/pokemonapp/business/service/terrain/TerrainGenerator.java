@@ -11,7 +11,7 @@ import com.QA.pokemonapp.business.service.PokemonGeneratorInterface;
 import com.QA.pokemonapp.constantsandenums.ETerrain;
 import com.QA.pokemonapp.constantsandenums.GetRandomFromEnum;
 import com.QA.pokemonapp.interoperability.rest.terrain.TerrainPokeAPIController;
-import com.QA.pokemonapp.persistance.domain.Pokemon;
+import com.QA.pokemonapp.persistance.domain.EnemyPokemon;
 import com.QA.pokemonapp.persistance.domain.Terrain;
 import com.jayway.jsonpath.Configuration;
 import com.jayway.jsonpath.JsonPath;
@@ -48,15 +48,15 @@ public class TerrainGenerator implements TerrainInterface{
 			JsonPath.read(terrainJson, "$.name");
 	}
 	
-	public Pokemon getWildPokemonEncounter(int level) {
+	public EnemyPokemon getWildPokemonEncounter(int level) {
 		List<String> pokemonList = 
 				JsonPath.read(terrainJson, "$.pokemon_encounters.[*].pokemon_species.name");
 		
 		Random random = new Random();
 		
 		return
-			pokemonService.createPokemon(level,
-					pokemonList.get(random.nextInt(pokemonList.size())));
+			pokemonService.createEnemyPokemon(level,
+				pokemonList.get(random.nextInt(pokemonList.size())));
 	}
 	
 }
