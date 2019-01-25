@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.QA.pokemonapp.business.service.BattleManager;
 import com.QA.pokemonapp.business.service.move.MoveInterface;
 import com.QA.pokemonapp.business.service.player.PlayerService;
+import com.QA.pokemonapp.persistance.domain.Move;
+import com.QA.pokemonapp.persistance.domain.Pokemon;
+import com.QA.pokemonapp.persistance.domain.items.ItemPotion;
 
 @RestController
 @RequestMapping("/api/battle")
@@ -25,29 +28,47 @@ public class BattleRestController {
 	@Autowired
 	private PlayerService playerService;
 	
-	@PostMapping(value = "/test/{chosenMove}/{targetSelf}")
-	@ResponseBody
-	public int test(@RequestBody String payload, @PathVariable String chosenMove, @PathVariable boolean targetSelf) {
-		
-		return
-		battleManager.takeATurn(
-			battleManager.getPokemonFromResponseJson(payload, true),
-			moveService.createMove(chosenMove),
-			targetSelf,
-			battleManager.getPokemonFromResponseJson(payload, false));
-	}
+//	@PostMapping(value = "/test/{chosenMove}/{targetSelf}")
+//	@ResponseBody
+//	public int test(@RequestBody String payload, @PathVariable String chosenMove, @PathVariable boolean targetSelf) {
+//		
+//		return
+//		battleManager.takeATurn(
+//			battleManager.getPokemonFromResponseJson(payload, true),
+//			moveService.createMove(chosenMove),
+//			targetSelf,
+//			battleManager.getPokemonFromResponseJson(payload, false));
+//	}
 	
-	@PostMapping(value = "/turn/{chosenPokemon}/{chosenMove}/{targetSelf}")
-	@ResponseBody
-	public int takeTurn(@RequestBody String payload, @PathVariable String chosenPokemon, @PathVariable String chosenMove, @PathVariable boolean targetSelf) {
-		
+	@PostMapping(value = "/turnM/{chosenPokemon}/{chosenMove}")
+	public int takeTurnMove(@RequestBody String payload, @PathVariable int chosenPokemon, @PathVariable int chosenMove) {
+		Pokemon a = playerService.getParty().get(chosenPokemon);
+		Move b = a.getMoveList().get(chosenMove);
 		return
 				battleManager.takeATurn(
-						playerService.getParty().get(
-								playerService.getParty().indexOf(chosenPokemon)),
-						moveService.createMove(chosenMove),
-						targetSelf,
+						a,
+						b,
+						b.isTargetSelf(),
 						battleManager.getPokemonFromResponseJson(payload, false));
 	}
 	
+	@PostMapping(value = "/turnI/{chosenPokemon}/{chosenItem}")
+	public int takeTurnItem(@RequestBody String payload, @PathVariable int chosenPokemon, @PathVariable int chosenItem) {
+		Pokemon a = playerService.getParty().get(chosenPokemon);
+		return
+				battleManager.takeATurn(
+						a,
+						playerService.getBag().get(chosenItem),
+						playerService.getBag().get(chosenItem).getClass() == ItemPotion.class,
+						battleManager.getPokemonFromResponseJson(payload, false));
+	}
+	
+	@PostMapping(value = "/turnR/{chosenPokemon}")
+	public int takeTurnRun(@RequestBody String payload, @PathVariable int chosenPokemon) {
+		Pokemon a = playerService.getParty().get(chosenPokemon);
+		return
+				battleManager.takeATurn(
+						a,
+						battleManager.getPokemonFromResponseJson(payload, false));
+	}
 }
