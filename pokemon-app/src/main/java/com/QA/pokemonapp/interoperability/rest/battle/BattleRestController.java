@@ -48,8 +48,7 @@ public class BattleRestController {
 				battleManager.takeATurn(
 						a,
 						b,
-						b.isTargetSelf(),
-						battleManager.getPokemonFromResponseJson(payload, false));
+						b.isTargetSelf());
 	}
 	
 	@PostMapping(value = "/turnI/{chosenPokemon}/{chosenItem}")
@@ -59,16 +58,12 @@ public class BattleRestController {
 				battleManager.takeATurn(
 						a,
 						playerService.getBag().get(chosenItem),
-						playerService.getBag().get(chosenItem).getClass() == ItemPotion.class,
-						battleManager.getPokemonFromResponseJson(payload, false));
+						playerService.getBag().get(chosenItem).getClass() == ItemPotion.class);
 	}
 	
 	@PostMapping(value = "/turnR/{chosenPokemon}")
 	public int takeTurnRun(@RequestBody String payload, @PathVariable int chosenPokemon) {
-		Pokemon a = playerService.getParty().get(chosenPokemon);
 		return
-				battleManager.takeATurn(
-						a,
-						battleManager.getPokemonFromResponseJson(payload, false));
+				battleManager.takeATurn(playerService.getParty().get(chosenPokemon));
 	}
 }

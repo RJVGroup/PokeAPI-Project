@@ -18,7 +18,8 @@ public class ItemService {
 	@Autowired
 	private Player player;
 
-	public boolean usePokeball(EnemyPokemon pokemon, ItemPokeball pokeball) {
+	public boolean usePokeball(EnemyPokemon ePokemon, ItemPokeball pokeball) {
+		Pokemon pokemon = ePokemon.getEnemyMon();
 		double modifiedCatchRate = ((3 * pokemon.getHP() - 2 * pokemon.getCurrentHP()) * pokemon.getCatchRate() * pokeball.getCatchModifier())/ 3 * pokemon.getHP();
 		modifiedCatchRate = pokemon.getStatus() == null ? modifiedCatchRate : modifiedCatchRate * 1.5;
 		double b = Math.round((Math.random() * 255));

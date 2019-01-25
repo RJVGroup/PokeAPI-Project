@@ -4,12 +4,16 @@ import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.QA.pokemonapp.business.service.item.ItemService;
 import com.QA.pokemonapp.business.service.player.PlayerService;
 import com.QA.pokemonapp.constantsandenums.EStatus;
 import com.QA.pokemonapp.constantsandenums.TypeEffectivenessChecker;
+import com.QA.pokemonapp.persistance.domain.EnemyPokemon;
 import com.QA.pokemonapp.persistance.domain.Move;
 import com.QA.pokemonapp.persistance.domain.Pokemon;
 import com.QA.pokemonapp.persistance.domain.items.Item;
+import com.QA.pokemonapp.persistance.domain.items.ItemPokeball;
+import com.QA.pokemonapp.persistance.domain.items.ItemPotion;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jayway.jsonpath.Configuration;
 import com.jayway.jsonpath.JsonPath;
@@ -26,9 +30,17 @@ public class BattleManager {
 	PlayerService playerService;
 	
 	@Autowired
+	ItemService itemService;
+	
+	@Autowired
 	TypeEffectivenessChecker typeEffectivenessChecker;
 	
+	@Autowired
+	EnemyPokemon enemyPokemon;
+	
 	private Random rand = new Random();
+	
+	private Pokemon enemyMon = enemyPokemon.getEnemyMon();
 	
 	public BattleManager() {}
 	
@@ -49,7 +61,7 @@ public class BattleManager {
 		}
 	}
 	
-	public int takeATurn(Pokemon playerMon, Move playerMove, boolean targetSelf, Pokemon enemyMon) {
+	public int takeATurn(Pokemon playerMon, Move playerMove, boolean targetSelf) {
 		int result = 0; //0 = ongoing; 1=player victory; 2= enemy victory; 3= runaway
 		int enemyListSize = enemyMon.getMoveList().size();
 		if (playerMon.getSpeed() >= enemyMon.getSpeed()) {
@@ -59,12 +71,12 @@ public class BattleManager {
 			enemyUseMove(enemyMon.getMoveList().get(rand.nextInt(enemyListSize)), playerMon, enemyMon);
 			playerUseMove(playerMove, playerMon, enemyMon);
 		}
-		statusEndOfTurnEffects(playerMon, enemyMon);
-		result = checkResult(playerMon, enemyMon);
+		statusEndOfTurnEffects(playerMon);
+		result = checkResult(playerMon);
 		return result;
 	}
 	
-	private void statusEndOfTurnEffects(Pokemon playerMon, Pokemon enemyMon) {
+	private void statusEndOfTurnEffects(Pokemon playerMon) {
 		if (playerMon.getStatus() != null) {
 			playerMon.getStatus().getDetails().endOfTurnEffect(playerMon);
 			if (playerMon.getCurrentHP() <= 0) {
@@ -80,7 +92,7 @@ public class BattleManager {
 		
 	}
 
-	private int checkResult(Pokemon playerMon, Pokemon enemyMon) {
+	private int checkResult(Pokemon playerMon) {
 		int result = 0;
 		if (enemyMon.getStatus() == EStatus.FAINT) {
 			result = 1;
@@ -91,22 +103,30 @@ public class BattleManager {
 		return result;
 	}
 
-	public int takeATurn(Pokemon playerMon, Item playerItem, boolean targetSelf, Pokemon enemyMon) {
+	public int takeATurn(Pokemon playerMon, Item playerItem, boolean targetSelf) {
 		int result = 0; //0 = ongoing; 1=player victory; 2= enemy victory; 3= runaway
+		if (targetSelf) {
+			itemService.usePotion(playerMon, (ItemPotion) playerItem);
+		} else {
+			if (itemService.usePokeball(enemyPokemon, (ItemPokeball) playerItem)) {
+				playerService.addToParty(enemyMon);
+				return 1;
+			}
+		}
 		enemyUseMove(enemyMon.getMoveList().get(rand.nextInt(3)), playerMon, enemyMon);
-		statusEndOfTurnEffects(playerMon, enemyMon);
-		result = checkResult(playerMon, enemyMon);
+		statusEndOfTurnEffects(playerMon);
+		result = checkResult(playerMon);
 		return result;
 	}
 	
-	public int takeATurn(Pokemon playerMon, Pokemon enemyMon) {
+	public int takeATurn(Pokemon playerMon) {
 		double chance = (rand.nextInt(4) + 8)/10;
 		int result = playerMon.getSpeed() * chance >= enemyMon.getSpeed() ? 3 : 0; //0 = ongoing; 1=player victory; 2= enemy victory; 3= runaway
 		if (result == 0) {
 			enemyUseMove(enemyMon.getMoveList().get(rand.nextInt(3)), playerMon, enemyMon);
 		}
-		statusEndOfTurnEffects(playerMon, enemyMon);
-		result = checkResult(playerMon, enemyMon);
+		statusEndOfTurnEffects(playerMon);
+		result = checkResult(playerMon);
 		return result;
 	}
 	
