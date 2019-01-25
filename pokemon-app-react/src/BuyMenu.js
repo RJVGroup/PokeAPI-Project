@@ -7,9 +7,10 @@ export default class BuyMenu extends Component {
         super(props);
         this.handleClick = this.handleClick.bind(this);
         this.toggle = this.toggle.bind(this);
+        this.setState = this.setState.bind(this);
         this.state = {
             shopstock: [],
-            playerbalance: null,
+            playerBalance: null,
             itemdescription:'',
             purchaseResponse: null,
             dropdownOpen: false
@@ -19,20 +20,29 @@ export default class BuyMenu extends Component {
 
     componentDidMount() {
 
+        this.getShop();
+
+        this.getBalance();
+    }
+
+    getShop = () => {
         fetch('api/shop/generate',{method: 'GET'})
         .then(response => response.json())
         .then(data=>this.setState({shopstock:data}))
+    }
 
-        fetch('api/player/show-balance', {method: 'GET'})
+    getBalance = () => {
+        fetch('api/player/show-balance',{method: 'GET'})
         .then(response => response.json())
-        .then(data=>this.setState({playerbalance:data}))
+        .then(data=>this.setState({playerBalance:data}))
     }
     
     handleClick = (itemIndex) => {
         fetch('api/shop/buy-item/' + itemIndex, {method: 'POST'})
         .then(response => response.json())
-        .then(data => this.setState({purchaseResponse:data})
-    )
+        .then(data => this.setState({purchaseResponse:data}))
+        .then(this.getBalance())
+    
     }
 
     toggle() {
@@ -86,7 +96,7 @@ export default class BuyMenu extends Component {
 
          <Container className="menu main-game-panel">
          <button  onClick={this.props.close}>Go Back</button>        
-          <div>Wallet: {this.state.playerbalance}</div>
+          <div> Wallet: {this.state.playerBalance}</div>
 
           <div>{this.generatePurchaseResponse()}</div>
             <br/>

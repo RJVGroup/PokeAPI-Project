@@ -23,7 +23,7 @@ public class ShopService {
 	private PlayerService playerService;
 	
 	@Autowired
-	Shop shop;
+	private Shop shop;
 	
 	public List<Item> createShop() {
 		List<Item> inventory = generateShopInventory();
@@ -82,20 +82,13 @@ public class ShopService {
 		
 		Item item = playerService.getBag().get(itemIndex);
 		
-	/*	if(itemName.contains("potion")) {
-			item = itemController.createPotion(itemName.toUpperCase().replace("-", "_"));
-		}
-		else if (itemName.contains("ball")) {
-			item = itemController.createPokeball(itemName.toUpperCase().replace("-", "_"));
-		}*/
 		
-		int amount = (int)0.5*item.getItemPrice();
-		
+
 		playerService.removeFromBag(item);
-		playerService.addMoney(amount);
+		playerService.addMoney(item.getItemPrice()/2);
 		
 		
 		return 
-			amount;
+			playerService.getMoney();
 	}
 }

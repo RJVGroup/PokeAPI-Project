@@ -21,7 +21,7 @@ public class ShopRestcontroller {
 	private ShopService shopService;
 	
 	@Autowired
-	Player player;
+	private Player player;
 	
 	@GetMapping("/generate")
 	public List<Item> createShop() {

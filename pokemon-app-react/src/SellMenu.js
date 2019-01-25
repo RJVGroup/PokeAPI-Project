@@ -7,20 +7,30 @@ export default class BuyMenu extends Component {
         super(props);
         this.handleClick = this.handleClick.bind(this);
         this.toggle = this.toggle.bind(this);
+        this.setState = this.setState.bind(this);
         this.state = {
             playerInventory: [],
-            playerBalance: null
+            playerBalance: null,
+            transactionResponse: null
         }
     }
 
 
     componentDidMount() {
 
+        this.getInventory();
+
+        this.getBalance();
+    }
+
+    getInventory = () => {
         fetch('api/player/show-bag',{method: 'GET'})
         .then(response => response.json())
         .then(data=>this.setState({playerInventory:data}))
+    }
 
-        fetch('api/player/show-balance', {method: 'GET'})
+    getBalance = () => {
+        fetch('api/player/show-balance',{method: 'GET'})
         .then(response => response.json())
         .then(data=>this.setState({playerBalance:data}))
     }
@@ -28,8 +38,10 @@ export default class BuyMenu extends Component {
     handleClick = (itemIndex) => {
         fetch('api/shop/sell-item/' + itemIndex, {method: 'POST'})
         .then(response => response.json())
-        .then(data => this.setState({purchaseResponse:data})
-    )
+        .then(data => this.setState({transactionResponse:data}))
+        .then(this.getInventory)
+        .then(this.getBalance)
+    
     }
 
     toggle() {
@@ -60,20 +72,6 @@ export default class BuyMenu extends Component {
         return test;
     }  
 
-    generatePurchaseResponse = () => {
-        if(this.state.purchaseResponse === null) {
-            return null;
-        }
-        else if(this.state.purchaseResponse === true) {
-            return <div style={{ color: 'green' }}>Succesfull Purchase</div>
-            
-        }
-        else if(this.state.purchaseResponse === false) {
-            return <div style={{ color: 'red' }}>Insufficent Funds</div>
-        }
-    }
-
-
     
     render() {
         return (
@@ -89,7 +87,7 @@ export default class BuyMenu extends Component {
                         <thead>
                             <tr>
                                 <th>Item Name</th>
-                                <th>Price</th>
+                                <th>Sell Price</th>
                             </tr>
                         </thead>
                         <tbody>
