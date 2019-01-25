@@ -22,7 +22,7 @@ class App extends Component {
 
 
 
-componentDidMount() {
+componentWillMount() {
 fetch('api/player/show-party',{method: 'GET'})
 .then(response => response.json())
 .then(data=>this.setState({party:data}))
