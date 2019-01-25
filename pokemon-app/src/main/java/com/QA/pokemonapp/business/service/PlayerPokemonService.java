@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import com.QA.pokemonapp.interoperability.rest.PokemonPokeAPIController;
 import com.QA.pokemonapp.persistance.domain.Move;
 import com.QA.pokemonapp.persistance.domain.Pokemon;
+import com.QA.pokemonapp.persistance.domain.items.Item;
 import com.jayway.jsonpath.Configuration;
 import com.jayway.jsonpath.JsonPath;
 
@@ -103,6 +104,16 @@ public class PlayerPokemonService {
 		currentMoveList.remove(moveToExchangeWith);
 		currentMoveList.add(moveToBeAdded);
 		pokemon.setMoveList(currentMoveList);
+	}
+	
+	/**
+	 * This method uses an item on a pokemon. said item has the ability to change the status of the pokemon
+	 * @param pokemon
+	 * @param item
+	 */
+	public void useItem(Pokemon pokemon, Item item)
+	{
+		item.useItem(pokemon);
 	}
 	
 	/**

@@ -47,5 +47,8 @@ public class Item {
 	public void setItemPrice(int itemPrice) {
 		this.itemPrice = itemPrice;
 	}
-
+	public boolean useItem(Pokemon target) {
+		//stub
+		return false;
+	}
 }
