@@ -30,7 +30,11 @@ public class MoveGeneratorService implements MoveInterface {
 		return
 			new Move(getName(), getMovePower(), getMoveAccuracy(),
 					getDamageClass(), getMoveType(), getMoveSecondaryEffect(),
-					getMoveSecondaryChance(), getMaxHits(), getMinHits());
+					getMoveSecondaryChance(), getMaxHits(), getMinHits(), getTargetSelf());
+	}
+
+	private boolean getTargetSelf() {
+		return JsonPath.read(moveJson, "$.target.name").toString().contains("user");
 	}
 
 	public void getMoveJson(String name)
@@ -57,8 +61,9 @@ public class MoveGeneratorService implements MoveInterface {
 	}
 	
 	public int getMoveAccuracy() {
-		return
-			JsonPath.read(moveJson, "$.accuracy");
+		Integer accuracy = JsonPath.read(moveJson, "$.accuracy");
+		return accuracy == null ? accuracy : 150;
+			
 	}
 	
 	public EDamageClass getDamageClass() {
