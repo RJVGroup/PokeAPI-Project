@@ -24,6 +24,7 @@ import org.springframework.stereotype.Service;
 import com.QA.pokemonapp.business.service.move.MoveInterface;
 import com.QA.pokemonapp.constantsandenums.ETypes;
 import com.QA.pokemonapp.interoperability.rest.PokemonPokeAPIController;
+import com.QA.pokemonapp.persistance.domain.EnemyPokemon;
 import com.QA.pokemonapp.persistance.domain.Move;
 import com.QA.pokemonapp.persistance.domain.Pokemon;
 import com.jayway.jsonpath.Configuration;
@@ -82,6 +83,13 @@ public class PokemonGeneratorService implements PokemonGeneratorInterface{
 		return
 			new Pokemon(getName(), getId(), getType(), getXPGiven(), level, getCatchRate(),
 					statList, baseStatList, iVList, getMoveList(level));
+	}
+	
+	@Cacheable("pokemon")
+	public EnemyPokemon createEnemyPokemon(int level, String name) 
+	{
+		return
+			new EnemyPokemon(createPokemon(level, name));
 	}
 	
 	/**
