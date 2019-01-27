@@ -79,7 +79,7 @@ export default class BuyMenu extends Component {
          
 
          <Container className="menu main-game-panel">
-         <button  onClick={this.props.close}>Go Back</button>        
+         <button  onClick={this.props.sellMenuToggle}>Go Back</button>        
           <div>Wallet: {this.state.playerBalance}</div>
 
          <br/>

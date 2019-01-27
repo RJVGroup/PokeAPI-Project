@@ -68,7 +68,7 @@ export default class PokemonParty extends Component {
                         </tbody>
                     </Table>
                     <br/>
-                    <button  onClick={this.props.close}>Go Back</button> 
+                    <button  onClick={this.props.pokemonpartyToggle}>Go Back</button> 
    
         </Container> 
         </div>  

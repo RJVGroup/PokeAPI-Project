@@ -21,6 +21,8 @@ export default class Roam extends Component {
       this.pokemonClose=this.pokemonClose.bind(this);
       this.shopClick=this.shopClick.bind(this);
       this.shopClose=this.shopClose.bind(this);
+      this.toggle=this.toggle.bind(this);
+
       this.move=this.move.bind(this);
       this.run=this.run.bind(this);
 
@@ -30,8 +32,7 @@ export default class Roam extends Component {
       epokemon:'',
       move:'',
       bag:false,
-      pokemon:false,
-      shop:false,
+      pokemonParty:false,
       locationtext:'You set off to find pokémon and adventure!'
     };
   }
@@ -65,7 +66,11 @@ export default class Roam extends Component {
    shopClose(){
     this.setState({shop:false})
    }
-   run(){
+   toggle() {
+    this.setState(prevState => ({
+      shop: !prevState.shop
+    }));
+  }   run(){
     this.setState({epokemon:''})
    }
    chosenClick(){
@@ -81,31 +86,7 @@ export default class Roam extends Component {
 
   
      
-     if(epokemon!=''){
-        return (
-          <div className='col-game'> 
-          <Battle location={locationtext} epokemon={epokemon} cpokemon={cpokemon} close={this.run}/> 
-           </div>)
-     }
-      
-    if(bag){
-      return (
-        <div className='col-game'> 
-        <Bag close={this.bagClose}/> 
-         </div>)
-    }
-     if(pokemon){
-      return (
-        <div className='col-game'> 
-        <PokemonParty close={this.pokemonClose}/> 
-         </div>)
-    }
-    if(shop){
-      return (
-        <div className='col-game'> 
-        <Shop close={this.shopClose}/> 
-         </div>)
-    }
+    
 
       return (
       
@@ -122,9 +103,9 @@ export default class Roam extends Component {
              
              <Container className="menu main-game-panel" >
             <button className=" main-game-panel" onClick={this.move}>Move</button>           
-             <button className=" main-game-panel" onClick={this.pokemonClick}>Pokemon</button>
-             <button className=" main-game-panel" onClick={this.bagClick}>Bag</button>             
-             <button className=" main-game-panel"  onClick={this.shopClick}>Go to Shop</button>
+             <button className=" main-game-panel" onClick={this.props.pokemonpartyToggle}>Pokemon</button>
+             <button className=" main-game-panel" onClick={this.props.bagToggle}>Bag</button>             
+             <button className=" main-game-panel"  onClick={this.props.shopToggle}>Go to Shop</button>
 
              </Container > </div>
         </div>  

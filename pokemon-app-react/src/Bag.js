@@ -20,7 +20,7 @@ export default class Bag extends Component {
          <Container className="menu main-game-panel">
              </Container> 
              <Container className="menu main-game-panel" >
-             <button className=" main-game-panel"onClick={this.props.close}>Close</button>
+             <button className=" main-game-panel"onClick={this.props.bagToggle}>Close</button>
 
              </Container> 
         </div>  
