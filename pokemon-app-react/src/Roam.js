@@ -23,9 +23,6 @@ export default class Roam extends Component {
       this.shopClose=this.shopClose.bind(this);
       this.toggle=this.toggle.bind(this);
 
-      this.move=this.move.bind(this);
-      this.run=this.run.bind(this);
-
     this.state = {
       party:'',
       cpokemon:'',
@@ -37,17 +34,7 @@ export default class Roam extends Component {
     };
   }
   
-  move() {
-    Promise.all([fetch('api/player/move',{method: 'POST'}), fetch('api/player/show-party',{method: 'GET'})])
-  .then(([res1, res2]) => Promise.all([res1.json(), res2.json()]))
-  .then(([data1, data2]) => this.setState({
-    move:data1,
-    locationtext:'You arrived at a '+data1.name+'.',
-    cpokemon:data2[0],
-    }));
-
-      if(this.state.move.pokemonEncountered==null){this.setState({epokemon:''})}else{this.setState({epokemon:this.state.move.pokemonEncountered})}
-  }
+ 
   bagClick(){
     this.setState({bag:true})
    }
@@ -70,9 +57,7 @@ export default class Roam extends Component {
     this.setState(prevState => ({
       shop: !prevState.shop
     }));
-  }   run(){
-    this.setState({epokemon:''})
-   }
+  }   
    chosenClick(){
     this.setState({chosen:true})
    }
@@ -80,7 +65,7 @@ export default class Roam extends Component {
       const bag=this.state.bag;
       const pokemon=this.state.pokemon;
       const shop=this.state.shop;
-      const locationtext=this.state.locationtext;
+      const locationtext=this.props.locationtext;
       const epokemon=this.state.epokemon;
       const cpokemon=this.state.cpokemon;
 
@@ -102,7 +87,7 @@ export default class Roam extends Component {
              </Container> 
              
              <Container className="menu main-game-panel" >
-            <button className=" main-game-panel" onClick={this.move}>Move</button>           
+            <button className=" main-game-panel" onClick={this.props.move}>Move</button>           
              <button className=" main-game-panel" onClick={this.props.pokemonpartyToggle}>Pokemon</button>
              <button className=" main-game-panel" onClick={this.props.bagToggle}>Bag</button>             
              <button className=" main-game-panel"  onClick={this.props.shopToggle}>Go to Shop</button>

@@ -29,10 +29,14 @@ class App extends Component {
     this.buyMenuToggle = this.buyMenuToggle.bind(this);
     this.sellMenuToggle = this.sellMenuToggle.bind(this);
     this.roamToggle = this.roamToggle.bind(this);
+    this.move=this.move.bind(this);
+    this.enemyEncounter=this.enemyEncounter.bind(this);
+
 
 
   this.state={
     epokemon:'',
+    cpokemon:'',
     choose:false,
     shop:false,
     bag:false,
@@ -44,16 +48,30 @@ class App extends Component {
     fightMenu:false,
     roam:false,
      party: [],
+     cpokemon:'',
+     locationtext:'You set off to find pokémon and adventure!'
+
   };}
   
-
+  
 
 
 componentWillMount() {
 this.checkParty()
 this.roamToggle()
 }
- 
+move() {
+    Promise.all([fetch('api/terrain/generate/5',{method: 'GET'}), fetch('api/player/show-party',{method: 'GET'})])
+  .then(([res1, res2]) => Promise.all([res1.json(), res2.json()]))
+  .then(([data1, data2]) => this.setState({
+    move:data1.pokemonEncountered,
+    locationtext:'You arrived at a '+data1.name+'.',
+    cpokemon:data2[0],
+    }));
+
+      if(this.state.move.enemyMon!=null){this.setState({epokemon:this.state.move.enemyMon})}
+      this.enemyEncounter()
+  } 
 checkParty(){
   fetch('api/player/show-party',{method: 'GET'})
 .then(response => response.json())
@@ -75,6 +93,11 @@ checkParty(){
       roam: !prevState.roam
     }));
   }
+
+ enemyEncounter() {
+  if(this.state.epokemon!=''){this.setState({battle:true})}
+  }
+
   battleToggle() {
     this.setState(prevState => ({
       battle: !prevState.battle
@@ -131,14 +154,14 @@ checkParty(){
   if(party==''){
     return (
       <div className="App">
-      <Choose check={this.checkParty}/>
+      <Choose check={this.checkParty} chooseToggle={this.chooseToggle}/>
       </div>
 
     );}
      if(epokemon!=''){
       return (
         <div className="App"> 
-        <Battle pokemonpartyToggle={this.pokemonpartyToggle} fightMenuToggle={this.fightMenuToggle} bagToggle={this.bagToggle}/> 
+        <Battle  battleToggle={this.battleToggle} pokemonpartyToggle={this.pokemonpartyToggle} fightMenuToggle={this.fightMenuToggle} bagToggle={this.bagToggle}/> 
          </div>)
    }
     
@@ -185,7 +208,7 @@ checkParty(){
      
     return (
       <div className="App">
-      <Roam pokemonpartyToggle={this.pokemonpartyToggle} shopToggle={this.shopToggle} bagToggle={this.bagToggle}/>
+      <Roam move={this.move} locationtext={this.state.locationtext} pokemonpartyToggle={this.pokemonpartyToggle} shopToggle={this.shopToggle} bagToggle={this.bagToggle}/>
       </div>
 
 

@@ -39,8 +39,8 @@ export default class Choose extends Component {
       const starter3=this.state.starter3
   
       return(
-        <div className="col-game">
-        <div className="row-game"onClick={this.props.checkParty}>  
+        <div className="col-game"onClick={this.props.checkParty}>
+        <div className="row-game"onClick={this.props.chooseToggle}>  
          
         <StarterPokemon pokemon={starter1} pokestyle={{backgroundColor: 'rgb(11, 221, 57)'} }/>
     
