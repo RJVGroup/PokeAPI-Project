@@ -24,7 +24,7 @@ export default class PokemonParty extends Component {
          let pos = 0;
          let party=this.state.party;
         var test = []       
-
+        let change=this.props.change
         party.forEach(function(arrayItem,arrayIndex,array){
             pos=pos++;
             test.push(
@@ -34,6 +34,8 @@ export default class PokemonParty extends Component {
                 <td>{array[arrayIndex].types}</td>
                 <td>{array[arrayIndex].level}</td>
                 <td>{array[arrayIndex].currentHP}</td>
+                <td><button className=" main-game-panel"  onClick={(e) => change(array[arrayIndex].name,10,e)}>Select Pokémon</button></td>
+
 
 
 

@@ -13,68 +13,65 @@ import BackImg from './BackImg';
 export default class Battle extends Component {
     constructor(props) {
       super(props);
-      this.fightClick=this.fightClick.bind(this);
-      this.fightClose=this.fightClose.bind(this);
-      this.bagClick=this.bagClick.bind(this);
-      this.bagClose=this.bagClose.bind(this);
-      this.pokemonClick=this.pokemonClick.bind(this);
-      this.pokemonClose=this.pokemonClose.bind(this);
-
+      this.bagToggle=this.bagToggle.bind(this);
+      this.pokemonToggle=this.pokemonToggle.bind(this);
+      this.fightMenuToggle=this.fightMenuToggle.bind(this);
     this.state = {
       epokemon:this.props.epokemon,
       cpokemon:this.props.cpokemon,
 
-      fight:false,
+      fightMenu:false,
       bag:false,
       pokemon:false
     };
   }
- 
-  fightClick(){
-    this.setState({fight:true})
-   }
-  fightClose(){
-    this.setState({fight:false})
-   }
-  bagClick(){
-    this.setState({bag:true})
-   }
-   bagClose(){
-    this.setState({bag:false})
-   }
-   pokemonClick(){
-    this.setState({pokemon:true})
-   }
-   pokemonClose(){
-    this.setState({pokemon:false})
-   }
+  componentDidUpdate(prevProps) {
+    if (this.props.cpokemon !== prevProps.cpokemon) {
+      this.setState({cpokemon:this.props.cpokemon});
+    }
+  }
+  fightMenuToggle() {
+    this.setState(prevState => ({
+      fightMenu: !prevState.fightMenu
+    }));
+  }
+  bagToggle() {
+    this.setState(prevState => ({
+      bag: !prevState.bag
+    }));
+  }
+   pokemonToggle() {
+    this.setState(prevState => ({
+      pokemon: !prevState.pokemon
+    }));
+  }
    
   
   
     render() {
-      const fight=this.state.fight;
+      const fightMenu=this.state.fightMenu;
       const epokemon=this.state.epokemon
       const cpokemon=this.state.cpokemon
 
       const bag=this.state.bag;
       const pokemon=this.state.pokemon;
       
-      if(fight){
+      if(fightMenu){
         return (
           <div className='col-game'> 
-          <FightMenu level={cpokemon.level} name={cpokemon.name} close={this.fightClose}/> 
+          <FightMenu level={cpokemon.level} name={cpokemon.name} close={this.fightMenuToggle}/> 
            </div>)
       }
     if(bag){
       return (
         <div className='col-game'> 
-        <Bag close={this.bagClose}/> 
+        <Bag close={this.bagToggle}/> 
          </div>)
     }
      if(pokemon){
       return (
         <div className='col-game'> 
-        <PokemonParty close={this.pokemonClose}/> 
+        <PokemonParty change={this.props.change} close={this.pokemonToggle}/> 
          </div>)
     }
     
@@ -101,9 +98,9 @@ export default class Battle extends Component {
              <h1>You encounter a {epokemon.name} pokémon</h1>
              </Container> 
              <Container className="menu main-game-panel" >      
-             <button className=" main-game-panel"  onClick={this.fightClick}>Fight</button>
-             <button className=" main-game-panel" onClick={this.pokemonClick}>Pokemon</button>
-             <button className=" main-game-panel" onClick={this.bagClick}>Bag</button>
+             <button className=" main-game-panel"  onClick={this.fightMenuToggle}>Fight</button>
+             <button className=" main-game-panel" onClick={this.pokemonToggle}>Pokemon</button>
+             <button className=" main-game-panel" onClick={this.bagToggle}>Bag</button>
              <button className=" main-game-panel"onClick={this.props.close}>Run</button>
              </Container> </div>
         </div>  
