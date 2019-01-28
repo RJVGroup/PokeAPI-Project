@@ -24,27 +24,24 @@ import {
 export default class Shop extends Component {
   constructor(props) {
     super(props);
-    this.buyClick = this.buyClick.bind(this);
-    this.buyClose = this.buyClose.bind(this);
-    this.sellClick = this.sellClick.bind(this);
-    this.sellClose = this.sellClose.bind(this);
+    this.buyToggle = this.buyToggle.bind(this);
+    this.sellToggle = this.sellToggle.bind(this);
+   ;
 
     this.state = {
       buy: false,
       sell: false
     };
   }
-  buyClick() {
-    this.setState({ buy: true });
+  buyToggle() {
+    this.setState(prevState => ({
+      buy: !prevState.buy
+    }));
   }
-  buyClose() {
-    this.setState({ buy: false });
-  }
-  sellClick() {
-    this.setState({ sell: true });
-  }
-  sellClose() {
-    this.setState({ sell: false });
+  sellToggle() {
+    this.setState(prevState => ({
+      sell: !prevState.sell
+    }));
   }
 
   render() {
@@ -54,7 +51,7 @@ export default class Shop extends Component {
     if (buy) {
       return (
         <div className="col-game">
-          <BuyMenu close={this.buyClose} />
+          <BuyMenu close={this.buyToggle} />
         </div>
       );
     }
@@ -62,7 +59,7 @@ export default class Shop extends Component {
     if (sell) {
       return (
         <div className="col-game">
-          <SellMenu close={this.sellClose} />
+          <SellMenu close={this.sellToggle} />
         </div>
       );
     }
@@ -70,10 +67,10 @@ export default class Shop extends Component {
     return (
       <div className="col-game">
         <Container className="menu main-game-panel">
-          <button className=" main-game-panel" onClick={this.buyClick}>
+          <button className=" main-game-panel" onClick={this.buyToggle}>
             Buy
           </button>
-          <button className=" main-game-panel" onClick={this.sellClick}>
+          <button className=" main-game-panel" onClick={this.sellToggle}>
             Sell
           </button>
           <button className=" main-game-panel" onClick={this.props.close}>
