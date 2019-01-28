@@ -40,12 +40,12 @@ export default class Roam extends Component {
     Promise.all([fetch('api/player/move',{method: 'POST'}), fetch('api/player/show-party',{method: 'GET'})])
   .then(([res1, res2]) => Promise.all([res1.json(), res2.json()]))
   .then(([data1, data2]) => this.setState({
-    move:data1,
+    move:data1.pokemonEncountered,
     locationtext:'You arrived at a '+data1.name+'.',
     cpokemon:data2[0],
     }));
 
-      if(this.state.move.pokemonEncountered==null){this.setState({epokemon:''})}else{this.setState({epokemon:this.state.move.pokemonEncountered})}
+      if(this.state.move.enemyMon==null){this.setState({epokemon:''})}else{this.setState({epokemon:this.state.move.enemyMon})}
   }
   bagClick(){
     this.setState({bag:true})
