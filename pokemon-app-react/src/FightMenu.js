@@ -7,17 +7,14 @@ export default class FightMenu extends Component {
     constructor(props) {
         super(props);
         this.state = {
-movelist:[]
+            cpokemon:this.props.cpokemon
+
         }
     }
-    componentDidMount() {
-        fetch('api/pokemon/'+this.props.level+'/'+this.props.name,{method: 'GET'})
-        .then(response => response.json())
-        .then(data=>this.setState({movelist:data.moveList}))
-    }
+   
     generatemoves =()=>{
          let pos = 0;
-         let movelist=this.state.movelist;
+         let movelist=this.props.cpokemon.moveList;
         var test = []
        
 
@@ -25,15 +22,11 @@ movelist:[]
             pos=pos++;
             test.push(
                 <tr>
-
                 <td>{array[arrayIndex].moveName}</td>
                 <td>{array[arrayIndex].movePower}</td>
                 <td>{array[arrayIndex].moveAccuracy}</td>
                 <td>{array[arrayIndex].damageClass}</td>
                 <td>{array[arrayIndex].moveType}</td>
-
-
-
                 </tr>
                     
                 
@@ -42,12 +35,14 @@ movelist:[]
     }  
     
     render() {
+              const cpokemon=this.state.cpokemon
+
         return (
                 <div className='col-game'>  
          
 
          <Container className="menu main-game-panel">
-         <h2>{this.props.name}'s movelist</h2>
+         <h2>{cpokemon.name}'s movelist</h2>
          <Table responsive>   
                         <thead>
                             <tr>

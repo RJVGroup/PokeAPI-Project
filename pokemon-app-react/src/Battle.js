@@ -59,7 +59,7 @@ export default class Battle extends Component {
       if(fightMenu){
         return (
           <div className='col-game'> 
-          <FightMenu level={cpokemon.level} name={cpokemon.name} close={this.fightMenuToggle}/> 
+          <FightMenu cpokemon={cpokemon} close={this.fightMenuToggle}/> 
            </div>)
       }
     if(bag){
