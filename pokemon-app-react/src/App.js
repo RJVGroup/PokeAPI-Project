@@ -50,8 +50,8 @@ prevLocation:''
   .then(response => response.json())
   .then(data=>this.setState({party: data,cpokemon: data[0]}))
 }
-  changePokemon(name, level){
-    fetch('api/pokemon/'+level+'/'+name,{method: 'GET'})
+  changePokemon(pokemonIndex){
+    fetch('api/player/show-pokemon/'+ pokemonIndex,{method: 'GET'})
     .then(response => response.json())
     .then(data=>this.setState({cpokemon:data}));
    }
