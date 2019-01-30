@@ -12,7 +12,6 @@ package com.QA.pokemonapp.persistance.domain;
 
 import org.springframework.context.annotation.Scope;
 
-@Scope("session")
 public class EnemyPokemon {
 	
 	private Pokemon enemyMon;
