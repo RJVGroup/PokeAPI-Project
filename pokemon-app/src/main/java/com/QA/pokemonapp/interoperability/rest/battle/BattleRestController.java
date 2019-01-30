@@ -22,14 +22,12 @@ public class BattleRestController {
 	@Autowired
 	private BattleManager battleManager;
 	
-	@Autowired
-	private MoveInterface moveService;
 	
 	@Autowired
 	private PlayerService playerService;
 	
 	@PostMapping(value = "/turnM/{chosenPokemon}/{chosenMove}")
-	public int takeTurnMove(@RequestBody String payload, @PathVariable int chosenPokemon, @PathVariable int chosenMove) {
+	public int takeTurnMove(@PathVariable int chosenPokemon, @PathVariable int chosenMove) {
 		Pokemon a = playerService.getParty().get(chosenPokemon);
 		Move b = a.getMoveList().get(chosenMove);
 		battleManager.setEnemyMon();
@@ -41,7 +39,7 @@ public class BattleRestController {
 	}
 	
 	@PostMapping(value = "/turnI/{chosenPokemon}/{chosenItem}")
-	public int takeTurnItem(@RequestBody String payload, @PathVariable int chosenPokemon, @PathVariable int chosenItem) {
+	public int takeTurnItem(@PathVariable int chosenPokemon, @PathVariable int chosenItem) {
 		Pokemon a = playerService.getParty().get(chosenPokemon);
 		battleManager.setEnemyMon();
 		return
@@ -52,7 +50,7 @@ public class BattleRestController {
 	}
 	
 	@PostMapping(value = "/turnR/{chosenPokemon}")
-	public int takeTurnRun(@RequestBody String payload, @PathVariable int chosenPokemon) {
+	public int takeTurnRun(@PathVariable int chosenPokemon) {
 		battleManager.setEnemyMon();
 		return
 				battleManager.takeATurn(playerService.getParty().get(chosenPokemon));

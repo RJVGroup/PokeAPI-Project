@@ -62,7 +62,9 @@ public class BattleManager {
 	}
 	
 	public void setEnemyMon() {
-		 this.enemyMon = enemyPokemon.getEnemyMon();
+		if (enemyPokemon.getEnemyMon() == null) {
+			this.enemyMon = enemyPokemon.getEnemyMon();
+		}
 	}
 	
 	public int takeATurn(Pokemon playerMon, Move playerMove, boolean targetSelf) {
