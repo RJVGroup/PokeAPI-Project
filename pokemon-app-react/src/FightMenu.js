@@ -6,9 +6,11 @@ export default class FightMenu extends Component {
     
     constructor(props) {
         super(props);
+        this.handleClick = this.handleClick.bind(this);
         this.state = {
             cpokemon:this.props.cpokemon,
-            cPokemonIndex:this.props.cPokemonIndex
+            cPokemonIndex:this.props.cPokemonIndex,
+            response:''
         }
     } 
    
@@ -27,12 +29,21 @@ export default class FightMenu extends Component {
                 <td>{array[arrayIndex].moveAccuracy}</td>
                 <td>{array[arrayIndex].damageClass}</td>
                 <td>{array[arrayIndex].moveType}</td>
+                <td><button className=" main-game-panel" onClick={(e) => this.handleClick(arrayIndex,e)}>Select Move</button></td>
+
+                
                 </tr>
                     
                 
-           )})
+           )}, this)
         return test;
     }  
+
+    handleClick = (moveIndex) => {
+        fetch('api/battle/turnM/' + this.state.cPokemonIndex + '/' + moveIndex, {method: 'POST'})
+        .then(response => response.json())
+        .then(data=>this.setState({response:data}))
+    }
     
     render() {
               const cpokemon=this.state.cpokemon
