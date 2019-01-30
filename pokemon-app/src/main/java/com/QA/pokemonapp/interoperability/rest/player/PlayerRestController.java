@@ -47,9 +47,9 @@ public class PlayerRestController {
 	}
 	
 	@GetMapping("/show-pokemon/{pokemonIndex}")
-	public Pokemon getPokemon(@PathVariable int chosenPokemon) {
+	public Pokemon getPokemon(@PathVariable int pokemonIndex) {
 		return
-				playerService.getParty().get(chosenPokemon);
+				playerService.getParty().get(pokemonIndex);
 	}
 	
 	@GetMapping("/show-bag")
