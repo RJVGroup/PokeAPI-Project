@@ -25,7 +25,7 @@ class App extends Component {
       chosen: false,
       party: [],
       cpokemon: '',
-      cPokemonIndex: '',
+      cPokemonIndex: 0,
       name:'',
       id:'',
       level:'',
