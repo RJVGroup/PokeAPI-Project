@@ -62,7 +62,7 @@ public class BattleManager {
 	}
 	
 	public void setEnemyMon() {
-		if (enemyPokemon.getEnemyMon() == null) {
+		if (this.enemyMon == null) {
 			this.enemyMon = enemyPokemon.getEnemyMon();
 		}
 	}
