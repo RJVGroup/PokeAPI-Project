@@ -25,7 +25,7 @@ public class PlayerRestController {
 	@Autowired
 	private PokemonGeneratorInterface PokemonGenerator;
 
-	@PostMapping("/choose-starter/{chosenPokemon}")
+	@PostMapping("/add-pokemon/{chosenPokemon}")
 	public List<Pokemon> addStarterPokemon(@PathVariable String chosenPokemon) {
 		
 		playerService.addToParty(
@@ -44,6 +44,12 @@ public class PlayerRestController {
 	public List<Pokemon> getParty() {
 		return
 			playerService.getParty();
+	}
+	
+	@GetMapping("/show-pokemon/{pokemonIndex}")
+	public Pokemon getPokemon(@PathVariable int chosenPokemon) {
+		return
+				playerService.getParty().get(chosenPokemon);
 	}
 	
 	@GetMapping("/show-bag")
