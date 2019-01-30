@@ -21,7 +21,7 @@ export default class StarterPokemon extends Component {
     }
        
        chooseStarter() {
-        fetch('/api/player/choose-starter/'+this.props.pokemon
+        fetch('/api/player/add-pokemon/'+this.props.pokemon
         ,{
           method: 'POST',
         });

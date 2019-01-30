@@ -29,7 +29,7 @@ public class PokemonPokeAPIController {
 	private RestTemplate restTemplate;
 	
 	/**
-	 * This method retrieves the pokemon inofrmation from the PokeAPI
+	 * This method retrieves the pokemon information from the PokeAPI
 	 * based on the pokemons name.
 	 * @param pokemon name is fed into method as a string
 	 * @return The JSON response body is returned as a string to be easily processed in the service PokemonGeneratorService class
