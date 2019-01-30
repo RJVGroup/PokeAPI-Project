@@ -88,7 +88,7 @@ if (epokemon != '') {
     } 
    else return (
         <div className="App">
-          <Roam change={this.props.change} name={this.state.name} id={this.state.id} level={this.state.level} move={this.move} location={locationtext} cpokemon={cpokemon} />
+          <Roam change={this.props.change} cPokemonIndex={cPokemonIndex} name={this.state.name} id={this.state.id} level={this.state.level} move={this.move} location={locationtext} cpokemon={cpokemon} />
         </div>
       ); 
   }

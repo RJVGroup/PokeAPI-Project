@@ -24,6 +24,7 @@ export default class Roam extends Component {
     this.state = {
       party:'',
       cpokemon:this.props.cpokemon,
+      cPokemonIndex:this.props.cPokemonIndex,
       bag:false,
       pokemon:false,
       shop:false,
@@ -64,14 +65,11 @@ export default class Roam extends Component {
       const shop=this.state.shop;
       const locationtext=this.props.location;
 
-  
-     
-   
       
     if(bag){
       return (
         <div className='col-game'> 
-        <Bag close={this.bagToggle}/> 
+        <Bag close={this.bagToggle} cPokemonIndex={this.state.cPokemonIndex}/> 
          </div>)
     }
      if(pokemon){
