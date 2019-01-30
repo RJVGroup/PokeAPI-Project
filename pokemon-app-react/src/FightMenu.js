@@ -7,10 +7,10 @@ export default class FightMenu extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            cpokemon:this.props.cpokemon
-
+            cpokemon:this.props.cpokemon,
+            cPokemonIndex:this.props.cPokemonIndex
         }
-    }
+    } 
    
     generatemoves =()=>{
          let pos = 0;

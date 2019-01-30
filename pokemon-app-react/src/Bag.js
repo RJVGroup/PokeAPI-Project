@@ -9,7 +9,7 @@ export default class Bag extends Component {
       super(props);
       this.state = {
         bag: [],
-
+        cPokemonIndex:this.state.cPokemonIndex
     }
 }
 

@@ -19,6 +19,7 @@ export default class Battle extends Component {
     this.state = {
       epokemon:this.props.epokemon,
       cpokemon:this.props.cpokemon,
+      cPokemonIndex:this.props.cPokemonIndex,
 
       fightMenu:false,
       bag:false,
@@ -27,7 +28,7 @@ export default class Battle extends Component {
   }
   componentDidUpdate(prevProps) {
     if (this.props.cpokemon !== prevProps.cpokemon) {
-      this.setState({cpokemon:this.props.cpokemon});
+      this.setState({cpokemon:this.props.cpokemon, cPokemonIndex:this.props.cPokemonIndex});
     }
   }
   fightMenuToggle() {
@@ -55,17 +56,19 @@ export default class Battle extends Component {
 
       const bag=this.state.bag;
       const pokemon=this.state.pokemon;
+      const cPokemonIndex=this.state.cPokemonIndex;
+
       
-      if(fightMenu){
-        return (
-          <div className='col-game'> 
-          <FightMenu cpokemon={cpokemon} close={this.fightMenuToggle}/> 
-           </div>)
-      }
+    if(fightMenu){
+      return (
+        <div className='col-game'> 
+        <FightMenu cpokemon={cpokemon} cPokemonIndex={cPokemonIndex} close={this.fightMenuToggle}/> 
+        </div>)
+    }
     if(bag){
       return (
         <div className='col-game'> 
-        <Bag close={this.bagToggle}/> 
+        <Bag close={this.bagToggle} cPokemonIndex={cPokemonIndex}/> 
          </div>)
     }
      if(pokemon){
@@ -95,7 +98,7 @@ export default class Battle extends Component {
              <div className='row-game'>
              <Container className="menu main-game-panel" > 
              <h1>{this.props.location}</h1>    
-             <h1>You encounter a {epokemon.name} pokémon</h1>
+             <h1>A wild {epokemon.name} appeared!</h1>
              </Container> 
              <Container className="menu main-game-panel" >      
              <button className=" main-game-panel"  onClick={this.fightMenuToggle}>Fight</button>

@@ -21,6 +21,7 @@ class MainGame extends Component {
 
     this.state = {
       cpokemon:this.props.cpokemon,
+      cPokemonIndex:this.props.cPokemonIndex,
       epokemon: '',
       move:'',
       name: this.props.name,
@@ -49,7 +50,8 @@ this.props.setStarter()
     }
     componentDidUpdate(prevProps) {
       if (this.props.cpokemon !== prevProps.cpokemon) {
-        this.setState({cpokemon:this.props.cpokemon, name:this.props.cpokemon.name,id:this.props.cpokemon.id,level:this.props.cpokemon.level});
+        this.setState({cpokemon:this.props.cpokemon, cPokemonIndex:this.props.cPokemonIndex,
+          name:this.props.cpokemon.name,id:this.props.cpokemon.id,level:this.props.cpokemon.level});
       }
     }
   
@@ -75,12 +77,13 @@ this.props.setStarter()
     const cpokemon = this.state.cpokemon;
     const epokemon = this.state.epokemon;
     const locationtext = this.state.locationtext;
+    const cPokemonIndex = this.state.cPokemonIndex;
 
 
 if (epokemon != '') {
       return (
         <div className='App'>
-          <Battle change={this.props.change} location={locationtext} epokemon={epokemon} cpokemon={cpokemon} close={this.run} />
+          <Battle change={this.props.change} location={locationtext} epokemon={epokemon} cPokemonIndex={cPokemonIndex} cpokemon={cpokemon} close={this.run} />
         </div>)
     } 
    else return (

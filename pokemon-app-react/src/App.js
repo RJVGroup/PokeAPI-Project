@@ -25,6 +25,7 @@ class App extends Component {
       chosen: false,
       party: [],
       cpokemon: '',
+      cPokemonIndex: '',
       name:'',
       id:'',
       level:'',
@@ -53,12 +54,13 @@ prevLocation:''
   changePokemon(pokemonIndex){
     fetch('api/player/show-pokemon/'+ pokemonIndex,{method: 'GET'})
     .then(response => response.json())
-    .then(data=>this.setState({cpokemon:data}));
+    .then(data=>this.setState({cpokemon:data, cPokemonIndex:pokemonIndex}));
    }
   render() {
     const chosen = this.state.chosen;
     const party = this.state.party;
     const cpokemon = this.state.cpokemon;
+    const cPokemonIndex = this.state.cPokemonIndex;
 
 
 
@@ -74,7 +76,7 @@ prevLocation:''
     }
    else return (
         <div className="App">
-          <MainGame setStarter={this.setStarter} cpokemon={cpokemon} name={this.state.name} id={this.state.id} level={this.state.level}change={this.changePokemon}/>
+          <MainGame setStarter={this.setStarter} cPokemonIndex={cPokemonIndex} cpokemon={cpokemon} name={this.state.name} id={this.state.id} level={this.state.level}change={this.changePokemon}/>
         </div>
       ); 
   }
