@@ -62,7 +62,7 @@ public class MoveGeneratorService implements MoveInterface {
 	
 	public int getMoveAccuracy() {
 		Integer accuracy = JsonPath.read(moveJson, "$.accuracy");
-		return accuracy == null ? accuracy : 150;
+		return accuracy == null ? 150 : accuracy;
 			
 	}
 	
