@@ -88,7 +88,7 @@ public class PokemonGeneratorService implements PokemonGeneratorInterface{
 					statList, baseStatList, iVList, getMoveList(level));
 	}
 	
-	@Cacheable("pokemon")
+	@Cacheable("pokemonE")
 	public EnemyPokemon createEnemyPokemon(int level, String name) 
 	{
 		enemyPokemon.setEnemyMon((createPokemon(level, name)));
