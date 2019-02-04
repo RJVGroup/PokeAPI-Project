@@ -10,8 +10,6 @@
 
 package com.QA.pokemonapp.persistance.domain;
 
-import org.springframework.context.annotation.Scope;
-
 public class EnemyPokemon {
 	
 	private Pokemon enemyMon;

@@ -15,7 +15,7 @@ import com.QA.pokemonapp.persistance.domain.items.Item;
 
 @RestController
 @RequestMapping("/api/shop")
-public class ShopRestcontroller {
+public class ShopRestController {
 	
 	@Autowired
 	private ShopService shopService;
