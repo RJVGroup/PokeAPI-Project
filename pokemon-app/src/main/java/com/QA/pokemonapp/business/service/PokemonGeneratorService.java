@@ -162,9 +162,13 @@ public class PokemonGeneratorService implements PokemonGeneratorInterface{
 	public List<Move> getMoveList(int level)
 	{
 		JSONArray listOfValidMoves = 
-		JsonPath.read(pokemonJson, "$.moves[*][?(@.version_group_details[-1].level_learned_at <=" + level + 
-												" && @.version_group_details[-1].move_learn_method.name == 'level-up' "
-												+ " && @.version_group_details[-1].version_group.name == 'red-blue')]");
+		JsonPath.read(pokemonJson, "$.moves[*][?((@.version_group_details[-1].level_learned_at <=" + level 
+												+ " && (@.version_group_details[-1].move_learn_method.name == 'level-up' "
+												+ " && @.version_group_details[-1].version_group.name == 'red-blue'))"
+												+ " || "
+												+ " (@.version_group_details[0].level_learned_at <=" + level 
+												+ " && (@.version_group_details[0].move_learn_method.name == 'level-up'"
+												+ " && @.version_group_details[0].version_group.name == 'red-blue')))]");
 		
 		List<String> moveList = 
 			JsonPath.parse(listOfValidMoves.toJSONString()).read("$[0:4].move.name");
