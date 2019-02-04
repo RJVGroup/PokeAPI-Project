@@ -72,9 +72,9 @@ public class BattleManager {
 		int enemyListSize = enemyMon.getMoveList().size();
 		if (playerMon.getSpeed() >= enemyMon.getSpeed()) {
 			playerUseMove(playerMove, playerMon, enemyMon);
-			enemyUseMove(enemyMon.getMoveList().get(rand.nextInt(enemyListSize)), playerMon, enemyMon);
+			enemyUseMove(enemyMon.getMoveList().get(enemyPokemon.setLastUsedMove(rand.nextInt(enemyListSize))), playerMon, enemyMon);
 		} else {
-			enemyUseMove(enemyMon.getMoveList().get(rand.nextInt(enemyListSize)), playerMon, enemyMon);
+			enemyUseMove(enemyMon.getMoveList().get(enemyPokemon.setLastUsedMove(rand.nextInt(enemyListSize))), playerMon, enemyMon);
 			playerUseMove(playerMove, playerMon, enemyMon);
 		}
 		statusEndOfTurnEffects(playerMon);
@@ -125,7 +125,7 @@ public class BattleManager {
 				return 1;
 			}
 		}
-		enemyUseMove(enemyMon.getMoveList().get(rand.nextInt(3)), playerMon, enemyMon);
+		enemyUseMove(enemyMon.getMoveList().get(enemyPokemon.setLastUsedMove(rand.nextInt(enemyMon.getMoveList().size()))), playerMon, enemyMon);
 		statusEndOfTurnEffects(playerMon);
 		result = checkResult(playerMon);
 		
@@ -141,7 +141,7 @@ public class BattleManager {
 		double chance = (rand.nextInt(4) + 8)/10;
 		int result = playerMon.getSpeed() * chance >= enemyMon.getSpeed() ? 3 : 0; //0 = ongoing; 1=player victory; 2= enemy victory; 3= runaway
 		if (result == 0) {
-			enemyUseMove(enemyMon.getMoveList().get(rand.nextInt(3)), playerMon, enemyMon);
+			enemyUseMove(enemyMon.getMoveList().get(enemyPokemon.setLastUsedMove(rand.nextInt(enemyMon.getMoveList().size()))), playerMon, enemyMon);
 		}
 		statusEndOfTurnEffects(playerMon);
 		result = checkResult(playerMon);
@@ -163,6 +163,8 @@ public class BattleManager {
 			pokemonService.takeDamage(enemy,calculateDamage(move, player, enemy));
 			if (enemy.getCurrentHP() <= 0) {
 				enemy.setStatusCondition(EStatus.FAINT);
+			} else if (move.getMoveSecondaryEffect() != null && rand.nextInt(100) <= move.getMoveSecondaryChance()){
+				secondaryEffect(enemy, move.getMoveSecondaryEffect());
 			}
 		}
 	}
@@ -172,6 +174,8 @@ public class BattleManager {
 			pokemonService.takeDamage(player, calculateDamage(move, enemy, player));
 			if (player.getCurrentHP() <= 0) {
 				player.setStatusCondition(EStatus.FAINT);
+			} else if (move.getMoveSecondaryEffect() != null && rand.nextInt(100) <= move.getMoveSecondaryChance()){
+				secondaryEffect(player, move.getMoveSecondaryEffect());
 			}
 		}
 	}
@@ -194,9 +198,13 @@ public class BattleManager {
 			break;
 		default:
 			attackStat = 0;
-			defenceStat = 0;
+			defenceStat = 10;
 			random = 0;
 		}
 		return (int) Math.round((((((2*user.getLevel())/5 + 2)*move.getMovePower()*(attackStat/defenceStat))/50)+2)*typeEffectivenessModifier*sameTypeAttackBonus*random*critical);
+	}
+	
+	private void secondaryEffect(Pokemon affected, EStatus affliction) {
+		affected.setStatusCondition(affliction);
 	}
 }

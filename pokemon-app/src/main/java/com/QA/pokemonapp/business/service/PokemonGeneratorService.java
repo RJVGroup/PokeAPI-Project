@@ -99,10 +99,10 @@ public class PokemonGeneratorService implements PokemonGeneratorInterface{
 		setBaseStatList();
 		setIVList();
 		setStatList(level);
-		
-		return
-			new EnemyPokemon(new Pokemon(getName(), getId(), getType(), getXPGiven(), level, getCatchRate(),
-					getStatList(), getBaseStatList(), getiVList(), getMoveList(level)));
+		enemyPokemon.setEnemyMon(new Pokemon(getName(), getId(), getType(), getXPGiven(), level, getCatchRate(),
+				getStatList(), getBaseStatList(), getiVList(), getMoveList(level)));
+		return enemyPokemon;
+			
 	}
 	
 	/**

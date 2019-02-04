@@ -10,11 +10,10 @@
 
 package com.QA.pokemonapp.persistance.domain;
 
-import org.springframework.context.annotation.Scope;
-
 public class EnemyPokemon {
 	
 	private Pokemon enemyMon;
+	private int lastUsedMove;
 	
 	public EnemyPokemon() {}
 	
@@ -30,6 +29,17 @@ public class EnemyPokemon {
 
 	public void setEnemyMon(Pokemon enemyMon) {
 		this.enemyMon = enemyMon;
+	}
+
+
+	public int getLastUsedMove() {
+		return lastUsedMove;
+	}
+
+
+	public int setLastUsedMove(int lastUsedMove) {
+		this.lastUsedMove = lastUsedMove;
+		return this.lastUsedMove;
 	}
 	
 }

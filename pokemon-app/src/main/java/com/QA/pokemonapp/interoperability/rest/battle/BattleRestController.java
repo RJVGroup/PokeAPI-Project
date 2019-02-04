@@ -1,16 +1,15 @@
 package com.QA.pokemonapp.interoperability.rest.battle;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.QA.pokemonapp.business.service.BattleManager;
-import com.QA.pokemonapp.business.service.move.MoveInterface;
 import com.QA.pokemonapp.business.service.player.PlayerService;
+import com.QA.pokemonapp.persistance.domain.EnemyPokemon;
 import com.QA.pokemonapp.persistance.domain.Move;
 import com.QA.pokemonapp.persistance.domain.Pokemon;
 import com.QA.pokemonapp.persistance.domain.items.ItemPotion;
@@ -21,6 +20,9 @@ public class BattleRestController {
 
 	@Autowired
 	private BattleManager battleManager;
+	
+	@Autowired
+	private EnemyPokemon enemyPokemon;
 	
 	
 	@Autowired
@@ -54,5 +56,20 @@ public class BattleRestController {
 		battleManager.setEnemyMon();
 		return
 				battleManager.takeATurn(playerService.getParty().get(chosenPokemon));
+	}
+	
+	@GetMapping(value = "/getEnemyStatus")
+	public EnemyPokemon checkEnemy() {
+		return enemyPokemon;
+	}
+	
+	@GetMapping(value = "/getFriendlyStatus/{partyPosition}")
+	public Pokemon checkFriendly(@PathVariable int partyPosition) {
+		return playerService.getParty().get(partyPosition);
+	}
+	
+	@GetMapping(value ="/enemyMostRecentMove")
+	public Move getMoveUsed() {
+		return enemyPokemon.getEnemyMon().getMoveList().get(enemyPokemon.getLastUsedMove());
 	}
 }
