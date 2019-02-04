@@ -41,6 +41,9 @@ public class PokemonGeneratorService implements PokemonGeneratorInterface{
 	@Autowired
 	private MoveInterface moveService;
 	
+	@Autowired
+	private EnemyPokemon enemyPokemon;
+	
 	private Object pokemonJson;
 	private Object pokemonSpeciesJson;
 	
@@ -85,7 +88,7 @@ public class PokemonGeneratorService implements PokemonGeneratorInterface{
 					getStatList(), getBaseStatList(), getiVList(), getMoveList(level));
 	}
 	
-	@Cacheable("ePokemon")
+	@Cacheable("Pokemon")
 	public EnemyPokemon createEnemyPokemon(int level, String name) 
 	{
 		getPokemonJsonFromService(name);
