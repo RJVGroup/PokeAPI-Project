@@ -8,16 +8,16 @@ public class Player {
 	private int money = 1000;
 	private ArrayList<Pokemon> party = new ArrayList<Pokemon>();
 	private ArrayList<Item> bag = new ArrayList<Item>();
-	private int[] position = {0,0};
+
 	
 	public Player(){}
 	
-	public Player(int money, ArrayList<Pokemon> party, ArrayList<Item> bag, int[] position) {
+	public Player(int money, ArrayList<Pokemon> party, ArrayList<Item> bag) {
 		super();
 		this.money = money;
 		this.party = party;
 		this.bag = bag;
-		this.position = position;
+
 	}
 
 	public int getMoney() {
@@ -45,12 +45,7 @@ public class Player {
 	public void removeFromBag(Item drop) {
 		this.bag.remove(drop);
 	}
-	public int[] getPosition() {
-		return position;
-	}
-	public void setPosition(int[] position) {
-		this.position = position;
-	}
+
 	
 
 }

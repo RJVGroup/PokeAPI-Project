@@ -25,13 +25,22 @@ public class PlayerRestController {
 	@Autowired
 	private PokemonGeneratorInterface PokemonGenerator;
 
-	@PostMapping("/add-pokemon/{chosenPokemon}")
-	public List<Pokemon> addStarterPokemon(@PathVariable String chosenPokemon) {
+	@PostMapping("/add-starter-pokemon/{chosenPokemon}")
+	public boolean addStarterPokemon(@PathVariable String chosenPokemon) {
 		
+		return
 		playerService.addToParty(
 				PokemonGenerator.createPokemon(5, chosenPokemon));
-		return 
-			playerService.getParty();
+
+	}
+	
+	@PostMapping("/add-pokemon/{chosenPokemon}/{pokemonLevel}")
+	public boolean addPokemon(@PathVariable String chosenPokemon, @PathVariable int pokemonLevel) {
+		
+		return
+		playerService.addToParty(
+				PokemonGenerator.createPokemon(pokemonLevel, chosenPokemon));
+		
 	}
 	
 	@GetMapping("/show-balance")

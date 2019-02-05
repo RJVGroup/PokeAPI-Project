@@ -82,13 +82,13 @@ public class ShopService {
 		
 		Item item = playerService.getBag().get(itemIndex);
 		
-		
+		int sellPrice = item.getItemPrice()/2;
 
 		playerService.removeFromBag(item);
-		playerService.addMoney(item.getItemPrice()/2);
+		playerService.addMoney(sellPrice);
 		
 		
 		return 
-			playerService.getMoney();
+			sellPrice;
 	}
 }

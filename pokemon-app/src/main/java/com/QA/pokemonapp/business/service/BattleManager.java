@@ -70,6 +70,7 @@ public class BattleManager {
 	public int takeATurn(Pokemon playerMon, Move playerMove, boolean targetSelf) {
 		int result = 0; //0 = ongoing; 1=player victory; 2= enemy victory; 3= runaway
 		int enemyListSize = enemyMon.getMoveList().size();
+		System.out.print(enemyListSize);
 		if (playerMon.getSpeed() >= enemyMon.getSpeed()) {
 			playerUseMove(playerMove, playerMon, enemyMon);
 			enemyUseMove(enemyMon.getMoveList().get(enemyPokemon.setLastUsedMove(rand.nextInt(enemyListSize))), playerMon, enemyMon);
@@ -207,5 +208,10 @@ public class BattleManager {
 	
 	private void secondaryEffect(Pokemon affected, EStatus affliction) {
 		affected.setStatusCondition(affliction);
+	}
+
+	public Pokemon getEnemyMon() {
+		// TODO Auto-generated method stub
+		return enemyPokemon.getEnemyMon();
 	}
 }

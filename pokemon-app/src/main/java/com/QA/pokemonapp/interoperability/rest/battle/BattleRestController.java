@@ -58,6 +58,7 @@ public class BattleRestController {
 				battleManager.takeATurn(playerService.getParty().get(chosenPokemon));
 	}
 	
+
 	@GetMapping(value = "/getEnemyStatus")
 	public EnemyPokemon checkEnemy() {
 		return enemyPokemon;
@@ -71,5 +72,6 @@ public class BattleRestController {
 	@GetMapping(value ="/enemyMostRecentMove")
 	public Move getMoveUsed() {
 		return enemyPokemon.getEnemyMon().getMoveList().get(enemyPokemon.getLastUsedMove());
+
 	}
 }

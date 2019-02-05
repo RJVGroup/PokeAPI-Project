@@ -79,9 +79,11 @@ public class PokemonGeneratorService implements PokemonGeneratorInterface{
 		if(getId() > 151)
 			return null;
 		
-		setBaseStatList();
-		setIVList();
-		setStatList(level);
+
+		getBaseStatList();
+		createIVList();
+		createStatList(level);
+
 		
 		return
 			new Pokemon(getName(), getId(), getType(), getXPGiven(), level, getCatchRate(),
@@ -181,7 +183,8 @@ public class PokemonGeneratorService implements PokemonGeneratorInterface{
 		
 	}
 	
-	public int[] setBaseStatList()
+
+	public int[] createBaseStatList()
 	{
 		baseStatList = new int[6];
 		
@@ -194,8 +197,9 @@ public class PokemonGeneratorService implements PokemonGeneratorInterface{
 		
 		return baseStatList;
 	}
-	
-	public int[] setIVList()
+
+
+	public int[] createIVList()
 	{
 		Random rand = new Random();
 		
@@ -211,7 +215,8 @@ public class PokemonGeneratorService implements PokemonGeneratorInterface{
 		return iVList;
 	}
 	
-	public int[] setStatList(int level)
+
+	public int[] createStatList(int level)
 	{
 		
 		statList  = new int[6];
@@ -226,20 +231,22 @@ public class PokemonGeneratorService implements PokemonGeneratorInterface{
 		return statList;
 	}
 
-	public Object getPokemonJson() {
-		return pokemonJson;
-	}
+
 
 	public void setPokemonJson(Object pokemonJson) {
 		this.pokemonJson = pokemonJson;
 	}
 
-	public Object getPokemonSpeciesJson() {
-		return pokemonSpeciesJson;
-	}
-
 	public void setPokemonSpeciesJson(Object pokemonSpeciesJson) {
 		this.pokemonSpeciesJson = pokemonSpeciesJson;
+	}
+	
+	public void setiVList(int[] iVList) {
+		this.iVList = iVList;
+	}
+
+	public void setBaseStatList(int[] baseStatList) {
+		this.baseStatList = baseStatList;
 	}
 
 	public int[] getiVList() {
@@ -250,14 +257,4 @@ public class PokemonGeneratorService implements PokemonGeneratorInterface{
 		return baseStatList;
 	}
 
-
-	public int[] getStatList() {
-		return statList;
-	}
-
-
-	
-	
-	
-	
 }

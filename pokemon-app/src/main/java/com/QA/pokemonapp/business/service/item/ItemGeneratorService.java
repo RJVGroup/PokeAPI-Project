@@ -20,6 +20,7 @@ public class ItemGeneratorService implements ItemGeneratorInterface {
 	
 	public ItemGeneratorService() {}
 	
+	@Cacheable("pokeball")
 	public ItemPokeball createPokeball(String itemName) {
 		
 		getPokebalJson(itemName);
@@ -97,4 +98,9 @@ public class ItemGeneratorService implements ItemGeneratorInterface {
 			JsonPath.read(itemJson, "$.cost");
 	}
 
+	public void setItemJson(Object itemJson) {
+		this.itemJson = itemJson;
+	}
+
+	
 }
