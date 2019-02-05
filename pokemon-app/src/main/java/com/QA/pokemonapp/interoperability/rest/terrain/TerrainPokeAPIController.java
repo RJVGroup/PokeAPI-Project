@@ -12,12 +12,25 @@ import org.springframework.web.client.RestTemplate;
 
 import com.QA.pokemonapp.constantsandenums.ETerrain;
 
+/**
+ * The Class TerrainPokeAPIController.
+ * Gets terrain information from the PokeAPI.
+ */
 @Controller
 public class TerrainPokeAPIController {
 
+	/** The rest template. */
 	@Autowired
 	private RestTemplate restTemplate;
 	
+	/**
+	 * Gets the terrain json string.
+	 * Sets the headers of the request to accept json data and adds in settings for different web browsers.
+	 * The API address comes from enum ETerrain which contains a list of all the terrain types and constructs an address based on the chosen type.
+	 *
+	 * @param terrain the terrain
+	 * @return the terrain json string
+	 */
 	public String getTerrainJsonString(ETerrain terrain)
 	{
 		HttpHeaders headers = new HttpHeaders();

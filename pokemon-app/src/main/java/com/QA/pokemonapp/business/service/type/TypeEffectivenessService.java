@@ -42,12 +42,12 @@ public class TypeEffectivenessService implements TypeEffectivenessInterface{
 	}
 	
 	public void getTypeJson(String type) {
-		String typeString = typeController.getMoveJsonString(ETypes.valueOf(type));
+		String typeString = typeController.getTypeJsonString(ETypes.valueOf(type));
 		typeJson = Configuration.defaultConfiguration().jsonProvider().parse(typeString);
 	}
 	
 	public void getTypeJson(ETypes type) {
-		String typeString = typeController.getMoveJsonString(type);
+		String typeString = typeController.getTypeJsonString(type);
 		typeJson = Configuration.defaultConfiguration().jsonProvider().parse(typeString);
 	}
 	
