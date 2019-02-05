@@ -62,7 +62,7 @@ public class BattleManager {
 	}
 	
 	public void setEnemyMon() {
-		if (this.enemyMon == null) {
+		if (this.enemyMon == null || this.enemyMon.getStatus() == EStatus.FAINT) {
 			this.enemyMon = enemyPokemon.getEnemyMon();
 		}
 	}
@@ -201,7 +201,8 @@ public class BattleManager {
 			defenceStat = 10;
 			random = 0;
 		}
-		return (int) Math.round((((((2*user.getLevel())/5 + 2)*move.getMovePower()*(attackStat/defenceStat))/50)+2)*typeEffectivenessModifier*sameTypeAttackBonus*random*critical);
+		int total = (int) Math.round((((((2*user.getLevel())/5 + 2)*move.getMovePower()*(attackStat/defenceStat))/50)+2)*typeEffectivenessModifier*sameTypeAttackBonus*random*critical);
+		return total; 
 	}
 	
 	private void secondaryEffect(Pokemon affected, EStatus affliction) {
