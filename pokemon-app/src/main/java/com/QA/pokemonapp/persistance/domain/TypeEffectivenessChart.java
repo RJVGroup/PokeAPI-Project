@@ -5,11 +5,11 @@ import java.util.List;
 import com.QA.pokemonapp.constantsandenums.ETypes;
 
 public class TypeEffectivenessChart {
-	//3 lists which contain types which this type takes double, half or no damage from
+	//3 lists which contain types which this type does double, half or no damage to
 	//no list for 1x damage to save processing
-	private List<ETypes> takesDoubleDamage;
-	private List<ETypes> takesHalfDamage;
-	private List<ETypes> takesNoDamage;
+	private List<ETypes> doesDoubleDamage;
+	private List<ETypes> doesHalfDamage;
+	private List<ETypes> doesNoDamage;
 	
 	private ETypes thisType;
 	
@@ -17,26 +17,26 @@ public class TypeEffectivenessChart {
 		
 	}
 
-	public TypeEffectivenessChart(ETypes thisType, List<ETypes> takesDoubleDamage, List<ETypes> takesHalfDamage,
-			List<ETypes> takesNoDamage) {
+	public TypeEffectivenessChart(ETypes thisType, List<ETypes> doesDoubleDamage, List<ETypes> doesHalfDamage,
+			List<ETypes> doesNoDamage) {
 		super();
 		this.thisType = thisType;
-		this.takesDoubleDamage = takesDoubleDamage;
-		this.takesHalfDamage = takesHalfDamage;
-		this.takesNoDamage = takesNoDamage;
+		this.doesDoubleDamage = doesDoubleDamage;
+		this.doesHalfDamage = doesHalfDamage;
+		this.doesNoDamage = doesNoDamage;
 	}
 	
 	
 	public List<ETypes> doubleDamage() {
-		return this.takesDoubleDamage;
+		return this.doesDoubleDamage;
 	}
 	
 	public List<ETypes> halfDamage() {
-		return this.takesHalfDamage;
+		return this.doesHalfDamage;
 	}
 	
 	public List<ETypes> noDamage() {
-		return this.takesNoDamage;
+		return this.doesNoDamage;
 	}
 
 	public ETypes getThisType() {
