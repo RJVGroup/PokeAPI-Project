@@ -2,6 +2,7 @@ package com.QA.pokemonapp.service.test.unit;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -83,7 +84,7 @@ public class PokemonGeneratorServiceTest {
 		List<ETypes> result = pokemonGeneratorService.getType();
 		List<String> actual = JsonPath.read(pokemonJson, "$.types[*].type.name");
 		
-		assert(result.get(testIndex).name()
+		assertTrue(result.get(testIndex).name()
 				.equalsIgnoreCase(actual.get(testIndex)));
 	}
 
@@ -133,7 +134,7 @@ public class PokemonGeneratorServiceTest {
 		
 		int[] result = pokemonGeneratorService.createIVList();
 		
-		assert(result[testIndex] < 15);
+		assertTrue(result[testIndex] < 15);
 	}
 	
 	@Test
