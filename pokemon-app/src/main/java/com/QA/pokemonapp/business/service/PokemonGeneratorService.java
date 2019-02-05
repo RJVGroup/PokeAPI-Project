@@ -80,7 +80,7 @@ public class PokemonGeneratorService implements PokemonGeneratorInterface{
 			return null;
 		
 
-		getBaseStatList();
+		createBaseStatList();
 		createIVList();
 		createStatList(level);
 
@@ -98,9 +98,10 @@ public class PokemonGeneratorService implements PokemonGeneratorInterface{
 		if(getId() > 151)
 			return null;
 		
-		setBaseStatList();
-		setIVList();
-		setStatList(level);
+		createBaseStatList();
+		createIVList();
+		createStatList(level);
+		
 		enemyPokemon.setEnemyMon(new Pokemon(getName(), getId(), getType(), getXPGiven(), level, getCatchRate(),
 				getStatList(), getBaseStatList(), getiVList(), getMoveList(level)));
 		return enemyPokemon;
@@ -256,5 +257,15 @@ public class PokemonGeneratorService implements PokemonGeneratorInterface{
 	public int[] getBaseStatList() {
 		return baseStatList;
 	}
+
+	public int[] getStatList() {
+		return statList;
+	}
+
+	public void setStatList(int[] statList) {
+		this.statList = statList;
+	}
+	
+	
 
 }
