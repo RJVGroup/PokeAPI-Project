@@ -6,18 +6,24 @@ export default class FightMenu extends Component {
     
     constructor(props) {
         super(props);
+        this.handleClick = this.handleClick.bind(this);
+
         this.state = {
             cpokemon:this.props.cpokemon,
             cPokemonIndex:this.props.cPokemonIndex
+
         }
     } 
+    handleClick = (moveIndex) => {
+        this.props.fightTurn(this.state.cPokemonIndex, moveIndex)
+        
+    }
    
     generatemoves =()=>{
          let pos = 0;
          let movelist=this.props.cpokemon.moveList;
         var test = []
        
-
         movelist.forEach(function(arrayItem,arrayIndex,array){
             pos=pos++;
             test.push(
@@ -27,10 +33,11 @@ export default class FightMenu extends Component {
                 <td>{array[arrayIndex].moveAccuracy}</td>
                 <td>{array[arrayIndex].damageClass}</td>
                 <td>{array[arrayIndex].moveType}</td>
+                <td><button className=" main-game-panel"  onClick={(e) => this.handleClick(arrayIndex,e)}>Select Pokémon</button></td>
                 </tr>
                     
                 
-           )})
+           )},this)
         return test;
     }  
     

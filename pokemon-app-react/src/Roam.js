@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css'
-import {Navbar, NavbarBrand, NavItem, NavLink, Col, Row, Container, Input, TabContent, TabPane, Nav, Button,FormGroup} from 'reactstrap';
+import {ButtonGroup,Navbar, NavbarBrand, NavItem, NavLink, Col, Row, Container, Input, TabContent, TabPane, Nav, Button,FormGroup} from 'reactstrap';
 import Bag from './Bag';
 import PokemonParty from './PokemonParty';
 import Shop from './Shop';
@@ -98,15 +98,15 @@ export default class Roam extends Component {
         <img src={"https://66.media.tumblr.com/088786d466c3a315d6043b8e59d96770/tumblr_msu2ojWkqz1scncwdo1_500.gif"} /></div>
              </Container> 
              <Container className="menu img-game-panel">
-             Current Pokémon: 
+             Current Pokémon:
              <FrontImg id={this.state.id}/>
              {this.state.name} lvl:{this.state.level}
              </Container>
              <Container className="menu main-game-panel" >
-            <button className=" main-game-panel" onClick={this.props.move}>Move</button>           
-             <button className=" main-game-panel" onClick={this.pokemonToggle}>Pokemon</button>
-             <button className=" main-game-panel" onClick={this.bagToggle}>Bag</button>             
-             <button className=" main-game-panel"  onClick={this.shopToggle}>Go to Shop</button>
+            <Button  color="primary"className={" main-game-panel"} onClick={(e) => this.props.move(e)} disabled={this.props.disabled}>Move</Button>           
+             <Button color="secondary" className=" main-game-panel" onClick={this.pokemonToggle}>Pokemon</Button>
+             <Button color="success"  className=" main-game-panel" onClick={this.bagToggle}>Bag</Button>             
+             <Button color="danger" className=" main-game-panel"  onClick={this.shopToggle}>Go to Shop</Button>
              </Container > </div>
         </div>  
       );

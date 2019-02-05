@@ -17,7 +17,7 @@ export default class Battle extends Component {
       this.pokemonToggle=this.pokemonToggle.bind(this);
       this.fightMenuToggle=this.fightMenuToggle.bind(this);
     this.state = {
-      epokemon:this.props.epokemon,
+      epokemon:this.props.epokemon.enemyMon,
       cpokemon:this.props.cpokemon,
       cPokemonIndex:this.props.cPokemonIndex,
 
@@ -29,6 +29,9 @@ export default class Battle extends Component {
   componentDidUpdate(prevProps) {
     if (this.props.cpokemon !== prevProps.cpokemon) {
       this.setState({cpokemon:this.props.cpokemon, cPokemonIndex:this.props.cPokemonIndex});
+    }
+    if (this.props.epokemon !== prevProps.epokemon) {
+      this.setState({epokemon:this.props.epokemon.enemyMon});
     }
   }
   fightMenuToggle() {
@@ -62,7 +65,7 @@ export default class Battle extends Component {
     if(fightMenu){
       return (
         <div className='col-game'> 
-        <FightMenu cpokemon={cpokemon} cPokemonIndex={cPokemonIndex} close={this.fightMenuToggle}/> 
+        <FightMenu endBattle={this.props.endBattle} fightTurn={this.props.fightTurn} epokemonStatus={this.props.epokemonStatus} pokemonStatus={this.props.pokemonStatus}cpokemon={cpokemon} cPokemonIndex={cPokemonIndex} close={this.fightMenuToggle}/> 
         </div>)
     }
     if(bag){
