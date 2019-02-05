@@ -29,7 +29,7 @@ public class TypeEffectivenessService implements TypeEffectivenessInterface{
 		return
 			new TypeEffectivenessChart(
 					ETypes.valueOf(type.toUpperCase())
-					, getTakesDoubleDamage(), getTakesHalfDamage(), getTakesNoDamage());
+					, getDoesDoubleDamage(), getDoesHalfDamage(), getDoesNoDamage());
 	}
 	
 	@Cacheable("typeEffectiveness")
@@ -38,7 +38,7 @@ public class TypeEffectivenessService implements TypeEffectivenessInterface{
 		
 		return
 				new TypeEffectivenessChart(type,
-						getTakesDoubleDamage(), getTakesHalfDamage(), getTakesNoDamage());
+						getDoesDoubleDamage(), getDoesHalfDamage(), getDoesNoDamage());
 	}
 	
 	public void getTypeJson(String type) {
@@ -51,19 +51,19 @@ public class TypeEffectivenessService implements TypeEffectivenessInterface{
 		typeJson = Configuration.defaultConfiguration().jsonProvider().parse(typeString);
 	}
 	
-	public List<ETypes> getTakesDoubleDamage() {
+	public List<ETypes> getDoesDoubleDamage() {
 		return
-			JsonPath.read(typeJson, "$.damage_relations.double_damage_from.[*].name");
+			JsonPath.read(typeJson, "$.damage_relations.double_damage_to.[*].name");
 	}
 	
-	public List<ETypes> getTakesHalfDamage() {
+	public List<ETypes> getDoesHalfDamage() {
 		return
-				JsonPath.read(typeJson, "$.damage_relations.half_damage_from.[*].name");
+				JsonPath.read(typeJson, "$.damage_relations.half_damage_to.[*].name");
 	}
 	
-	public List<ETypes> getTakesNoDamage() {
+	public List<ETypes> getDoesNoDamage() {
 		return
-				JsonPath.read(typeJson, "$.damage_relations.no_damage_from.[*].name");
+				JsonPath.read(typeJson, "$.damage_relations.no_damage_to.[*].name");
 	}
 
 }

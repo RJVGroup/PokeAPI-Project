@@ -41,6 +41,9 @@ public class PokemonGeneratorService implements PokemonGeneratorInterface{
 	@Autowired
 	private MoveInterface moveService;
 	
+	@Autowired
+	private EnemyPokemon enemyPokemon;
+	
 	private Object pokemonJson;
 	private Object pokemonSpeciesJson;
 	
@@ -54,9 +57,9 @@ public class PokemonGeneratorService implements PokemonGeneratorInterface{
    * @param statList[4] This is the Attack
    * @param statList[5] This is the HP
    */
-	private int[] iVList = new int[6];
-	private int[] baseStatList = new int[6];
-	private int[] statList = new int[6];
+	private int[] iVList;
+	private int[] baseStatList;
+	private int[] statList;
 	
 	public PokemonGeneratorService() {
 	}
@@ -71,25 +74,37 @@ public class PokemonGeneratorService implements PokemonGeneratorInterface{
 	@Cacheable("pokemon")
 	public Pokemon createPokemon(int level, String name) 
 	{
-		getPokemonJson(name);
+		getPokemonJsonFromService(name);
 		
 		if(getId() > 151)
 			return null;
 		
+
 		getBaseStatList();
 		createIVList();
 		createStatList(level);
+
 		
 		return
 			new Pokemon(getName(), getId(), getType(), getXPGiven(), level, getCatchRate(),
-					statList, baseStatList, iVList, getMoveList(level));
+					getStatList(), getBaseStatList(), getiVList(), getMoveList(level));
 	}
 	
-	@Cacheable("pokemon")
+	@Cacheable("Pokemon")
 	public EnemyPokemon createEnemyPokemon(int level, String name) 
 	{
-		return
-			new EnemyPokemon(createPokemon(level, name));
+		getPokemonJsonFromService(name);
+		
+		if(getId() > 151)
+			return null;
+		
+		setBaseStatList();
+		setIVList();
+		setStatList(level);
+		enemyPokemon.setEnemyMon(new Pokemon(getName(), getId(), getType(), getXPGiven(), level, getCatchRate(),
+				getStatList(), getBaseStatList(), getiVList(), getMoveList(level)));
+		return enemyPokemon;
+			
 	}
 	
 	/**
@@ -97,13 +112,16 @@ public class PokemonGeneratorService implements PokemonGeneratorInterface{
 	 * @param level the level the pokemon has level up to
 	 * @return a list of the moves is returned
 	 */
-	public void getPokemonJson(String name)
+	public Object getPokemonJsonFromService(String name)
 	{
 		String pokemonString = pokemonController.getPokemonJsonString(name);
 		String pokemonSpeciesString = pokemonController.getPokemonSpeciesJsonString(name);
 		
 		pokemonJson = Configuration.defaultConfiguration().jsonProvider().parse(pokemonString);
 		pokemonSpeciesJson = Configuration.defaultConfiguration().jsonProvider().parse(pokemonSpeciesString);
+		
+		return
+			pokemonString;
 	}
 	
 	public int getId() {
@@ -146,9 +164,13 @@ public class PokemonGeneratorService implements PokemonGeneratorInterface{
 	public List<Move> getMoveList(int level)
 	{
 		JSONArray listOfValidMoves = 
-		JsonPath.read(pokemonJson, "$.moves[*][?(@.version_group_details[-1].level_learned_at <=" + level + 
-												" && @.version_group_details[-1].move_learn_method.name == 'level-up' "
-												+ " && @.version_group_details[-1].version_group.name == 'red-blue')]");
+		JsonPath.read(pokemonJson, "$.moves[*][?((@.version_group_details[-1].level_learned_at <=" + level 
+												+ " && (@.version_group_details[-1].move_learn_method.name == 'level-up' "
+												+ " && @.version_group_details[-1].version_group.name == 'red-blue'))"
+												+ " || "
+												+ " (@.version_group_details[0].level_learned_at <=" + level 
+												+ " && (@.version_group_details[0].move_learn_method.name == 'level-up'"
+												+ " && @.version_group_details[0].version_group.name == 'red-blue')))]");
 		
 		List<String> moveList = 
 			JsonPath.parse(listOfValidMoves.toJSONString()).read("$[0:4].move.name");
@@ -161,8 +183,10 @@ public class PokemonGeneratorService implements PokemonGeneratorInterface{
 		
 	}
 	
+
 	public int[] createBaseStatList()
 	{
+		baseStatList = new int[6];
 		
 		baseStatList[0] = (Integer)JsonPath.read(pokemonJson, "$.stats.[0].base_stat");
 		baseStatList[1] = (Integer)JsonPath.read(pokemonJson, "$.stats.[1].base_stat");
@@ -174,9 +198,12 @@ public class PokemonGeneratorService implements PokemonGeneratorInterface{
 		return baseStatList;
 	}
 
+
 	public int[] createIVList()
 	{
 		Random rand = new Random();
+		
+		iVList  = new int[6];
 		
 		iVList[0] = rand.nextInt(15) + 1;
 		iVList[1] = rand.nextInt(15) + 1;
@@ -188,8 +215,11 @@ public class PokemonGeneratorService implements PokemonGeneratorInterface{
 		return iVList;
 	}
 	
+
 	public int[] createStatList(int level)
 	{
+		
+		statList  = new int[6];
 		
 		for(int i=0;i<5;i++)
 		{
@@ -200,6 +230,8 @@ public class PokemonGeneratorService implements PokemonGeneratorInterface{
 		
 		return statList;
 	}
+
+
 
 	public void setPokemonJson(Object pokemonJson) {
 		this.pokemonJson = pokemonJson;
@@ -224,6 +256,5 @@ public class PokemonGeneratorService implements PokemonGeneratorInterface{
 	public int[] getBaseStatList() {
 		return baseStatList;
 	}
-	
-	
+
 }

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.QA.pokemonapp.business.service.BattleManager;
 import com.QA.pokemonapp.business.service.player.PlayerService;
+import com.QA.pokemonapp.persistance.domain.EnemyPokemon;
 import com.QA.pokemonapp.persistance.domain.Move;
 import com.QA.pokemonapp.persistance.domain.Pokemon;
 import com.QA.pokemonapp.persistance.domain.items.ItemPotion;
@@ -19,6 +20,9 @@ public class BattleRestController {
 
 	@Autowired
 	private BattleManager battleManager;
+	
+	@Autowired
+	private EnemyPokemon enemyPokemon;
 	
 	
 	@Autowired
@@ -54,9 +58,20 @@ public class BattleRestController {
 				battleManager.takeATurn(playerService.getParty().get(chosenPokemon));
 	}
 	
-	@GetMapping(value = "/getStatus/{pokemon}")
-	public Pokemon[] getMapping(@PathVariable int pokemon) {
-		Pokemon[] a = {playerService.getParty().get(pokemon), battleManager.getEnemyMon()};
-		return a;
+
+	@GetMapping(value = "/getEnemyStatus")
+	public EnemyPokemon checkEnemy() {
+		return enemyPokemon;
+	}
+	
+	@GetMapping(value = "/getFriendlyStatus/{partyPosition}")
+	public Pokemon checkFriendly(@PathVariable int partyPosition) {
+		return playerService.getParty().get(partyPosition);
+	}
+	
+	@GetMapping(value ="/enemyMostRecentMove")
+	public Move getMoveUsed() {
+		return enemyPokemon.getEnemyMon().getMoveList().get(enemyPokemon.getLastUsedMove());
+
 	}
 }
