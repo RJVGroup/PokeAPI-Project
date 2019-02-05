@@ -70,6 +70,7 @@ public class BattleManager {
 	public int takeATurn(Pokemon playerMon, Move playerMove, boolean targetSelf) {
 		int result = 0; //0 = ongoing; 1=player victory; 2= enemy victory; 3= runaway
 		int enemyListSize = enemyMon.getMoveList().size();
+		System.out.print(enemyListSize);
 		if (playerMon.getSpeed() >= enemyMon.getSpeed()) {
 			playerUseMove(playerMove, playerMon, enemyMon);
 			enemyUseMove(enemyMon.getMoveList().get(rand.nextInt(enemyListSize)), playerMon, enemyMon);
@@ -194,9 +195,14 @@ public class BattleManager {
 			break;
 		default:
 			attackStat = 0;
-			defenceStat = 0;
+			defenceStat = 100;
 			random = 0;
 		}
 		return (int) Math.round((((((2*user.getLevel())/5 + 2)*move.getMovePower()*(attackStat/defenceStat))/50)+2)*typeEffectivenessModifier*sameTypeAttackBonus*random*critical);
+	}
+
+	public Pokemon getEnemyMon() {
+		// TODO Auto-generated method stub
+		return enemyPokemon.getEnemyMon();
 	}
 }
