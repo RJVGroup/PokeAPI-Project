@@ -13,12 +13,25 @@ import org.springframework.web.client.RestTemplate;
 import com.QA.pokemonapp.constantsandenums.EPokeball;
 import com.QA.pokemonapp.constantsandenums.EPotion;
 
+/**
+ * The Class ItemAPIController.
+ * Gets the item information (potions and pokeballs) form the PokeAPI.
+ * Seperate functions are used for each type as they are saved as different enum types in the program.
+ */
 @Controller
 public class ItemAPIController {
 
+	/** The rest template. */
 	@Autowired
 	private RestTemplate restTemplate;
 	
+	/**
+	 * Gets the item.
+	 * Used for specifically pokeballs.
+	 *
+	 * @param item the item name
+	 * @return the item as a json string
+	 */
 	public String getItem(EPokeball item)
 	{
 		HttpHeaders headers = new HttpHeaders();
@@ -30,6 +43,13 @@ public class ItemAPIController {
 	    		item.getAPIAddress(), HttpMethod.GET, entity, String.class).getBody();
 	}
 	
+	/**
+	 * Gets the item.
+	 * Used specifically for potions
+	 *
+	 * @param item the item name
+	 * @return the item as a json string
+	 */
 	public String getItem(EPotion item)
 	{
 		HttpHeaders headers = new HttpHeaders();

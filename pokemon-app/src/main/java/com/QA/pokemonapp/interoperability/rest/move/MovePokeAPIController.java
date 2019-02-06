@@ -12,10 +12,10 @@ import org.springframework.web.client.RestTemplate;
 
 import com.QA.pokemonapp.constantsandenums.Constants;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class MovePokeAPIController.
- * This class gets the json information for different moves from the PokeAPI.
+ * This class gets the json information for different moves for the pokemon from the PokeAPI.
  */
 @Controller
 public class MovePokeAPIController {
