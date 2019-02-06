@@ -36,6 +36,8 @@ export default class PokemonParty extends Component {
                 <td>{array[arrayIndex].types}</td>
                 <td>{array[arrayIndex].level}</td>
                 <td>{array[arrayIndex].currentHP}</td>
+                <td>{array[arrayIndex].status}</td>
+
                 <td><button className=" main-game-panel"  onClick={function(e){change(arrayIndex,e);close()}}>Select Pokémon</button></td>
 
 
@@ -65,6 +67,8 @@ export default class PokemonParty extends Component {
                                 <th>Type</th>
                                 <th>Level</th>
                                 <th>HP</th>
+                                <th>Status</th>
+
                             </tr>
                         </thead>
                         <tbody>

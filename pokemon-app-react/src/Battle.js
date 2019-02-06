@@ -89,14 +89,14 @@ export default class Battle extends Component {
          <BackImg id={cpokemon.id}/>
          {cpokemon.name} Level:{cpokemon.level}
          <br/>
-         HP:{cpokemon.currentHP}</div>        
+         HP:{cpokemon.currentHP}/{cpokemon.hp}</div>        
          <br/>
 
          <div className="main-game-panel"  >  
          <FrontImg id={epokemon.id}/>
          {epokemon.name} Level:{epokemon.level}
          <br/>
-         HP:{epokemon.currentHP}</div>
+         HP:{epokemon.currentHP}/{epokemon.hp}</div>
          </Container> 
              <div className='row-game'>
              <Container className="menu main-game-panel" > 

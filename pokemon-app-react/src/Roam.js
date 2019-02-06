@@ -18,7 +18,8 @@ export default class Roam extends Component {
       this.bagToggle=this.bagToggle.bind(this);
       this.pokemonToggle=this.pokemonToggle.bind(this);
       this.shopToggle=this.shopToggle.bind(this);
-   
+      this.secretButton=this.secretButton.bind(this);
+
      
 
     this.state = {
@@ -28,16 +29,17 @@ export default class Roam extends Component {
       bag:false,
       pokemon:false,
       shop:false,
-      name:this.props.name,
-      id: this.props.id,
-      level: this.props.level,
+      disabled:false
     };
   }
- 
+  componentDidMount() {
+    }
   componentDidUpdate(prevProps) {
     if (this.props.cpokemon !== prevProps.cpokemon) {
-      this.setState({cpokemon:this.props.cpokemon, name:this.props.cpokemon.name,id:this.props.cpokemon.id,level:this.props.cpokemon.level});
+      this.setState({cpokemon:this.props.cpokemon, 
+      });
     }
+  
   }
  
   bagToggle() {
@@ -55,10 +57,11 @@ export default class Roam extends Component {
       shop: !prevState.shop
     }));
   }
+  secretButton() {
+    this.setState({disabled:true})
+    fetch('/api/player/add-pokemon/mewtwo/50', { method: 'POST' })
+  }
    
-   chosenClick(){
-    this.setState({chosen:true})
-   }
     render() {
       const bag=this.state.bag;
       const pokemon=this.state.pokemon;
@@ -95,18 +98,22 @@ export default class Roam extends Component {
              <div className='row-game'>
              <Container className=" menu img-game-panel">      
              <div className="pokemonimg " >
-        <img src={"https://66.media.tumblr.com/088786d466c3a315d6043b8e59d96770/tumblr_msu2ojWkqz1scncwdo1_500.gif"} /></div>
+             <Button color="link" onClick={this.secretButton} disabled={this.state.disabled}></Button>
+        <img src={"https://66.media.tumblr.com/088786d466c3a315d6043b8e59d96770/tumblr_msu2ojWkqz1scncwdo1_500.gif"} />
+       
+</div>
              </Container> 
              <Container className="menu img-game-panel">
              Current Pokémon:
-             <FrontImg id={this.state.id}/>
-             {this.state.name} lvl:{this.state.level}
+             <FrontImg id={this.state.cpokemon.id}/>
+             {this.state.cpokemon.name} lvl:{this.state.cpokemon.level}
              </Container>
              <Container className="menu main-game-panel" >
-            <Button  color="primary"className={" main-game-panel"} onClick={(e) => this.props.move(e)} disabled={this.props.disabled}>Move</Button>           
+            <Button  color="primary"className=" main-game-panel" onClick={(e) => this.props.move(e)} disabled={this.props.disabled}>Move</Button>           
              <Button color="secondary" className=" main-game-panel" onClick={this.pokemonToggle}>Pokemon</Button>
              <Button color="success"  className=" main-game-panel" onClick={this.bagToggle}>Bag</Button>             
              <Button color="danger" className=" main-game-panel"  onClick={this.shopToggle}>Go to Shop</Button>
+
              </Container > </div>
         </div>  
       );

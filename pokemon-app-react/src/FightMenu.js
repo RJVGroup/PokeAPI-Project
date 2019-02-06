@@ -15,7 +15,11 @@ export default class FightMenu extends Component {
         }
     } 
     handleClick = (moveIndex) => {
-        this.props.fightTurn(this.state.cPokemonIndex, moveIndex)
+        let cPokemonIndex=this.props.cPokemonIndex
+        this.props.fightTurn(cPokemonIndex, moveIndex);
+        this.props.pokemonStatus(cPokemonIndex);
+        this.props.epokemonStatus();
+        this.props.close()
         
     }
    
@@ -33,7 +37,7 @@ export default class FightMenu extends Component {
                 <td>{array[arrayIndex].moveAccuracy}</td>
                 <td>{array[arrayIndex].damageClass}</td>
                 <td>{array[arrayIndex].moveType}</td>
-                <td><button className=" main-game-panel"  onClick={(e) => this.handleClick(arrayIndex,e)}>Select Pokémon</button></td>
+                <td><button className=" main-game-panel"  onClick={(e) => this.handleClick(arrayIndex,e)}>Select Move</button></td>
                 </tr>
                     
                 

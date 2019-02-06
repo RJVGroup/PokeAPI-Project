@@ -29,11 +29,6 @@ class MainGame extends Component {
       epokemon: null,
       disabled:false,
       battlestatus:0,
-      name: this.props.name,
-      id: this.props.id,
-      level: this.props.level,
-clicks:0,
-
       locationtext:'You set off to find pokémon and adventure!',
       location:'',
     };
@@ -42,15 +37,16 @@ clicks:0,
 
 
 
-  componentDidMount() {
-this.props.setStarter()
+  componentWillMount() {
+this.props.change(0)
+
 }
    
     
     componentDidUpdate(prevProps, prevState) {
       if (this.props.cpokemon !== prevProps.cpokemon) {
         this.setState({cpokemon:this.props.cpokemon, cPokemonIndex:this.props.cPokemonIndex,
-          name:this.props.cpokemon.name,id:this.props.cpokemon.id,level:this.props.cpokemon.level});
+        });
       }
       if (this.state.location !== prevState.location) {
         this.setState({locationtext:'You arrived at a '+this.state.location+'.'});
@@ -67,7 +63,7 @@ this.props.setStarter()
    move(){
     
     this.setState({disabled:true});
-    fetch('api/terrain/generate/5', { method: 'GET' })
+    fetch('api/player/move', { method: 'POST' })
     .then(response => response.json())
     .then(data => this.setState({ epokemon:data.pokemonEncountered,
     location:data.name, locationtext:'You arrived at a '+data.name+' again.',disabled:false
@@ -83,7 +79,7 @@ this.props.setStarter()
    epokemonStatus(){
     fetch('api/battle/getEnemyStatus/',{method: 'GET'})
     .then(response => response.json())
-    .then(data=>this.setState({epokemon:data.enemyMon}));
+    .then(data=>this.setState({epokemon:data}));
    }
   fightTurn(pokemonIndex, moveIndex){
     fetch('api/battle/turnM/'+ pokemonIndex+'/'+ moveIndex,{method: 'POST'})
@@ -111,7 +107,7 @@ if (epokemon == null) {
       
     return (
         <div className="App">
-          <Roam disabled={this.state.disabled} change={this.props.change} cPokemonIndex={cPokemonIndex} name={this.state.name} id={this.state.id} level={this.state.level} move={this.move} location={locationtext} cpokemon={cpokemon} />
+          <Roam party={this.props.party} setStarter={this.props.setStarter}disabled={this.state.disabled} change={this.props.change} cPokemonIndex={cPokemonIndex}  move={this.move} location={locationtext} cpokemon={cpokemon} />
         </div>
       ); 
     }
