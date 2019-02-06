@@ -19,6 +19,7 @@ class App extends Component {
     this.chosenClick = this.chosenClick.bind(this);
     this.changePokemon=this.changePokemon.bind(this);
     this.setStarter=this.setStarter.bind(this);
+    this.checkStarter=this.checkStarter.bind(this);
 
 
     this.state = {
@@ -38,18 +39,25 @@ prevLocation:''
 
 
 
-  componentDidMount() {
-    this.setStarter()
-    
+  componentWillMount() {
+    this.checkStarter()
     }
   
-  chosenClick() {
+  chosenClick=()=>{
     this.setState({ chosen: true })
   }
+
+  checkStarter(){
+    fetch('api/player/show-party',{method: 'GET'})
+    .then(response => response.json())
+    .then(data=>this.setState({party: data}))
+  }
   setStarter(){
-      fetch('api/player/show-party',{method: 'GET'})
+      fetch('api/player/show-pokemon/0',{method: 'GET'})
   .then(response => response.json())
-  .then(data=>this.setState({party: data,cpokemon: data[0]}))
+  .then(data=>this.setState({cpokemon:data
+  // , name:data[0].name,id:data[0].id, level:data[0].level
+  }))
 }
   changePokemon(pokemonIndex){
     fetch('api/player/show-pokemon/'+ pokemonIndex,{method: 'GET'})
@@ -69,14 +77,14 @@ prevLocation:''
     if (chosen == false && party == '') {
       return (
         <div className="App">
-          <Choose close={this.chosenClick} />
+          <Choose close={this.chosenClick} change={this.changePokemon}/>
         </div>
 
       );
     }
    else return (
         <div className="App">
-          <MainGame setStarter={this.setStarter} cPokemonIndex={cPokemonIndex} cpokemon={cpokemon} name={this.state.name} id={this.state.id} level={this.state.level}change={this.changePokemon}/>
+          <MainGame setStarter={this.setStarter} party={this.party}cPokemonIndex={cPokemonIndex} cpokemon={cpokemon} name={this.state.name} id={this.state.id} level={this.state.level}change={this.changePokemon}/>
         </div>
       ); 
   }

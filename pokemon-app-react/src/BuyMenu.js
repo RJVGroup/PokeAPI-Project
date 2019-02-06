@@ -79,7 +79,7 @@ export default class BuyMenu extends Component {
             return null;
         }
         else if(this.state.purchaseResponse === true) {
-            return <div style={{ color: 'green' }}>Succesfull Purchase</div>
+            return <div style={{ color: 'green' }}>Successful Purchase</div>
             
         }
         else if(this.state.purchaseResponse === false) {
