@@ -16,20 +16,15 @@ export default class StarterPokemon extends Component {
   }
 
 
-  //componentDidMount() {
-  //  fetch('api/pokemon/5/'+this.props.pokemon,{method: 'GET'})
-  //     .then(response => response.json())
-  //     .then(data=>this.setState({starter:data}));
-  // }
 
 
   chooseStarter() {
-    this.setState({disabled:true})
+    this.setState({ disabled: true })
     fetch('/api/player/add-starter-pokemon/' + this.state.starter.name, { method: 'POST' })
       .then(response => response.json())
       .then(data => {
         if (data === true) {
-          this.props.close();this.props.change(0)
+          this.props.close(); this.props.change(0)
         }
       })
   }

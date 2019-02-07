@@ -11,24 +11,8 @@ export default class Choose extends Component {
     super(props);
 
     this.state = {
-      /*  starter1:[],
-        starter2:[],
-        starter3:[],*/
     }
-
   }
-  /*componentWillMount() {
-    Promise.all([fetch('api/pokemon/5/bulbasaur',{method: 'GET'}),
-    fetch('api/pokemon/5/squirtle',{method: 'GET'}),
-    fetch('api/pokemon/5/charmander',{method: 'GET'})
-    ])
-    .then(([res1, res2, res3]) => Promise.all([res1.json(), res2.json(), res3.json()]))
-    .then(([data1, data2, data3]) => this.setState({
-          starter1: data1,
-          starter2: data2,
-          starter3: data3
-      }));
-     } */
 
 
   render() {
@@ -49,6 +33,4 @@ export default class Choose extends Component {
       </div>
     );
   }
-
-
 }
