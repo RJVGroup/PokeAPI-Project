@@ -11,12 +11,27 @@ import org.springframework.web.client.RestTemplate;
 
 import com.QA.pokemonapp.constantsandenums.ETypes;
 
+/**
+ * The Class TypeEffectivenessPokeAPIController.
+ * Gets the type effectiveness json from the PokeAPI.
+ */
 public class TypeEffectivenessPokeAPIController {
 	
+	/** The rest template. 
+	 *  Allows spring to consume rest API's
+	 * */
 	@Autowired
 	private RestTemplate restTemplate;
 	
-	public String getMoveJsonString(ETypes type)
+	/**
+	 * Gets the type json string.
+	 * Sets the headers of the request to accept json data and adds in settings for different web browsers.
+	 * The API address comes from enum ETypes which contains a list of all the pokemon types and constructs an address based on the chosen type.
+	 *
+	 * @param type the type 
+	 * @return the type json string
+	 */
+	public String getTypeJsonString(ETypes type)
 	{
 		HttpHeaders headers = new HttpHeaders();
 	    headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));

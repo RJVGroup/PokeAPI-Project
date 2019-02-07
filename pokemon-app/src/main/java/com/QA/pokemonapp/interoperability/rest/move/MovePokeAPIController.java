@@ -12,12 +12,26 @@ import org.springframework.web.client.RestTemplate;
 
 import com.QA.pokemonapp.constantsandenums.Constants;
 
+
+/**
+ * The Class MovePokeAPIController.
+ * This class gets the json information for different moves for the pokemon from the PokeAPI.
+ */
 @Controller
 public class MovePokeAPIController {
 
+	/** The rest template. */
 	@Autowired
 	private RestTemplate restTemplate;
 	
+	/**
+	 * Gets the move json string.
+	 * Sets the headers of the request to accept json data and adds in settings for different web browsers.
+	 * The API address comes from constants file which contains elements to construct the PokeAPI address for diffreent API calls.
+	 *
+	 * @param move the move name
+	 * @return the move json string
+	 */
 	public String getMoveJsonString(String move)
 	{
 		HttpHeaders headers = new HttpHeaders();

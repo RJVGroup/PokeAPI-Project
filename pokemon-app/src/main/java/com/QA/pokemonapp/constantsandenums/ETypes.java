@@ -1,7 +1,49 @@
 package com.QA.pokemonapp.constantsandenums;
 
+/**
+ * The Enum ETypes.
+ * Holds and returns the PokeAPI address for the different pokemon types employed by this program.
+ */
 public enum ETypes {
-	NORMAL, GROUND, ROCK, FIRE, WATER, GRASS, ELECTRIC, FIGHTING, GHOST, PSYCHIC, BUG, POISON, DRAGON, FLYING, ICE, DARK, STEEL, FAIRY, SHADOW;
+
+	/** The normal pokemon type. */
+	NORMAL,
+	/** The ground pokemon type. */
+	GROUND,
+	/** The rock pokemon type. */
+	ROCK,
+	/** The fire pokemon type. */
+	FIRE,
+	/** The water pokemon type. */
+	WATER,
+	/** The grass pokemon type. */
+	GRASS,
+	/** The electric pokemon type. */
+	ELECTRIC,
+	/** The fighting pokemon type. */
+	FIGHTING,
+	/** The ghost pokemon type. */
+	GHOST,
+	/** The psychic pokemon type. */
+	PSYCHIC,
+	/** The bug pokemon type. */
+	BUG,
+	/** The poison pokemon type. */
+	POISON,
+	/** The dragon pokemon type. */
+	DRAGON,
+	/** The flying pokemon type. */
+	FLYING,
+	/** The ice pokemon type. */
+	ICE,
+	/** The dark pokemon type. */
+	DARK,
+	/** The steel pokemon type. */
+	STEEL,
+	/** The fairy pokemon type. */
+	FAIRY,
+	/** The shadow pokemon type. */
+	SHADOW;
 
 	private String APIAddress;
 
@@ -27,10 +69,20 @@ public enum ETypes {
 		SHADOW.setAPIAddress(Constants.APIRootAddress + Constants.APITypeAddress + SHADOW.name().toLowerCase() + "/");
 	}
 
+	/**
+	 * Gets the API address for the specified pokemon type.
+	 *
+	 * @return the API address
+	 */
 	public String getAPIAddress() {
 		return APIAddress;
 	}
 
+	/**
+	 * Sets the API address for the specified pokemon type.
+	 *
+	 * @param aPIAddress the new API address
+	 */
 	public void setAPIAddress(String aPIAddress) {
 		APIAddress = aPIAddress;
 	}
