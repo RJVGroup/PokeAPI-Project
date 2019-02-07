@@ -18,7 +18,6 @@ class App extends Component {
     super(props);
     this.chosenClick = this.chosenClick.bind(this);
     this.changePokemon=this.changePokemon.bind(this);
-    this.setStarter=this.setStarter.bind(this);
     this.checkStarter=this.checkStarter.bind(this);
 
 
@@ -52,13 +51,7 @@ prevLocation:''
     .then(response => response.json())
     .then(data=>this.setState({party: data}))
   }
-  setStarter(){
-      fetch('api/player/show-pokemon/0',{method: 'GET'})
-  .then(response => response.json())
-  .then(data=>this.setState({cpokemon:data
-  // , name:data[0].name,id:data[0].id, level:data[0].level
-  }))
-}
+ 
   changePokemon(pokemonIndex){
     fetch('api/player/show-pokemon/'+ pokemonIndex,{method: 'GET'})
     .then(response => response.json())
@@ -84,7 +77,7 @@ prevLocation:''
     }
    else return (
         <div className="App">
-          <MainGame setStarter={this.setStarter} party={this.party}cPokemonIndex={cPokemonIndex} cpokemon={cpokemon} name={this.state.name} id={this.state.id} level={this.state.level}change={this.changePokemon}/>
+          <MainGame  cPokemonIndex={cPokemonIndex} cpokemon={cpokemon} change={this.changePokemon}/>
         </div>
       ); 
   }
